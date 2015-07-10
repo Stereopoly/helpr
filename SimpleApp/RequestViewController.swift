@@ -27,38 +27,92 @@ class RequestViewController: UIViewController, UITextFieldDelegate {
     // MARK: - Actions
     
     @IBAction func requestButton(sender: AnyObject) {
+        println("Pressed request button")
+        addSpinner("Requesting task", Animated: true)
+        
         if requestTextField.text == "" {
-            self.addSpinner("Enter a task", Animated: false)
             delay(seconds: 1.0, completion: { () -> () in
-                self.hideSpinner()
+                self.addSpinner("Enter a task", Animated: false)
+                self.delay(seconds: 1.0, completion: { () -> () in
+                    self.hideSpinner()
+                })
             })
+            // TODO: - Have to press button twice
         }
         else {
-            self.addSpinner("Requesting task", Animated: true)
             
             var request = PFObject(className: "request")
             request["requester"] = PFUser.currentUser()?.username
             request["task"] = requestTextField.text
             
-            request.saveInBackgroundWithBlock({ (didWork, error) -> Void in
-                self.delay(seconds: 1.0, completion: { () -> () in
-                    println(request)
-                    if error != nil {
-                        // handle error
-                        self.addSpinner("Please try again later", Animated: false)
-                        self.delay(seconds: 1.0, completion: { () -> () in
-                            self.hideSpinner()
+            var query = PFQuery(className: "request")
+            query.whereKey("task", equalTo: requestTextField.text)
+            query.whereKey("requester", equalTo: PFUser.currentUser()!.username!)
+            
+            query.findObjectsInBackgroundWithBlock {
+                (objects: [AnyObject]?, error: NSError?) -> Void in
+                
+                if error == nil {
+                    // The find succeeded.
+                    println("Successfully retrieved \(objects!.count) tasks.")
+                    // Do something with the found objects
+                    if objects!.count == 0 {
+                        request.saveInBackgroundWithBlock({ (didWork, error) -> Void in
+                            self.delay(seconds: 1.0, completion: { () -> () in
+                                println(request)
+                                if error != nil {
+                                    // handle error
+                                    println("Error")
+                                    self.addSpinner("Please try again later", Animated: false)
+                                    self.delay(seconds: 1.0, completion: { () -> () in
+                                        self.hideSpinner()
+                                    })
+                                } else {
+                                    println("Success")
+                                    self.addSpinner("Success", Animated: false)
+                                    self.delay(seconds: 1.0, completion: { () -> () in
+                                        self.hideSpinner()
+                                    })
+                                }
+                            })
+                            
                         })
                     } else {
-                        
-                        self.addSpinner("Success", Animated: false)
                         self.delay(seconds: 1.0, completion: { () -> () in
-                            self.hideSpinner()
+                            self.addSpinner("Already requested task", Animated: false)
+                            self.delay(seconds: 1.0, completion: { () -> () in
+                                self.hideSpinner()
+                            })
                         })
+                        
                     }
-                })
-                
-            })
+                } else {
+                    // Log details of the failure
+                    println("Error: \(error!) \(error!.userInfo!)")
+                }
+            }
+
+            
+//            request.saveInBackgroundWithBlock({ (didWork, error) -> Void in
+//                self.delay(seconds: 1.0, completion: { () -> () in
+//                    println(request)
+//                    if error != nil {
+//                        // handle error
+//                        println("Error")
+//                        self.addSpinner("Please try again later", Animated: false)
+//                        self.delay(seconds: 1.0, completion: { () -> () in
+//                            self.hideSpinner()
+//                        })
+//                    } else {
+//                        println("Success")
+//                        self.addSpinner("Success", Animated: false)
+//                        self.delay(seconds: 1.0, completion: { () -> () in
+//                            self.hideSpinner()
+//                        })
+//                    }
+//                })
+//                
+//            })
             
         }
     }
