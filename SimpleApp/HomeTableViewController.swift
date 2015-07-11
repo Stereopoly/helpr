@@ -21,6 +21,7 @@ class HomeTableViewController: PFQueryTableViewController {
         self.pullToRefreshEnabled = true
         self.paginationEnabled = false     // load more... button on table view
         self.objectsPerPage = 5
+        
     }
     
     override func queryForTable() -> PFQuery {
@@ -43,6 +44,11 @@ class HomeTableViewController: PFQueryTableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.tableView.reloadData()
+        
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -55,7 +61,8 @@ class HomeTableViewController: PFQueryTableViewController {
         
         var query = PFQuery(className: "request")
         query.whereKey("requester", notEqualTo: PFUser.currentUser()!.username!)
-        
+        query.orderByDescending("createdAt")
+
         query.findObjectsInBackgroundWithBlock {
             (objects: [AnyObject]?, error: NSError?) -> Void in
             
@@ -66,7 +73,6 @@ class HomeTableViewController: PFQueryTableViewController {
                 if let objects = objects as? [PFObject] {
                     for object in objects {
                         println(object.objectId)
-                        
                     }
                 }
             } else {
@@ -76,19 +82,15 @@ class HomeTableViewController: PFQueryTableViewController {
         }
     }
     
-//    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
-//
-//        // Configure the cell...
-//        
-//        println(object)
-//
-//        return cell
-//    }
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        performSegueWithIdentifier("toDetail", sender: self)
+    }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
         var cell = tableView.dequeueReusableCellWithIdentifier("cell") as? PFTableViewCell
+        
+        cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         
         println(object)
         
@@ -107,7 +109,7 @@ class HomeTableViewController: PFQueryTableViewController {
         // Return NO if you do not want the specified item to be editable.
         return false
     }
-
+    
 
     /*
     // Override to support editing the table view.
