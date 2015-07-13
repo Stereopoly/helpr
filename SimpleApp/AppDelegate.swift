@@ -8,6 +8,10 @@
 
 import UIKit
 import Parse
+import FBSDKCoreKit
+import FBSDKLoginKit
+import ParseUI
+import ParseFacebookUtilsV4
 
 
 @UIApplicationMain
@@ -21,7 +25,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Parse.setApplicationId("Gzek4YyEFvmndLMSV660N3TM4LDjcqmNnTJPkkyh", clientKey: "zNv5LuTRQrUFuTPhP3zczHYw16Ld2ad1R9jTC1fE")
         
+        // Initialize Facebook
+        // 1
+        PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
+        
+        // check if we have logged in user
+        // 2
+        let user = PFUser.currentUser()
+        
+        let startViewController: UIViewController;
+        
+        if (user != nil) {
+            // 3
+            // if we have a user, set the TabBarController to be the initial View Controller
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            startViewController = storyboard.instantiateViewControllerWithIdentifier("TabBarController") as! UITabBarController
+            println("TabBarController")
+        } else {
+            // 4
+            // Otherwise set the LoginViewController to be the first
+            var storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let loginViewController = storyboard.instantiateViewControllerWithIdentifier("startPage") as! UIViewController
+            println("startPage")
+            startViewController = loginViewController
+        }
+        
+        // 5
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        self.window?.rootViewController = startViewController;
+        self.window?.makeKeyAndVisible()
+        
         return true
+    }
+    
+    //MARK: Facebook Integration
+    
+    func applicationDidBecomeActive(application: UIApplication) {
+        FBSDKAppEvents.activateApp()
+    }
+    
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+        return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
     }
 
     func applicationWillResignActive(application: UIApplication) {
@@ -36,10 +80,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    }
-
-    func applicationDidBecomeActive(application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
     func applicationWillTerminate(application: UIApplication) {

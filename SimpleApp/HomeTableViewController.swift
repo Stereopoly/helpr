@@ -20,7 +20,7 @@ class HomeTableViewController: PFQueryTableViewController {
         self.parseClassName = "request"
         self.pullToRefreshEnabled = true
         self.paginationEnabled = false     // load more... button on table view
-        self.objectsPerPage = 5
+     //   self.objectsPerPage = 5
         
     }
     
