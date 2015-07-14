@@ -24,10 +24,10 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate {
         // Do any additional setup after loading the view.
         
         var loginButton = FBSDKLoginButton()
-        loginButton.readPermissions = ["public_profile", "email", "user_friends"]
+        loginButton.readPermissions = ["public_profile", "user_friends"]
         let size = 240 as CGFloat
         let screenwidth = self.view.frame.size.width
-        loginButton.frame = CGRectMake(screenwidth/2 - size/2, 300, size, 50)
+        loginButton.frame = CGRectMake(screenwidth/2 - size/2, 400, size, 50)
         //loginButton.center = self.view.center
         loginButton.delegate = self
         self.view.addSubview(loginButton)
@@ -56,6 +56,11 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate {
                     if error != nil {
                         // Some error checking here
                         println("Error in user request")
+                        self.addSpinner("Error", Animated: false)
+                        self.delay(seconds: 1.0, completion: { () -> () in
+                            self.hideSpinner()
+                            self.endIgnore()
+                        })
                     }
                     else if let userData = result as? [String:AnyObject] {
                         

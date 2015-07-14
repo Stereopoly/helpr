@@ -238,7 +238,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         alreadyHaveAccountLabel.alpha = 0.0
         loginButtonLabel.alpha = 0.0
         signupButtonLabel.alpha = 0.0
-        
         super.viewWillAppear(animated)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)

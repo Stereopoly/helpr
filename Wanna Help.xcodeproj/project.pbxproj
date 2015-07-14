@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		550AF7A01B3A085F00CB390B /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550AF79F1B3A085F00CB390B /* StartViewController.swift */; };
 		550AF7A21B3A0C8000CB390B /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550AF7A11B3A0C8000CB390B /* SignUpViewController.swift */; };
+		5516AD6E1B55824B00FD4DFC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5516AD6D1B55824B00FD4DFC /* ProfileViewController.swift */; };
 		5550082D1B4C3C8B008E61E5 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5550082C1B4C3C8B008E61E5 /* Launch Screen.xib */; };
 		556EB00E1B38CC1E00784845 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556EB00D1B38CC1E00784845 /* AppDelegate.swift */; };
 		556EB0101B38CC1E00784845 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556EB00F1B38CC1E00784845 /* ViewController.swift */; };
@@ -49,6 +50,7 @@
 		06C85159A6741407A60B176B /* Pods-Wanna Help.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wanna Help.release.xcconfig"; path = "Pods/Target Support Files/Pods-Wanna Help/Pods-Wanna Help.release.xcconfig"; sourceTree = "<group>"; };
 		550AF79F1B3A085F00CB390B /* StartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		550AF7A11B3A0C8000CB390B /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		5516AD6D1B55824B00FD4DFC /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		5550082C1B4C3C8B008E61E5 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "Launch Screen.xib"; path = "../Launch Screen.xib"; sourceTree = "<group>"; };
 		556EB0081B38CC1E00784845 /* Wanna Help.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Wanna Help.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		556EB00C1B38CC1E00784845 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				550AF79F1B3A085F00CB390B /* StartViewController.swift */,
 				55C82BFD1B4DA31400220E17 /* RequestViewController.swift */,
 				55B1EF251B4EDC6200B8D890 /* HomeTableViewController.swift */,
+				5516AD6D1B55824B00FD4DFC /* ProfileViewController.swift */,
 				556EB0111B38CC1E00784845 /* Main.storyboard */,
 				5550082C1B4C3C8B008E61E5 /* Launch Screen.xib */,
 				55B1EF211B4DA7DD00B8D890 /* danthingy.swift */,
@@ -364,6 +367,7 @@
 			files = (
 				556EB0101B38CC1E00784845 /* ViewController.swift in Sources */,
 				55C82BFC1B4DA04000220E17 /* CustomButtons.swift in Sources */,
+				5516AD6E1B55824B00FD4DFC /* ProfileViewController.swift in Sources */,
 				55C82C001B4DA43B00220E17 /* CustomField.swift in Sources */,
 				556EB00E1B38CC1E00784845 /* AppDelegate.swift in Sources */,
 				550AF7A21B3A0C8000CB390B /* SignUpViewController.swift in Sources */,
