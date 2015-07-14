@@ -322,7 +322,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     }
     
     func endActivity() {
-        
         self.activityIndicator.stopAnimating()
         UIApplication.sharedApplication().endIgnoringInteractionEvents()
     }

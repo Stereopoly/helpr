@@ -38,12 +38,12 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
         
         
         var request = PFObject(className: "request")
-        request["requester"] = PFUser.currentUser()?.username
+        request["requester"] = fbUsername
         request["task"] = selectedRowData
         
         var query = PFQuery(className: "request")
         query.whereKey("task", equalTo: selectedRowData)
-        query.whereKey("requester", equalTo: PFUser.currentUser()!.username!)
+        query.whereKey("requester", equalTo: fbUsername)
         
         query.findObjectsInBackgroundWithBlock {
             (objects: [AnyObject]?, error: NSError?) -> Void in

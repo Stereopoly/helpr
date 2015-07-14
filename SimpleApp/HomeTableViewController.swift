@@ -9,6 +9,9 @@
 import UIKit
 import Parse
 import ParseUI
+import FBSDKCoreKit
+import FBSDKLoginKit
+import ParseFacebookUtilsV4
 
 class HomeTableViewController: PFQueryTableViewController {
     
@@ -27,7 +30,7 @@ class HomeTableViewController: PFQueryTableViewController {
     override func queryForTable() -> PFQuery {
         
         var query = PFQuery(className: "request")
-        query.whereKey("requester", notEqualTo: PFUser.currentUser()!.username!)
+        query.whereKey("requester", notEqualTo: fbUsername)
         
         return query
     }
@@ -42,6 +45,27 @@ class HomeTableViewController: PFQueryTableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        let request = FBSDKGraphRequest(graphPath: "me", parameters: nil)
+        
+        request.startWithCompletionHandler {
+            
+            (connection, result, error) in
+            
+            if error != nil {
+                // Some error checking here
+                println("Error in user request")
+            }
+            else if let userData = result as? [String:AnyObject] {
+                
+                // Access user data
+                let username = userData["name"] as? String
+                println(username)
+                
+                // ....
+            }
+        }
+
     
     }
     

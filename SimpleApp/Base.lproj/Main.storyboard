@@ -7,7 +7,7 @@
         <!--Start-->
         <scene sceneID="GPC-f2-jzn">
             <objects>
-                <viewController storyboardIdentifier="startPage" title="Start" id="aea-Hc-XXF" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="startPage" title="Start" id="aea-Hc-XXF" customClass="StartViewController" customModule="Wanna_Help" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="iqL-eS-cRh"/>
                         <viewControllerLayoutGuide type="bottom" id="sIA-o1-TH8"/>
@@ -72,6 +72,9 @@
                             <constraint firstItem="NRD-nP-N3d" firstAttribute="centerX" secondItem="nBL-Zx-C6p" secondAttribute="centerX" id="qTL-8e-F9g"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <segue destination="maK-rD-6h8" kind="show" identifier="toTabBarController" id="Ibn-0L-JYp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="req-RK-lzK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -641,7 +644,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="TQ2-f8-IU7"/>
+        <segue reference="Ibn-0L-JYp"/>
         <segue reference="nPD-68-cZo"/>
+        <segue reference="TQ2-f8-IU7"/>
     </inferredMetricsTieBreakers>
 </document>
