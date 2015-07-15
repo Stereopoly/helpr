@@ -1,9 +1,8 @@
-
 //
-//  RequestViewController.swift
-//  SimpleApp
+//  addHelpableViewController.swift
+//  Wanna Help
 //
-//  Created by Oscar Bjorkman on 7/8/15.
+//  Created by Oscar Bjorkman on 7/15/15.
 //  Copyright (c) 2015 Oscar Bjorkman. All rights reserved.
 //
 
@@ -12,38 +11,28 @@ import Parse
 import Bolts
 import SwiftSpinner
 
-class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
-    
-    // MARK: - Variables
+class addHelpableViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     let pickerData = ["Math", "Science", "English", "History", "Writing", "Health"]
     var selectedRowData:String = ""
-    
-    // MARK: - Outlets
-    
-//    @IBOutlet weak var requestTextField: UITextField!
-    
-//    @IBOutlet weak var requestLabel: UILabel!
-    
+
     @IBOutlet weak var pickerView: UIPickerView!
     
-    // MARK: - Actions
-    
-    @IBAction func requestButton(sender: AnyObject) {
+    @IBAction func addButton(sender: AnyObject) {
         println("Pressed request button")
         
         ignoreInteraction()
-        addSpinner("Requesting task", Animated: true)
+        addSpinner("Adding", Animated: true)
         
         
         
-        var request = PFObject(className: "request")
-        request["requester"] = fbUsername
-        request["task"] = selectedRowData
+        var request = PFObject(className: "help")
+        request["helper"] = fbUsername
+        request["helpable"] = selectedRowData
         
-        var query = PFQuery(className: "request")
-        query.whereKey("task", equalTo: selectedRowData)
-        query.whereKey("requester", equalTo: fbUsername)
+        var query = PFQuery(className: "help")
+        query.whereKey("helpable", equalTo: selectedRowData)
+        query.whereKey("helper", equalTo: fbUsername)
         
         query.findObjectsInBackgroundWithBlock {
             (objects: [AnyObject]?, error: NSError?) -> Void in
@@ -77,7 +66,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                     })
                 } else {
                     self.delay(seconds: 1.0, completion: { () -> () in
-                        self.addSpinner("Already requested task", Animated: false)
+                        self.addSpinner("Already added", Animated: false)
                         self.delay(seconds: 1.0, completion: { () -> () in
                             self.hideSpinner()
                             self.beginInteraction()
@@ -94,32 +83,20 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                 })
             }
         }
-        
-        
+
     }
-    
-    // MARK: - View
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //        requestTextField.delegate = self
-        //        requestTextField.tintColor = UIColor.whiteColor()
-        //
-        //        requestTextField.attributedPlaceholder = NSAttributedString(string: "Request", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
-        
-        // Do any additional setup after loading the view.
-        
         pickerView.delegate = self
+
+        // Do any additional setup after loading the view.
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        self.view.endEditing(true)
     }
     
     // MARK: - Picker View
@@ -140,8 +117,6 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
         selectedRowData = pickerData[row]
         println(pickerData[row])
     }
-    
-    
     
     // MARK: - User interaction control
     
@@ -170,31 +145,16 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
             completion()
         }
     }
-    
-    
-    // MARK: - Alert
-    
-    func displayAlertNoSegue(title: String, error: String) {
-        
-        var alert = UIAlertController(title: title, message: error, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { action in
-            
-            
-        }))
-        
-        self.presentViewController(alert, animated: true, completion: nil)
-        
-    }
-    
+
     
     /*
     // MARK: - Navigation
-    
+
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
     }
     */
-    
+
 }

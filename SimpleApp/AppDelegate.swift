@@ -23,15 +23,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
+        // Bar tint color setup
+        
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        
         Parse.setApplicationId("Gzek4YyEFvmndLMSV660N3TM4LDjcqmNnTJPkkyh", clientKey: "zNv5LuTRQrUFuTPhP3zczHYw16Ld2ad1R9jTC1fE")
         
         // Initialize Facebook
-        // 1
         PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
         
         // check if we have logged in user
-        // 2
-        let user = PFUser.currentUser()
+        let user = FBSDKAccessToken.currentAccessToken()
         
         let startViewController: UIViewController;
         

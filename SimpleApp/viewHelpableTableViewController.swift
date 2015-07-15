@@ -1,8 +1,8 @@
 //
-//  HomeTableViewController.swift
-//  SimpleApp
+//  viewHelpableTableViewController.swift
+//  Wanna Help
 //
-//  Created by Oscar Bjorkman on 7/9/15.
+//  Created by Oscar Bjorkman on 7/15/15.
 //  Copyright (c) 2015 Oscar Bjorkman. All rights reserved.
 //
 
@@ -13,31 +13,28 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import ParseFacebookUtilsV4
 
-class HomeTableViewController: PFQueryTableViewController {
-    
-    var refresher:UIRefreshControl!
+class viewHelpableTableViewController: PFQueryTableViewController {
     
     required init!(coder aDecoder: NSCoder!) {
         super.init(coder: aDecoder)
         
-        self.parseClassName = "request"
+        self.parseClassName = "help"
         self.pullToRefreshEnabled = true
         self.paginationEnabled = false     // load more... button on table view
-     //   self.objectsPerPage = 5
+        //   self.objectsPerPage = 5
         
     }
     
     override func queryForTable() -> PFQuery {
         
-        println("queryForTable")
+        println("queryForTableHelpable")
         
-        var query = PFQuery(className: "request")
-        query.whereKey("requester", notEqualTo: fbUsername)
+        var query = PFQuery(className: "help")
+        query.whereKey("helper", equalTo: fbUsername)
+
         
         return query
     }
-    
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,31 +45,6 @@ class HomeTableViewController: PFQueryTableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
-        let request = FBSDKGraphRequest(graphPath: "me", parameters: nil)
-        
-        request.startWithCompletionHandler {
-            
-            (connection, result, error) in
-            
-            if error != nil {
-                // Some error checking here
-                println("Error in user request")
-            }
-            else if let userData = result as? [String:AnyObject] {
-                
-                // Access user data
-                let username = userData["name"] as? String
-                println(username)
-                
-                // ....
-            }
-        }
-
-    
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        self.tableView.reloadData()
         
     }
 
@@ -80,43 +52,16 @@ class HomeTableViewController: PFQueryTableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-//    func updateUsers() {
-//        
-//        println("updateUsers")
-//        
-//        var query = PFQuery(className: "request")
-//        query.whereKey("requester", notEqualTo: PFUser.currentUser()!.username!)
-//        query.orderByDescending("createdAt")
-//
-//        query.findObjectsInBackgroundWithBlock {
-//            (objects: [AnyObject]?, error: NSError?) -> Void in
-//            
-//            if error == nil {
-//                // The find succeeded.
-//                println("Successfully retrieved \(objects!.count) tasks.")
-//                // Do something with the found objects
-//                if let objects = objects as? [PFObject] {
-//                    for object in objects {
-//                        println(object.objectId)
-//                    }
-//                }
-//            } else {
-//                // Log details of the failure
-//                println("Error: \(error!) \(error!.userInfo!)")
-//            }
-//        }
-//    }
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        performSegueWithIdentifier("toDetail", sender: self)
-    }
 
+    
+    override init(style: UITableViewStyle, className: String?) {
+        super.init(style: style, className: className)
+    }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
         var cell = tableView.dequeueReusableCellWithIdentifier("cell") as? PFTableViewCell
         
-        cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+     //   cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         
         println(object)
         
@@ -124,17 +69,35 @@ class HomeTableViewController: PFQueryTableViewController {
             cell = PFTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "cell")
         }
         
-        cell?.textLabel?.text = object?["task"] as? String
+        cell?.textLabel?.text = object?["helpable"] as? String
+        
+        println(cell?.textLabel?.text)
         
         return cell
     }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        println(tableView.cellForRowAtIndexPath(indexPath)?.textLabel?.text)
+        
+    }
+
+    /*
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
+
+        // Configure the cell...
+
+        return cell
+    }
+    */
 
     
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        return false
-    }
+//    // Override to support conditional editing of the table view.
+//    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+//        // Return NO if you do not want the specified item to be editable.
+//        return false
+//    }
     
 
     /*
