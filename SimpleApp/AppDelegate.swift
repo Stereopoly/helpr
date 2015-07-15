@@ -26,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Bar tint color setup
         
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        application.statusBarStyle = .LightContent
         
         Parse.setApplicationId("Gzek4YyEFvmndLMSV660N3TM4LDjcqmNnTJPkkyh", clientKey: "zNv5LuTRQrUFuTPhP3zczHYw16Ld2ad1R9jTC1fE")
         

@@ -118,6 +118,12 @@ class addHelpableViewController: UIViewController, UIPickerViewDataSource, UIPic
         println(pickerData[row])
     }
     
+    func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        let titleData = pickerData[row]
+        var myTitle = NSAttributedString(string: titleData, attributes: [NSForegroundColorAttributeName:UIColor.whiteColor()])
+        return myTitle
+    }
+    
     // MARK: - User interaction control
     
     func ignoreInteraction() {

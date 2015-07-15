@@ -573,14 +573,7 @@
                             <constraint firstAttribute="centerX" secondItem="FSq-yQ-7Ov" secondAttribute="centerX" id="pW3-58-kaN"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Profile" id="5k3-FY-gnA">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="jMk-hK-R10">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <segue destination="R78-fL-5me" kind="show" id="dCo-uZ-p57"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Profile" id="5k3-FY-gnA"/>
                     <connections>
                         <outlet property="nameLabel" destination="HIN-aa-AyS" id="a7f-lu-Ee6"/>
                     </connections>
@@ -773,7 +766,14 @@
                             <outlet property="delegate" destination="hCd-d8-9Xw" id="m44-yw-NO1"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Can Help With" id="HXE-M1-uZd"/>
+                    <navigationItem key="navigationItem" title="Can Help With" id="HXE-M1-uZd">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="SoS-J5-LIj">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <segue destination="R78-fL-5me" kind="show" id="mHr-06-ATM"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aj4-A4-OAM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
