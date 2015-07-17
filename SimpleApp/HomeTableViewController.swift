@@ -12,6 +12,7 @@ import ParseUI
 import FBSDKCoreKit
 import FBSDKLoginKit
 import ParseFacebookUtilsV4
+import SwiftSpinner
 
 var tasks = [""]
 var selectedRowText = ""
@@ -37,11 +38,11 @@ class HomeTableViewController: PFQueryTableViewController {
         println("queryForTable")
         
         var query = PFQuery(className: "request")
-        query.whereKey("requester", notEqualTo: fbUsername)
+//        query.whereKey("requester", notEqualTo: fbUsername)
+        query.orderByAscending("createdAt")
         
         return query
     }
-    
     
 
     override func viewDidLoad() {
@@ -53,29 +54,12 @@ class HomeTableViewController: PFQueryTableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
+        getUsername()
+        
         let user = FBSDKAccessToken.currentAccessToken()
         
         println(user)
         
-        let request = FBSDKGraphRequest(graphPath: "me", parameters: nil)
-        
-        request.startWithCompletionHandler {
-            
-            (connection, result, error) in
-            
-            if error != nil {
-                // Some error checking here
-                println("Error in user request")
-            }
-            else if let userData = result as? [String:AnyObject] {
-                
-                // Access user data
-                let username = userData["name"] as? String
-                println(username)
-            }
-        }
-
-    
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -86,6 +70,57 @@ class HomeTableViewController: PFQueryTableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func getUsername() {
+        beginIgnore()
+        
+        var slow:Bool = true
+        
+        delay(seconds: 6.0) { () -> () in
+            if slow == true {
+                self.addSpinner("Taking longer than normal", Animated: true)
+                self.delay(seconds: 6.0, completion: { () -> () in
+                    self.addSpinner("Try again later", Animated: false)
+                    self.delay(seconds: 1.0, completion: { () -> () in
+                        self.hideSpinner()
+                        self.beginIgnore()
+                    })
+                })
+            }
+        }
+        
+        addSpinner("Loading", Animated: true)
+        
+        let request = FBSDKGraphRequest(graphPath: "me", parameters: nil)
+        
+        request.startWithCompletionHandler {
+            
+            (connection, result, error) in
+            
+            if error != nil {
+                // Some error checking here
+                println("Error in user request")
+                self.addSpinner("Error", Animated: false)
+                self.delay(seconds: 1.0, completion: { () -> () in
+                    self.hideSpinner()
+                    self.endIgnore()
+                })
+            }
+            else if let userData = result as? [String:AnyObject] {
+                
+                // Access user data
+                let username = userData["name"] as? String
+                fbUsername = username!
+                println(fbUsername)
+                self.addSpinner("Done", Animated: false)
+                slow = false
+                self.delay(seconds: 1.0, completion: { () -> () in
+                    self.hideSpinner()
+                    self.endIgnore()
+                })
+            }
+        }
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -115,7 +150,6 @@ class HomeTableViewController: PFQueryTableViewController {
         
         return cell
     }
-
     
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -123,6 +157,30 @@ class HomeTableViewController: PFQueryTableViewController {
         return false
     }
     
+    // MARK: - Activity Indicator
+    
+    func addSpinner(Error: String, Animated: Bool) {
+        SwiftSpinner.show(Error, animated: Animated)
+    }
+    
+    func hideSpinner() {
+        SwiftSpinner.hide()
+    }
+    
+    func delay(#seconds: Double, completion:()->()) {
+        let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64( Double(NSEC_PER_SEC) * seconds ))
+        
+        dispatch_after(popTime, dispatch_get_main_queue()) {
+            completion()
+        }
+    }
+    
+    func beginIgnore() {
+        UIApplication.sharedApplication().beginIgnoringInteractionEvents()
+    }
+    func endIgnore() {
+        UIApplication.sharedApplication().endIgnoringInteractionEvents()
+    }
 
     /*
     // Override to support editing the table view.

@@ -114,6 +114,7 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate {
                 if objects!.count == 0 {
                     self.addSpinner("Success", Animated: false)
                     self.delay(seconds: 1.0, completion: { () -> () in
+                        self.navigationController?.popViewControllerAnimated(false)
                         self.performSegueWithIdentifier("toZipcode", sender: self)
                         self.hideSpinner()
                         self.endIgnore()
@@ -121,6 +122,7 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate {
                 } else {
                     self.addSpinner("Success", Animated: false)
                     self.delay(seconds: 1.0, completion: { () -> () in
+                        self.navigationController?.popViewControllerAnimated(false)
                         self.performSegueWithIdentifier("toTabBarController", sender: self)
                         self.hideSpinner()
                         self.endIgnore()

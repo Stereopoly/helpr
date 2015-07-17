@@ -16,16 +16,27 @@ class taskDetailsViewController: UIViewController {
     
     @IBOutlet weak var nameLabel: UILabel!
     
+    @IBOutlet weak var acceptButtonOutlet: UIButton!
+    
+    @IBAction func acceptButton(sender: AnyObject) {
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        taskNameLabel.hidden = true
+        acceptButtonOutlet.layer.cornerRadius = 20
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        println(selectedRowText)
         
         taskNameLabel.text = selectedRowText
+        taskNameLabel.hidden = false
         
         var query = PFQuery(className: "request")
         query.whereKey("task", equalTo: selectedRowText)
-        query.whereKey("requester", notEqualTo: fbUsername)
         
         query.findObjectsInBackgroundWithBlock({ (objects: [AnyObject]?, error) -> Void in
             tooLong = false
@@ -35,11 +46,15 @@ class taskDetailsViewController: UIViewController {
                 self.delay(seconds: 1.0, completion: { () -> () in
                     self.hideSpinner()
                 })
-            } else {
+            } else {           // **************************
                 for object in objects! {
                     var label = object["requester"] as? String
-                    self.nameLabel.text = label
-                    println(label)
+                    if label == fbUsername {
+                        self.nameLabel.text = "You"
+                    } else {
+                        self.nameLabel.text = label
+                        println(label)
+                    }
                 }
                 
             }

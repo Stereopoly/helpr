@@ -31,65 +31,15 @@ class ProfileViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         nameLabel.hidden = true
-        getUsername()
+        nameLabel.text = fbUsername
+        nameLabel.hidden = false
+   //     getUsername()
     
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    
-    func getUsername() {
-        beginIgnore()
-        
-        delay(seconds: 6.0) { () -> () in
-            if self.slow == true {
-                self.addSpinner("Taking longer than normal", Animated: true)
-                self.delay(seconds: 6.0, completion: { () -> () in
-                    self.addSpinner("Try again later", Animated: false)
-                    self.delay(seconds: 1.0, completion: { () -> () in
-                        self.hideSpinner()
-                        self.beginIgnore()
-                    })
-                })
-            }
-        }
-        
-        addSpinner("Loading", Animated: true)
-        
-        let request = FBSDKGraphRequest(graphPath: "me", parameters: nil)
-        
-        request.startWithCompletionHandler {
-            
-            (connection, result, error) in
-            
-            if error != nil {
-                // Some error checking here
-                println("Error in user request")
-                self.addSpinner("Error", Animated: false)
-                self.delay(seconds: 1.0, completion: { () -> () in
-                    self.hideSpinner()
-                    self.endIgnore()
-                })
-            }
-            else if let userData = result as? [String:AnyObject] {
-                
-                // Access user data
-                let username = userData["name"] as? String
-                fbUsername = username!
-                self.nameLabel.text = fbUsername
-                self.nameLabel.hidden = false
-                println(fbUsername)
-                self.addSpinner("Done", Animated: false)
-                self.slow = false
-                self.delay(seconds: 1.0, completion: { () -> () in
-                    self.hideSpinner()
-                    self.endIgnore()
-                })
-            }
-        }
     }
     
     // MARK: - Activity Indicator
