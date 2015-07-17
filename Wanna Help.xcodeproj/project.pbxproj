@@ -10,6 +10,7 @@
 		550AF7A01B3A085F00CB390B /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550AF79F1B3A085F00CB390B /* StartViewController.swift */; };
 		550AF7A21B3A0C8000CB390B /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550AF7A11B3A0C8000CB390B /* SignUpViewController.swift */; };
 		5516AD6E1B55824B00FD4DFC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5516AD6D1B55824B00FD4DFC /* ProfileViewController.swift */; };
+		552B86111B596883003739A8 /* taskDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552B86101B596883003739A8 /* taskDetailsViewController.swift */; };
 		554F59C61B56C5A7008DB191 /* viewHelpableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554F59C51B56C5A7008DB191 /* viewHelpableTableViewController.swift */; };
 		5550082D1B4C3C8B008E61E5 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5550082C1B4C3C8B008E61E5 /* Launch Screen.xib */; };
 		555180B91B56C1B100A66D71 /* addHelpableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555180B81B56C1B100A66D71 /* addHelpableViewController.swift */; };
@@ -53,6 +54,7 @@
 		550AF79F1B3A085F00CB390B /* StartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		550AF7A11B3A0C8000CB390B /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		5516AD6D1B55824B00FD4DFC /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		552B86101B596883003739A8 /* taskDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = taskDetailsViewController.swift; sourceTree = "<group>"; };
 		554F59C51B56C5A7008DB191 /* viewHelpableTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = viewHelpableTableViewController.swift; sourceTree = "<group>"; };
 		5550082C1B4C3C8B008E61E5 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "Launch Screen.xib"; path = "../Launch Screen.xib"; sourceTree = "<group>"; };
 		555180B81B56C1B100A66D71 /* addHelpableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addHelpableViewController.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				55B1EF251B4EDC6200B8D890 /* HomeTableViewController.swift */,
 				554F59C51B56C5A7008DB191 /* viewHelpableTableViewController.swift */,
 				55A31E6A1B580EA700A094B6 /* ZipCodeViewController.swift */,
+				552B86101B596883003739A8 /* taskDetailsViewController.swift */,
 				556EB0111B38CC1E00784845 /* Main.storyboard */,
 				5550082C1B4C3C8B008E61E5 /* Launch Screen.xib */,
 				556EB0141B38CC1E00784845 /* Images.xcassets */,
@@ -372,6 +375,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				552B86111B596883003739A8 /* taskDetailsViewController.swift in Sources */,
 				556EB0101B38CC1E00784845 /* ViewController.swift in Sources */,
 				55C82BFC1B4DA04000220E17 /* CustomButtons.swift in Sources */,
 				5516AD6E1B55824B00FD4DFC /* ProfileViewController.swift in Sources */,

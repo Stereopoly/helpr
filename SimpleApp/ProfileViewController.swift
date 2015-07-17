@@ -24,7 +24,7 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
+        nameLabel.hidden = true
         getUsername()
     
     }
@@ -74,6 +74,7 @@ class ProfileViewController: UIViewController {
                 let username = userData["name"] as? String
                 fbUsername = username!
                 self.nameLabel.text = fbUsername
+                self.nameLabel.hidden = false
                 println(fbUsername)
                 self.addSpinner("Done", Animated: false)
                 self.slow = false

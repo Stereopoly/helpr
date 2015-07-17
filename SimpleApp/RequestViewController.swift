@@ -36,7 +36,6 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
         addSpinner("Requesting task", Animated: true)
         
         
-        
         var request = PFObject(className: "request")
         request["requester"] = fbUsername
         request["task"] = selectedRowData

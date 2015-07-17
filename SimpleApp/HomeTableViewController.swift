@@ -13,9 +13,14 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import ParseFacebookUtilsV4
 
+var tasks = [""]
+var selectedRowText = ""
+
 class HomeTableViewController: PFQueryTableViewController {
     
     var refresher:UIRefreshControl!
+    
+    var viewed:Int = 1
     
     required init!(coder aDecoder: NSCoder!) {
         super.init(coder: aDecoder)
@@ -63,8 +68,6 @@ class HomeTableViewController: PFQueryTableViewController {
                 // Access user data
                 let username = userData["name"] as? String
                 println(username)
-                
-                // ....
             }
         }
 
@@ -81,42 +84,20 @@ class HomeTableViewController: PFQueryTableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-//    func updateUsers() {
-//        
-//        println("updateUsers")
-//        
-//        var query = PFQuery(className: "request")
-//        query.whereKey("requester", notEqualTo: PFUser.currentUser()!.username!)
-//        query.orderByDescending("createdAt")
-//
-//        query.findObjectsInBackgroundWithBlock {
-//            (objects: [AnyObject]?, error: NSError?) -> Void in
-//            
-//            if error == nil {
-//                // The find succeeded.
-//                println("Successfully retrieved \(objects!.count) tasks.")
-//                // Do something with the found objects
-//                if let objects = objects as? [PFObject] {
-//                    for object in objects {
-//                        println(object.objectId)
-//                    }
-//                }
-//            } else {
-//                // Log details of the failure
-//                println("Error: \(error!) \(error!.userInfo!)")
-//            }
-//        }
-//    }
-    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let indexPath = tableView.indexPathForSelectedRow();
+        
+        println(tableView.cellForRowAtIndexPath(indexPath!))
+        
+        selectedRowText = tableView.cellForRowAtIndexPath(indexPath!)!.textLabel!.text!
+        
         performSegueWithIdentifier("toDetail", sender: self)
+        
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
         var cell = tableView.dequeueReusableCellWithIdentifier("cell") as? PFTableViewCell
-        
-        cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         
         println(object)
         
@@ -125,6 +106,8 @@ class HomeTableViewController: PFQueryTableViewController {
         }
         
         cell?.textLabel?.text = object?["task"] as? String
+        
+        cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         
         return cell
     }

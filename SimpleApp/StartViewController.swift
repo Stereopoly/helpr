@@ -77,12 +77,7 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate {
                         let username = userData["name"] as? String
                         fbUsername = username!
                         println(username)
-                        self.addSpinner("Success", Animated: false)
-                        self.delay(seconds: 1.0, completion: { () -> () in
-                            self.hideSpinner()
-                            self.endIgnore()
-                            self.performSegueWithIdentifier("toZipcode", sender: self)
-                        })
+                        self.checkUser()
                     }
                 }
                 
@@ -102,6 +97,39 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate {
         println("User logged out...")
     }
     
+    func checkUser() {
+        
+        var query = PFUser.query()
+        query!.whereKey("username", equalTo: fbUsername)
+        
+        query?.findObjectsInBackgroundWithBlock({ (objects: [AnyObject]?, error) -> Void in
+            tooLong = false
+            if error != nil {
+                println(error)
+                self.addSpinner("Try again later", Animated: false)
+                self.delay(seconds: 1.0, completion: { () -> () in
+                    self.hideSpinner()
+                })
+            } else {
+                if objects!.count == 0 {
+                    self.addSpinner("Success", Animated: false)
+                    self.delay(seconds: 1.0, completion: { () -> () in
+                        self.performSegueWithIdentifier("toZipcode", sender: self)
+                        self.hideSpinner()
+                        self.endIgnore()
+                    })
+                } else {
+                    self.addSpinner("Success", Animated: false)
+                    self.delay(seconds: 1.0, completion: { () -> () in
+                        self.performSegueWithIdentifier("toTabBarController", sender: self)
+                        self.hideSpinner()
+                        self.endIgnore()
+                    })
+                }
+            }
+        })
+        
+    }
     
     // MARK: - Activity Indicator
     
