@@ -22,6 +22,29 @@ class taskDetailsViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         taskNameLabel.text = selectedRowText
+        
+        var query = PFQuery(className: "request")
+        query.whereKey("task", equalTo: selectedRowText)
+        query.whereKey("requester", notEqualTo: fbUsername)
+        
+        query.findObjectsInBackgroundWithBlock({ (objects: [AnyObject]?, error) -> Void in
+            tooLong = false
+            if error != nil {
+                println(error)
+                self.addSpinner("Try again later", Animated: false)
+                self.delay(seconds: 1.0, completion: { () -> () in
+                    self.hideSpinner()
+                })
+            } else {
+                for object in objects! {
+                    var label = object["requester"] as? String
+                    self.nameLabel.text = label
+                    println(label)
+                }
+                
+            }
+        })
+        
     }
 
     override func didReceiveMemoryWarning() {

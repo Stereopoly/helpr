@@ -649,10 +649,13 @@
                                     <constraint firstAttribute="height" constant="120" id="9ga-vZ-aDQ"/>
                                     <constraint firstAttribute="width" constant="600" id="Lth-zi-ZRF"/>
                                 </constraints>
-                                <state key="normal" title="Settings">
+                                <state key="normal" title="Logout">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="logoutButton:" destination="pZh-sY-qgU" eventType="touchUpInside" id="RYV-mL-Op4"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="scF-9c-kfX">
                                 <rect key="frame" x="0.0" y="295" width="600" height="120"/>
@@ -693,6 +696,7 @@
                     <navigationItem key="navigationItem" title="Profile" id="5k3-FY-gnA"/>
                     <connections>
                         <outlet property="nameLabel" destination="HIN-aa-AyS" id="a7f-lu-Ee6"/>
+                        <segue destination="aea-Hc-XXF" kind="showDetail" identifier="profileToStart" id="rJU-rD-EcA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n97-ia-nog" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -946,6 +950,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="rJU-rD-EcA"/>
         <segue reference="Ibn-0L-JYp"/>
         <segue reference="geU-F1-ySP"/>
     </inferredMetricsTieBreakers>

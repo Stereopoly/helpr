@@ -18,6 +18,12 @@ class ProfileViewController: UIViewController {
 
     @IBOutlet weak var nameLabel: UILabel!
     
+    @IBAction func logoutButton(sender: AnyObject) {
+        FBSDKAccessToken.currentAccessToken() == nil
+        self.navigationController?.popViewControllerAnimated(false)
+        self.performSegueWithIdentifier("profileToStart", sender: self)
+    }
+    
     var slow: Bool = true
     
     override func viewDidLoad() {

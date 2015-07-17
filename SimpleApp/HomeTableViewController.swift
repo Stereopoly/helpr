@@ -53,6 +53,10 @@ class HomeTableViewController: PFQueryTableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
+        let user = FBSDKAccessToken.currentAccessToken()
+        
+        println(user)
+        
         let request = FBSDKGraphRequest(graphPath: "me", parameters: nil)
         
         request.startWithCompletionHandler {

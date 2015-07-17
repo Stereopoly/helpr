@@ -36,6 +36,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // check if we have logged in user
         let user = FBSDKAccessToken.currentAccessToken()
         
+        println(user)
+        
         let startViewController: UIViewController;
         
         if (user != nil) {
