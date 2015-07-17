@@ -35,11 +35,96 @@
                     </view>
                     <connections>
                         <segue destination="maK-rD-6h8" kind="show" identifier="toTabBarController" id="Ibn-0L-JYp"/>
+                        <segue destination="oPN-vH-9a3" kind="show" identifier="toZipcode" id="dUb-hW-mTY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="req-RK-lzK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-273" y="323"/>
+        </scene>
+        <!--Zip Code View Controller-->
+        <scene sceneID="pDr-yd-CrC">
+            <objects>
+                <viewController storyboardIdentifier="zipcode" id="oPN-vH-9a3" customClass="ZipCodeViewController" customModule="Wanna_Help" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="a8f-la-pHc"/>
+                        <viewControllerLayoutGuide type="bottom" id="LkE-28-An2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="KD4-5P-Wuf">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="One more thing..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sjy-Ni-mle">
+                                <rect key="frame" x="150" y="86" width="300" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="8AQ-eW-GDe"/>
+                                    <constraint firstAttribute="height" constant="48" id="W5y-oY-kh8"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Zipcode" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="U1L-JP-9lR">
+                                <rect key="frame" x="217" y="208" width="166" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="4F0-mU-y5I"/>
+                                    <constraint firstAttribute="width" constant="166" id="j97-c2-blc"/>
+                                </constraints>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j5f-hl-KEt">
+                                <rect key="frame" x="217" y="236" width="166" height="2"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="166" id="KvQ-3l-eNo"/>
+                                    <constraint firstAttribute="height" constant="2" id="X4N-9B-FWU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sZ9-uR-8Ys">
+                                <rect key="frame" x="217" y="320" width="166" height="36"/>
+                                <color key="backgroundColor" red="0.2666666667" green="0.70588235290000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="6XE-Yr-ORT"/>
+                                    <constraint firstAttribute="width" constant="166" id="dtC-mB-vh6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
+                                <state key="normal" title="Add">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="addZipcode:" destination="oPN-vH-9a3" eventType="touchUpInside" id="afZ-a3-eLO"/>
+                                    <action selector="requestButton:" destination="ahG-z7-Thp" eventType="touchUpInside" id="rZv-a7-Njk"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.17254901959999999" green="0.24313725489999999" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="U1L-JP-9lR" firstAttribute="top" secondItem="sjy-Ni-mle" secondAttribute="bottom" constant="74" id="DQU-E7-dJa"/>
+                            <constraint firstAttribute="centerX" secondItem="U1L-JP-9lR" secondAttribute="centerX" id="M31-NX-3RM"/>
+                            <constraint firstAttribute="centerX" secondItem="sZ9-uR-8Ys" secondAttribute="centerX" id="Z4h-Lt-LME"/>
+                            <constraint firstItem="U1L-JP-9lR" firstAttribute="leading" secondItem="j5f-hl-KEt" secondAttribute="leading" id="gHJ-43-yIR"/>
+                            <constraint firstItem="sjy-Ni-mle" firstAttribute="top" secondItem="a8f-la-pHc" secondAttribute="bottom" constant="66" id="gx1-RV-9x6"/>
+                            <constraint firstAttribute="centerX" secondItem="sjy-Ni-mle" secondAttribute="centerX" id="hfa-Uf-IK4"/>
+                            <constraint firstItem="U1L-JP-9lR" firstAttribute="trailing" secondItem="j5f-hl-KEt" secondAttribute="trailing" id="kmb-QF-mfa"/>
+                            <constraint firstItem="j5f-hl-KEt" firstAttribute="bottom" secondItem="U1L-JP-9lR" secondAttribute="bottom" id="rcZ-NQ-we2"/>
+                            <constraint firstItem="sZ9-uR-8Ys" firstAttribute="top" secondItem="sjy-Ni-mle" secondAttribute="bottom" constant="186" id="weU-Ef-n9a"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="zipcodeField" destination="U1L-JP-9lR" id="IMG-gc-eEj"/>
+                        <segue destination="maK-rD-6h8" kind="show" identifier="zipcodeToTabBar" id="A9u-F2-sNF"/>
+                        <segue destination="aea-Hc-XXF" kind="show" identifier="zipcodeToStart" id="OKq-df-Zzw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="caI-DV-ohC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-273" y="990"/>
         </scene>
         <!--Login-->
         <scene sceneID="tne-QT-ifu">
@@ -525,7 +610,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HIN-aa-AyS">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HIN-aa-AyS">
                                 <rect key="frame" x="140" y="121" width="320" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="fCt-yq-9wc"/>
@@ -710,6 +795,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.17254901959999999" green="0.24313725489999999" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
                     </navigationBar>
@@ -733,6 +819,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.17254901959999999" green="0.24313725489999999" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
                     </navigationBar>
@@ -789,6 +876,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.17254901959999999" green="0.24313725489999999" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
                     </navigationBar>
@@ -811,6 +899,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.17254901959999999" green="0.24313725489999999" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
                     </navigationBar>
@@ -825,6 +914,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="A9u-F2-sNF"/>
         <segue reference="geU-F1-ySP"/>
     </inferredMetricsTieBreakers>
 </document>

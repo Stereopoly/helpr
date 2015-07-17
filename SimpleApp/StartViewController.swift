@@ -15,6 +15,7 @@ import ParseFacebookUtilsV4
 import SwiftSpinner
 
 var fbUsername: String = ""
+var tooLong: Bool = true
 
 class StartViewController: UIViewController, FBSDKLoginButtonDelegate {
 
@@ -43,6 +44,14 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate {
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
         beginIgnore()
         addSpinner("Logging in", Animated: true)
+        delay(seconds: 6.0) { () -> () in
+            if tooLong == true {
+                self.addSpinner("Taking longer than normal", Animated: true)
+                self.delay(seconds: 6.0, completion: { () -> () in
+                    self.addSpinner("Try again later", Animated: false)
+                })
+            }
+        }
         delay(seconds: 1.0) { () -> () in
             
             if error == nil {
@@ -72,7 +81,7 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate {
                         self.delay(seconds: 1.0, completion: { () -> () in
                             self.hideSpinner()
                             self.endIgnore()
-                            self.performSegueWithIdentifier("toTabBarController", sender: self)
+                            self.performSegueWithIdentifier("toZipcode", sender: self)
                         })
                     }
                 }

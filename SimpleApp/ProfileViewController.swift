@@ -18,6 +18,8 @@ class ProfileViewController: UIViewController {
 
     @IBOutlet weak var nameLabel: UILabel!
     
+    var slow: Bool = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -35,6 +37,20 @@ class ProfileViewController: UIViewController {
     
     func getUsername() {
         beginIgnore()
+        
+        delay(seconds: 6.0) { () -> () in
+            if self.slow == true {
+                self.addSpinner("Taking longer than normal", Animated: true)
+                self.delay(seconds: 6.0, completion: { () -> () in
+                    self.addSpinner("Try again later", Animated: false)
+                    self.delay(seconds: 1.0, completion: { () -> () in
+                        self.hideSpinner()
+                        self.beginIgnore()
+                    })
+                })
+            }
+        }
+        
         addSpinner("Loading", Animated: true)
         
         let request = FBSDKGraphRequest(graphPath: "me", parameters: nil)
@@ -60,6 +76,7 @@ class ProfileViewController: UIViewController {
                 self.nameLabel.text = fbUsername
                 println(fbUsername)
                 self.addSpinner("Done", Animated: false)
+                self.slow = false
                 self.delay(seconds: 1.0, completion: { () -> () in
                     self.hideSpinner()
                     self.endIgnore()
