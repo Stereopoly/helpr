@@ -23,7 +23,6 @@ class taskDetailsViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        taskNameLabel.hidden = true
         acceptButtonOutlet.layer.cornerRadius = 20
     }
     
@@ -33,7 +32,6 @@ class taskDetailsViewController: UIViewController {
         println(selectedRowText)
         
         taskNameLabel.text = selectedRowText
-        taskNameLabel.hidden = false
         
         var query = PFQuery(className: "request")
         query.whereKey("task", equalTo: selectedRowText)
@@ -46,7 +44,7 @@ class taskDetailsViewController: UIViewController {
                 self.delay(seconds: 1.0, completion: { () -> () in
                     self.hideSpinner()
                 })
-            } else {           // **************************
+            } else {           
                 for object in objects! {
                     var label = object["requester"] as? String
                     if label == fbUsername {

@@ -23,6 +23,7 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+
         
         var loginButton = FBSDKLoginButton()
         loginButton.readPermissions = ["public_profile", "user_friends"]

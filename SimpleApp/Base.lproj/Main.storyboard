@@ -620,14 +620,11 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bZ2-yH-jzz">
-                                <rect key="frame" x="0.0" y="150" width="600" height="162"/>
-                            </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SMc-fG-KvQ">
-                                <rect key="frame" x="217" y="320" width="166" height="36"/>
+                                <rect key="frame" x="217" y="320" width="166" height="40"/>
                                 <color key="backgroundColor" red="0.26666666666666666" green="0.70588235294117652" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="36" id="EfH-6V-v2Z"/>
+                                    <constraint firstAttribute="height" constant="40" id="EfH-6V-v2Z"/>
                                     <constraint firstAttribute="width" constant="166" id="h9Y-xn-wEV"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
@@ -639,6 +636,9 @@
                                     <action selector="requestButton:" destination="ahG-z7-Thp" eventType="touchUpInside" id="Afz-xB-pYT"/>
                                 </connections>
                             </button>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bZ2-yH-jzz">
+                                <rect key="frame" x="0.0" y="150" width="600" height="162"/>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" red="0.17254901959999999" green="0.24313725489999999" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -654,6 +654,7 @@
                     <navigationItem key="navigationItem" title="Request" id="GE7-Q2-Svz"/>
                     <connections>
                         <outlet property="pickerView" destination="bZ2-yH-jzz" id="gEK-mq-88M"/>
+                        <outlet property="requestButtonOutlet" destination="SMc-fG-KvQ" id="Jrv-BT-rAU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qTg-f0-Yqt" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -756,10 +757,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="beE-sy-MPO">
-                                <rect key="frame" x="217" y="320" width="166" height="36"/>
+                                <rect key="frame" x="217" y="320" width="166" height="40"/>
                                 <color key="backgroundColor" red="0.2666666667" green="0.70588235290000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="36" id="2Et-Al-CR7"/>
+                                    <constraint firstAttribute="height" constant="40" id="2Et-Al-CR7"/>
                                     <constraint firstAttribute="width" constant="166" id="miK-ZH-IiI"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
@@ -799,6 +800,7 @@
                     <navigationItem key="navigationItem" title="Add" id="NqT-jp-ELN"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="addButtonLabel" destination="beE-sy-MPO" id="1JS-df-vVO"/>
                         <outlet property="pickerView" destination="gPc-B5-BhA" id="nCO-VR-p1c"/>
                     </connections>
                 </viewController>

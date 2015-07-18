@@ -27,6 +27,8 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
     
     @IBOutlet weak var pickerView: UIPickerView!
     
+    @IBOutlet weak var requestButtonOutlet: UIButton!
+    
     // MARK: - Actions
     
     @IBAction func requestButton(sender: AnyObject) {
@@ -102,14 +104,13 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //        requestTextField.delegate = self
-        //        requestTextField.tintColor = UIColor.whiteColor()
-        //
-        //        requestTextField.attributedPlaceholder = NSAttributedString(string: "Request", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
-        
         // Do any additional setup after loading the view.
         
         pickerView.delegate = self
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        requestButtonOutlet.layer.cornerRadius = 20
     }
     
     override func didReceiveMemoryWarning() {

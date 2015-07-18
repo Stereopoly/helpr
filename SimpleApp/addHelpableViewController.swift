@@ -18,6 +18,8 @@ class addHelpableViewController: UIViewController, UIPickerViewDataSource, UIPic
 
     @IBOutlet weak var pickerView: UIPickerView!
     
+    @IBOutlet weak var addButtonLabel: UIButton!
+    
     @IBAction func addButton(sender: AnyObject) {
         println("Pressed request button")
         
@@ -92,6 +94,10 @@ class addHelpableViewController: UIViewController, UIPickerViewDataSource, UIPic
         pickerView.delegate = self
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        addButtonLabel.layer.cornerRadius = 20
     }
 
     override func didReceiveMemoryWarning() {
