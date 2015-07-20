@@ -11,6 +11,8 @@ import Parse
 import SwiftSpinner
 
 class taskDetailsViewController: UIViewController {
+    
+    var label = ""
 
     @IBOutlet weak var taskNameLabel: UILabel!
     
@@ -19,7 +21,7 @@ class taskDetailsViewController: UIViewController {
     @IBOutlet weak var acceptButtonOutlet: UIButton!
     
     @IBAction func acceptButton(sender: AnyObject) {
-        
+        sendPush()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -46,12 +48,12 @@ class taskDetailsViewController: UIViewController {
                 })
             } else {           
                 for object in objects! {
-                    var label = object["requester"] as? String
-                    if label == fbUsername {
+                    self.label = (object["requester"] as? String)!
+                    if self.label == fbUsername {
                         self.nameLabel.text = "You"
                     } else {
-                        self.nameLabel.text = label
-                        println(label)
+                        self.nameLabel.text = self.label
+                        println(self.label)
                     }
                 }
                 
@@ -63,6 +65,65 @@ class taskDetailsViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // Push testing code stuff - not working right now
+    
+    func sendPush() {
+        addSpinner("Requesting...", Animated: true)
+        ignoreInteraction()
+        
+        if self.nameLabel.text == "You" {
+            delay(seconds: 1.0, completion: { () -> () in
+                self.addSpinner("You requested this task", Animated: false)
+                self.delay(seconds: 1.0, completion: { () -> () in
+                    self.hideSpinner()
+                    self.beginInteraction()
+                })
+            })
+            
+        } else {
+            
+            let baseQuery = PFInstallation.query()!
+            // only ios
+            baseQuery.whereKey("deviceType", equalTo: "ios")
+            
+            baseQuery.whereKey("username", equalTo: label)
+            
+            
+            // compile message
+            let currUsername = fbUsername
+            let taskName = selectedRowText
+            let hasFiller = " has "
+            let helpFiller = " help."
+            
+            let content: String = "accepted your request for "
+            
+            // compiles message
+            let fullMessage = currUsername + hasFiller + content + taskName + helpFiller
+            
+            println(fullMessage)
+            
+            // sends push notification
+            PFPush.sendPushMessageToQueryInBackground(baseQuery, withMessage: fullMessage) { (didSend, error) -> Void in
+                if error != nil {
+                    // freak out
+                    println("error: \(error)")
+                    self.addSpinner("Error", Animated: false)
+                    self.delay(seconds: 1.0, completion: { () -> () in
+                        self.hideSpinner()
+                    })
+                } else {
+                    // celebrate
+                    println("success! didsend: \(didSend)")
+                    self.addSpinner("Success - The requester has been notified", Animated: false)
+                    self.delay(seconds: 1.0, completion: { () -> () in
+                        self.hideSpinner()
+                    })
+                }
+            }
+        }
+        beginInteraction()
     }
     
     // MARK: - User interaction control
