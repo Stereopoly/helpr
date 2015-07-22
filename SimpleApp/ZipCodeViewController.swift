@@ -22,58 +22,71 @@ class ZipCodeViewController: UIViewController {
         
         addSpinner("Hold on", Animated: true)
         
-        var user = PFUser()
-        user.username = fbUsername
-        user.password = ""
-        user["zipcode"] = zipcodeField.text.toInt()
+        println(zipcodeField.text)
         
-        delay(seconds: 6.0) { () -> () in
-            if tooSlow == true {
-                self.addSpinner("Taking longer than normal", Animated: true)
-                self.delay(seconds: 6.0, completion: { () -> () in
-                    self.addSpinner("Try again later", Animated: false)
+        if zipcodeField.text == "" {
+            addSpinner("Please enter your zipcode", Animated: false)
+            delay(seconds: 1.0, completion: { () -> () in
+                self.hideSpinner()
+                self.beginInteraction()
+            })
+        } else {
+            
+            var user = PFUser()
+            user.username = fbUsername
+            user.password = ""
+            user["zipcode"] = zipcodeField.text.toInt()
+            
+            delay(seconds: 6.0) { () -> () in
+                if tooSlow == true {
+                    self.addSpinner("Taking longer than normal", Animated: true)
+                    self.delay(seconds: 6.0, completion: { () -> () in
+                        self.addSpinner("Try again later", Animated: false)
+                        self.delay(seconds: 1.0, completion: { () -> () in
+                            self.hideSpinner()
+                            self.beginInteraction()
+                        })
+                    })
+                }
+            }
+            
+            user.signUpInBackgroundWithBlock { (didWork, error) -> Void in
+                if error != nil {
+                    println("Error")
+                    self.addSpinner("Please try again later", Animated: false)
                     self.delay(seconds: 1.0, completion: { () -> () in
                         self.hideSpinner()
                         self.beginInteraction()
                     })
-                })
-            }
-        }
-        
-        user.signUpInBackgroundWithBlock { (didWork, error) -> Void in
-            if error != nil {
-                println("Error")
-                self.addSpinner("Please try again later", Animated: false)
-                self.delay(seconds: 1.0, completion: { () -> () in
-                    self.hideSpinner()
-                    self.beginInteraction()
-                })
-
-            } else {
-                user.saveInBackgroundWithBlock({ (didWork, error) -> Void in
-                    self.delay(seconds: 1.0, completion: { () -> () in
-                        println(user["zipcode"])
-                        if error != nil {
-                            // handle error
-                            println("Error")
-                            self.addSpinner("Please try again later", Animated: false)
-                            self.delay(seconds: 1.0, completion: { () -> () in
-                                self.hideSpinner()
-                                self.beginInteraction()
-                                
-                            })
-                        } else {
-                            println("Success")
-                            self.addSpinner("Success", Animated: false)
-                            self.delay(seconds: 1.0, completion: { () -> () in
-                                self.performSegueWithIdentifier("zipcodeToTabBar", sender: self)
-                                self.hideSpinner()
-                                self.beginInteraction()
-                            })
-                        }
+                    
+                } else {
+                    user.saveInBackgroundWithBlock({ (didWork, error) -> Void in
+                        self.delay(seconds: 1.0, completion: { () -> () in
+                            println(user["zipcode"])
+                            tooSlow = false
+                            println(tooSlow)
+                            if error != nil {
+                                // handle error
+                                println("Error")
+                                self.addSpinner("Please try again later", Animated: false)
+                                self.delay(seconds: 1.0, completion: { () -> () in
+                                    self.hideSpinner()
+                                    self.beginInteraction()
+                                    tooSlow = false
+                                })
+                            } else {
+                                println("Success")
+                                self.addSpinner("Success", Animated: false)
+                                self.delay(seconds: 1.0, completion: { () -> () in
+                                    self.performSegueWithIdentifier("zipcodeToTabBar", sender: self)
+                                    self.hideSpinner()
+                                    self.beginInteraction()
+                                })
+                            }
+                        })
                     })
-                })
-                
+                    
+                }
             }
         }
         

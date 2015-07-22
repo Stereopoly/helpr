@@ -37,62 +37,118 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
         ignoreInteraction()
         addSpinner("Requesting task", Animated: true)
         
-        
-        var request = PFObject(className: "request")
-        request["requester"] = fbUsername
-        request["task"] = selectedRowData
-        
-        var query = PFQuery(className: "request")
-        query.whereKey("task", equalTo: selectedRowData)
-        query.whereKey("requester", equalTo: fbUsername)
-        
-        query.findObjectsInBackgroundWithBlock {
-            (objects: [AnyObject]?, error: NSError?) -> Void in
+        queryZipcode { () -> Void in
             
-            if error == nil {
-                // The find succeeded.
-                println("Successfully retrieved \(objects!.count) tasks.")
-                // Do something with the found objects
-                if objects!.count == 0 {
-                    request.saveInBackgroundWithBlock({ (didWork, error) -> Void in
-                        self.delay(seconds: 1.0, completion: { () -> () in
-                            println(request)
-                            if error != nil {
-                                // handle error
-                                println("Error")
-                                self.addSpinner("Please try again later", Animated: false)
+            self.checkForMultiple { () -> Void in
+                
+                var request = PFObject(className: "request")
+                request["requester"] = fbUsername
+                request["task"] = self.selectedRowData
+                request["zipcode"] = zipcode
+                
+                var query = PFQuery(className: "request")
+                query.whereKey("task", equalTo: self.selectedRowData)
+                query.whereKey("requester", equalTo: fbUsername)
+                
+                query.findObjectsInBackgroundWithBlock {
+                    (objects: [AnyObject]?, error: NSError?) -> Void in
+                    
+                    if error == nil {
+                        // The find succeeded.
+                        println("Successfully retrieved \(objects!.count) tasks.")
+                        // Do something with the found objects
+                        if objects!.count == 0 {
+                            request.saveInBackgroundWithBlock({ (didWork, error) -> Void in
+                                self.delay(seconds: 1.0, completion: { () -> () in
+                                    println(request)
+                                    if error != nil {
+                                        // handle error
+                                        println("Error")
+                                        self.addSpinner("Please try again later", Animated: false)
+                                        self.delay(seconds: 1.0, completion: { () -> () in
+                                            self.hideSpinner()
+                                            self.beginInteraction()
+                                        })
+                                    } else {
+                                        println("Success")
+                                        self.addSpinner("Success", Animated: false)
+                                        self.delay(seconds: 1.0, completion: { () -> () in
+                                            self.hideSpinner()
+                                            self.beginInteraction()
+                                        })
+                                    }
+                                })
+                                
+                            })
+                        }
+                        else {
+                            self.delay(seconds: 1.0, completion: { () -> () in
+                                self.addSpinner("Already requested task", Animated: false)
                                 self.delay(seconds: 1.0, completion: { () -> () in
                                     self.hideSpinner()
                                     self.beginInteraction()
                                 })
-                            } else {
-                                println("Success")
-                                self.addSpinner("Success", Animated: false)
-                                self.delay(seconds: 1.0, completion: { () -> () in
-                                    self.hideSpinner()
-                                    self.beginInteraction()
-                                })
-                            }
-                        })
-                        
-                    })
-                } else {
-                    self.delay(seconds: 1.0, completion: { () -> () in
-                        self.addSpinner("Already requested task", Animated: false)
+                            })
+                            
+                        }
+                    } else {
+                        // Log details of the failure
+                        println("Error: \(error!) \(error!.userInfo!)")
+                        self.addSpinner("Please try again later", Animated: false)
                         self.delay(seconds: 1.0, completion: { () -> () in
                             self.hideSpinner()
-                            self.beginInteraction()
                         })
-                    })
-                    
+                    }
                 }
-            } else {
-                // Log details of the failure
-                println("Error: \(error!) \(error!.userInfo!)")
-                self.addSpinner("Please try again later", Animated: false)
-                self.delay(seconds: 1.0, completion: { () -> () in
-                    self.hideSpinner()
-                })
+            }
+        }
+        
+    }
+    
+    func checkForMultiple(completion: (() -> Void) ) {
+        var query = PFQuery(className: "request")
+        query.whereKey("requester", equalTo: fbUsername)
+
+        query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+            if error == nil {
+                println(objects!.count)
+                if objects!.count == 0 {
+                    completion()
+                } else {
+                    SwiftSpinner.setTitleFont(UIFont(name: "System", size: 19))
+                    self.addSpinner("You can only request 1 task at a time", Animated: false)
+                    self.delay(seconds: 1.0, completion: { () -> () in
+                        self.hideSpinner()
+                        self.beginInteraction()
+                    })
+                }
+            }
+        }
+        
+        
+    }
+    
+    func queryZipcode(completion: (() -> Void) ) {
+        var query = PFQuery(className: "_User")
+        query.whereKey("username", equalTo: fbUsername)
+        
+        query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+            if error == nil {
+                println(objects!.count)
+                if objects!.count == 1 {
+                    if let zip = objects?[0] {
+                        zipcode = zip["zipcode"] as? Int
+                        println(zipcode)
+                        completion()
+                    }
+                } else {
+                //    SwiftSpinner.setTitleFont(UIFont(name: "System", size: 19))
+                    self.addSpinner("Error", Animated: false)
+                    self.delay(seconds: 1.0, completion: { () -> () in
+                        self.hideSpinner()
+                        self.beginInteraction()
+                    })
+                }
             }
         }
         

@@ -16,6 +16,10 @@ import SwiftSpinner
 
 var tasks = [""]
 var selectedRowText = ""
+var selectedRowDetail = ""
+var fbUsername: String = ""
+var zipcode: Int?
+
 
 class HomeTableViewController: PFQueryTableViewController {
     
@@ -38,7 +42,10 @@ class HomeTableViewController: PFQueryTableViewController {
         println("queryForTable")
         
         var query = PFQuery(className: "request")
-//        query.whereKey("requester", notEqualTo: fbUsername)
+        if zipcode != nil {
+            query.whereKey("zipcode", equalTo: zipcode!)
+            println("zipcode")
+        }
         query.orderByAscending("createdAt")
         
         return query
@@ -56,14 +63,18 @@ class HomeTableViewController: PFQueryTableViewController {
         
         getUsername()
         
-        let user = FBSDKAccessToken.currentAccessToken()
+        println(fbUsername)
         
-        println(user)
+        
+   //     self.loadObjects()
+        
+  //      let user = FBSDKAccessToken.currentAccessToken()
+        
+  //      println(user)
         
     }
     
     override func viewWillAppear(animated: Bool) {
-        self.tableView.reloadData()
         
     }
 
@@ -115,9 +126,33 @@ class HomeTableViewController: PFQueryTableViewController {
                 println(fbUsername)
                 self.addSpinner("Done", Animated: false)
                 slow = false
+                
+                var query = PFQuery(className: "_User")
+                query.whereKey("username", equalTo: fbUsername)
+                
+                query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+                    if error == nil {
+                        println(objects?.count)
+                        if objects!.count == 1 {
+                            if let zip = objects?[0] {
+                                zipcode = zip["zipcode"] as? Int
+                                println(objects?[0])
+                                self.loadObjects()
+                            }
+                        } else {
+                            //    SwiftSpinner.setTitleFont(UIFont(name: "System", size: 19))
+                            self.addSpinner("Error", Animated: false)
+                            self.delay(seconds: 1.0, completion: { () -> () in
+                                self.hideSpinner()
+                            })
+                        }
+                    }
+                }
+
                 self.delay(seconds: 1.0, completion: { () -> () in
                     self.hideSpinner()
                     self.endIgnore()
+
                 })
             }
         }
@@ -129,6 +164,8 @@ class HomeTableViewController: PFQueryTableViewController {
         println(tableView.cellForRowAtIndexPath(indexPath!))
         
         selectedRowText = tableView.cellForRowAtIndexPath(indexPath!)!.textLabel!.text!
+            
+        selectedRowDetail = tableView.cellForRowAtIndexPath(indexPath!)!.detailTextLabel!.text!
         
         performSegueWithIdentifier("toDetail", sender: self)
         
@@ -141,12 +178,19 @@ class HomeTableViewController: PFQueryTableViewController {
         println(object)
         
         if cell == nil {
-            cell = PFTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "cell")
+            cell = PFTableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "cell")
         }
         
         cell?.textLabel?.text = object?["task"] as? String
         
+        if object?["requester"] as? String == fbUsername {
+            cell?.detailTextLabel?.text = "You"
+        } else {
+            cell?.detailTextLabel?.text = object?["requester"] as? String
+        }
+        
         cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        
         
         return cell
     }

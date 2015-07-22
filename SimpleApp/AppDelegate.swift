@@ -8,10 +8,12 @@
 
 import UIKit
 import Parse
+import Bolts
 import FBSDKCoreKit
 import FBSDKLoginKit
 import ParseUI
 import ParseFacebookUtilsV4
+import SwiftSpinner
 
 
 @UIApplicationMain
@@ -59,6 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Initialize Facebook
         PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
+
         
         // check if we have logged in user
         let user = FBSDKAccessToken.currentAccessToken()
@@ -82,10 +85,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             startViewController = loginViewController
         }
         
-        // 5
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         self.window?.rootViewController = startViewController;
         self.window?.makeKeyAndVisible()
+        
         
         return true
     }

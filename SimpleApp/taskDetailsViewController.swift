@@ -32,33 +32,11 @@ class taskDetailsViewController: UIViewController {
         super.viewDidLoad()
         
         println(selectedRowText)
+        println(selectedRowDetail)
         
         taskNameLabel.text = selectedRowText
         
-        var query = PFQuery(className: "request")
-        query.whereKey("task", equalTo: selectedRowText)
-        
-        query.findObjectsInBackgroundWithBlock({ (objects: [AnyObject]?, error) -> Void in
-            tooLong = false
-            if error != nil {
-                println(error)
-                self.addSpinner("Try again later", Animated: false)
-                self.delay(seconds: 1.0, completion: { () -> () in
-                    self.hideSpinner()
-                })
-            } else {           
-                for object in objects! {
-                    self.label = (object["requester"] as? String)!
-                    if self.label == fbUsername {
-                        self.nameLabel.text = "You"
-                    } else {
-                        self.nameLabel.text = self.label
-                        println(self.label)
-                    }
-                }
-                
-            }
-        })
+        nameLabel.text = selectedRowDetail
         
     }
 
@@ -67,7 +45,7 @@ class taskDetailsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    // Push testing code stuff - not working right now
+    // MARK: - Push Notifications
     
     func sendPush() {
         addSpinner("Requesting...", Animated: true)

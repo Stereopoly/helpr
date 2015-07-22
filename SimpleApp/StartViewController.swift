@@ -14,7 +14,7 @@ import ParseUI
 import ParseFacebookUtilsV4
 import SwiftSpinner
 
-var fbUsername: String = ""
+
 var tooLong: Bool = true
 
 class StartViewController: UIViewController, FBSDKLoginButtonDelegate {
@@ -30,6 +30,7 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate {
         let size = 240 as CGFloat
         let screenwidth = self.view.frame.size.width
         loginButton.frame = CGRectMake(screenwidth/2 - size/2, 400, size, 50)
+
         //loginButton.center = self.view.center
         loginButton.delegate = self
         self.view.addSubview(loginButton)
