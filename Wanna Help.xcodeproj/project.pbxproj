@@ -19,8 +19,6 @@
 		556EB0131B38CC1E00784845 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 556EB0111B38CC1E00784845 /* Main.storyboard */; };
 		556EB0151B38CC1E00784845 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 556EB0141B38CC1E00784845 /* Images.xcassets */; };
 		556EB0241B38CC1E00784845 /* SimpleAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556EB0231B38CC1E00784845 /* SimpleAppTests.swift */; };
-		5586900E1B600B1E00EA8073 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5586900D1B600B1E00EA8073 /* MessagesViewController.swift */; };
-		558690101B600D3100EA8073 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5586900F1B600D3100EA8073 /* Message.swift */; };
 		55A31E6B1B580EA700A094B6 /* ZipCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A31E6A1B580EA700A094B6 /* ZipCodeViewController.swift */; };
 		55B1EF261B4EDC6200B8D890 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B1EF251B4EDC6200B8D890 /* HomeTableViewController.swift */; };
 		55C82BE11B4D890A00220E17 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55C82BE01B4D890A00220E17 /* AudioToolbox.framework */; };
@@ -68,8 +66,6 @@
 		556EB01D1B38CC1E00784845 /* Wanna HelpTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Wanna HelpTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		556EB0221B38CC1E00784845 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		556EB0231B38CC1E00784845 /* SimpleAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleAppTests.swift; sourceTree = "<group>"; };
-		5586900D1B600B1E00EA8073 /* MessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
-		5586900F1B600D3100EA8073 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		55A31E6A1B580EA700A094B6 /* ZipCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZipCodeViewController.swift; sourceTree = "<group>"; };
 		55B1EF251B4EDC6200B8D890 /* HomeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 		55C82BE01B4D890A00220E17 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -172,8 +168,6 @@
 				554F59C51B56C5A7008DB191 /* viewHelpableTableViewController.swift */,
 				55A31E6A1B580EA700A094B6 /* ZipCodeViewController.swift */,
 				552B86101B596883003739A8 /* taskDetailsViewController.swift */,
-				5586900D1B600B1E00EA8073 /* MessagesViewController.swift */,
-				5586900F1B600D3100EA8073 /* Message.swift */,
 				556EB0111B38CC1E00784845 /* Main.storyboard */,
 				5550082C1B4C3C8B008E61E5 /* Launch Screen.xib */,
 				556EB0141B38CC1E00784845 /* Images.xcassets */,
@@ -390,11 +384,9 @@
 				555180B91B56C1B100A66D71 /* addHelpableViewController.swift in Sources */,
 				556EB00E1B38CC1E00784845 /* AppDelegate.swift in Sources */,
 				550AF7A21B3A0C8000CB390B /* SignUpViewController.swift in Sources */,
-				5586900E1B600B1E00EA8073 /* MessagesViewController.swift in Sources */,
 				55A31E6B1B580EA700A094B6 /* ZipCodeViewController.swift in Sources */,
 				55B1EF261B4EDC6200B8D890 /* HomeTableViewController.swift in Sources */,
 				550AF7A01B3A085F00CB390B /* StartViewController.swift in Sources */,
-				558690101B600D3100EA8073 /* Message.swift in Sources */,
 				55C82BFE1B4DA31400220E17 /* RequestViewController.swift in Sources */,
 				554F59C61B56C5A7008DB191 /* viewHelpableTableViewController.swift in Sources */,
 			);
