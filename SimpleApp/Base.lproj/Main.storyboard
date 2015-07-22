@@ -283,6 +283,25 @@
             </objects>
             <point key="canvasLocation" x="410" y="990"/>
         </scene>
+        <!--Chat-->
+        <scene sceneID="2j7-Qf-cUC">
+            <objects>
+                <viewController id="6BJ-by-hY3" customClass="MessagesViewController" customModule="Wanna_Help" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VLh-IK-7ts"/>
+                        <viewControllerLayoutGuide type="bottom" id="eqM-S3-FnW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="GdB-xv-KfT">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Chat" id="x16-ym-Uuz"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Th-9z-fjO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1237" y="1299"/>
+        </scene>
         <!--Sign Up-->
         <scene sceneID="04H-1x-Mbq">
             <objects>
@@ -504,13 +523,13 @@
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uuS-Yk-RzR">
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4dw-II-hpD">
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -835,6 +854,7 @@
                         <segue destination="XeQ-0J-Fby" kind="relationship" relationship="viewControllers" id="Bbd-eI-nBl"/>
                         <segue destination="uVc-qV-5XT" kind="relationship" relationship="viewControllers" id="cts-Og-6g0"/>
                         <segue destination="JdN-7q-oL3" kind="relationship" relationship="viewControllers" id="qpX-H0-EZH"/>
+                        <segue destination="6BJ-by-hY3" kind="relationship" relationship="viewControllers" id="9we-Er-sMR"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aOm-vH-com" userLabel="First Responder" sceneMemberID="firstResponder"/>
