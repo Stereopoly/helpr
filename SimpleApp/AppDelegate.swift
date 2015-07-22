@@ -14,7 +14,6 @@ import FBSDKLoginKit
 import ParseUI
 import ParseFacebookUtilsV4
 import SwiftSpinner
-import Firebase
 
 
 @UIApplicationMain
@@ -62,7 +61,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Initialize Facebook
         PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
-        let ref = Firebase(url: "https://wanna-help.firebaseio.com")
 
         
         // check if we have logged in user
@@ -116,6 +114,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if application.applicationState == UIApplicationState.Inactive {
             PFAnalytics.trackAppOpenedWithRemoteNotificationPayload(userInfo)
         }
+        
+        NSNotificationCenter.defaultCenter().postNotificationName("reloadMessages", object: nil)
     }
     
     //MARK: Facebook Integration

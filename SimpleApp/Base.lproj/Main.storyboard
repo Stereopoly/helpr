@@ -286,7 +286,7 @@
         <!--Chat-->
         <scene sceneID="2j7-Qf-cUC">
             <objects>
-                <viewController id="6BJ-by-hY3" sceneMemberID="viewController">
+                <viewController id="6BJ-by-hY3" customClass="ChatViewController" customModule="Wanna_Help" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="VLh-IK-7ts"/>
                         <viewControllerLayoutGuide type="bottom" id="eqM-S3-FnW"/>
