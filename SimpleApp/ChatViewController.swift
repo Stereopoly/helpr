@@ -7,15 +7,24 @@
 //
 
 import UIKit
+import Parse
+import ParseUI
 
-class ChatViewController: UIViewController, UITextFieldDelegate {
+class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate {
     
     var kbHeight: CGFloat!
+    var messages: [PFObject]?
+    
+    @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var chatField: UITextField!
 
     @IBAction func sendButton(sender: AnyObject) {
-        
+        if chatField.text.isEmpty {
+            println("Empty")
+        } else {
+            submitMessage()
+        }
     }
     @IBOutlet weak var sendButtonOutlet: UIButton!
     
@@ -24,15 +33,92 @@ class ChatViewController: UIViewController, UITextFieldDelegate {
 
         // Do any additional setup after loading the view.
         
+        NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "onTimer", userInfo: nil, repeats: true)
+        
         chatField.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+        self.tableView.reloadData()
+        
+        self.tableView.registerClass(MessageViewCell.self, forCellReuseIdentifier: "cell")
         
     }
     
-    func textFieldDidEndEditing(textField: UITextField) {
-        while chatField.text.isEmpty {
-            chatField.enabled = false
+    func submitMessage() {
+        var message = PFObject(className:"Message")
+        
+        message["text"] = chatField.text
+        chatField.text = ""
+        
+        message.saveInBackgroundWithBlock {
+            (success: Bool, error: NSError?) -> Void in
+            if (success) {
+                // The object has been saved, so get messages.
+                self.getMessages()
+            } else {
+                // There was a problem, check error.description
+                println("could not save the message")
+                println(error)
+            }
         }
-        chatField.enabled = true
+    }
+    
+    func getMessages() {
+        self.messages = []
+        var query = PFQuery(className:"Message")
+        query.orderByDescending("createdAt")
+        query.findObjectsInBackgroundWithBlock {
+            (objects: [AnyObject]?, error: NSError?) -> Void in
+            
+            if error == nil {
+                // The find succeeded.
+                // Do something with the found objects
+                if let objects = objects as? [PFObject] {
+                    for object in objects {
+                        self.messages?.append(object)
+                    }
+                    self.tableView.reloadData()
+                }
+            } else {
+                // Log details of the failure
+                println("Error: \(error!) \(error!.userInfo!)")
+            }
+        }
+        
+        
+    }
+    
+    // Refresh messages
+    
+    func onTimer() {
+        getMessages()
+    }
+
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        var cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! MessageViewCell
+        
+        
+        var messageText = messages![indexPath.row]
+        
+        cell.messageCellText.text = messageText["text"] as? String
+
+        
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let messages = messages {
+            return messages.count
+        } else {
+            return 0
+        }
+        
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     
@@ -40,7 +126,6 @@ class ChatViewController: UIViewController, UITextFieldDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
         
-        sendButtonOutlet.enabled = false
     }
     
     override func viewWillDisappear(animated: Bool) {
