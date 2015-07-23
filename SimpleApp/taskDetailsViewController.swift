@@ -13,6 +13,7 @@ import SwiftSpinner
 class taskDetailsViewController: UIViewController {
     
     var label = ""
+    var userId: String = ""
 
     @IBOutlet weak var taskNameLabel: UILabel!
     
@@ -37,6 +38,8 @@ class taskDetailsViewController: UIViewController {
         taskNameLabel.text = selectedRowText
         
         nameLabel.text = selectedRowDetail
+        
+        acceptButtonOutlet.setTitle("Accept", forState: UIControlState.Normal)
         
     }
 
@@ -94,10 +97,64 @@ class taskDetailsViewController: UIViewController {
                 } else {
                     // celebrate
                     println("success! didsend: \(didSend)")
-                    self.addSpinner("Success - The requester has been notified", Animated: false)
-                    self.delay(seconds: 1.0, completion: { () -> () in
-                        self.hideSpinner()
-                    })
+                    
+                    var query = PFQuery(className: "request")
+                    query.whereKey("requester", equalTo: selectedRowDetail)
+                    
+                    query.findObjectsInBackgroundWithBlock {
+                        (objects: [AnyObject]?, error: NSError?) -> Void in
+                        if error != nil {
+                            println("Error")
+                            self.addSpinner("Error", Animated: false)
+                            self.delay(seconds: 1.0, completion: { () -> () in
+                                self.hideSpinner()
+                                self.beginInteraction()
+                            })
+                        } else {
+                            if objects?.count == 1 {
+                                if let objects = objects as? [PFObject] {
+                                    for object in objects {
+                                        self.userId = object.objectId!
+                                        println(self.userId)
+                                    }
+                                }
+                                
+                                var save = PFQuery(className:"request")
+                                
+                                save.getObjectInBackgroundWithId(self.userId) {
+                                    (object: PFObject?, error: NSError?) -> Void in
+                                    if error != nil {
+                                        println("Error")
+                                        self.addSpinner("Error", Animated: false)
+                                        self.delay(seconds: 1.0, completion: { () -> () in
+                                            self.hideSpinner()
+                                            self.beginInteraction()
+                                        })
+                                    } else if let object = object {
+                                        // Saved
+                                        println(object)
+                                        
+                                        object["accepted"] = "Yes"
+                                        
+                                        object.saveInBackground()
+                                        
+                                        self.addSpinner("Success - The requester has been notified", Animated: false)
+                                        self.delay(seconds: 1.0, completion: { () -> () in
+                                            self.acceptButtonOutlet.backgroundColor = UIColor(red: 192/250, green: 57/250, blue: 43/250, alpha: 1.0)
+                                            self.acceptButtonOutlet.enabled = false
+                                            self.acceptButtonOutlet.setTitle("Accepted", forState: UIControlState.Normal)
+                                            self.hideSpinner()
+                                        })
+                                    }
+                                
+                                }
+
+                            } else {
+                                println("Error")
+                            }
+                        }
+                    }
+                    
                 }
             }
         }

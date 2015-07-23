@@ -9,11 +9,13 @@
 import UIKit
 import Parse
 import ParseUI
+import SwiftSpinner
 
 class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate {
     
     var kbHeight: CGFloat!
     var messages: [PFObject]?
+    var loaded = 0
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -83,8 +85,13 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
         var messageText = messages![indexPath.row]
    //     cell.messageCellText.text = messageText["text"] as? String
         
+        if fbUsername == messageText["sender"] as! String {
+            cell.nameCellText.text = "You"
+        } else {
+            cell.nameCellText?.text = messageText["sender"] as? String
+        }
+        
         cell.messageCellText?.text = messageText["text"] as? String
-        cell.nameCellText?.text = messageText["sender"] as? String
         
         
         return cell
@@ -99,36 +106,73 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
     }
     
     func getMessages() {
-        self.messages = []
-        var query = PFQuery(className:"Message")
-        query.orderByDescending("createdAt")
-        query.findObjectsInBackgroundWithBlock {
-            (objects: [AnyObject]?, error: NSError?) -> Void in
-            
-            if error == nil {
-                // The find succeeded.
-                // Do something with the found objects
-                if let objects = objects as? [PFObject] {
-                    for object in objects {
-                        
-                        var indexpath = NSIndexPath(forRow: self.messages!.count, inSection: 1)
-                        
-                        if object["sender"] as! String != fbUsername {
+        if loaded == 1 {
+            self.messages = []
+            var query = PFQuery(className:"Message")
+            query.orderByDescending("createdAt")
+            query.findObjectsInBackgroundWithBlock {
+                (objects: [AnyObject]?, error: NSError?) -> Void in
                 
-                            self.messages?.append(object)
-                        } else {
-                        
-                            self.messages?.append(object)
+                if error == nil {
+                    // The find succeeded.
+                    // Do something with the found objects
+                    if let objects = objects as? [PFObject] {
+                        for object in objects {
+                            
+                            var indexpath = NSIndexPath(forRow: self.messages!.count, inSection: 1)
+                            
+                            if object["sender"] as! String != fbUsername {
+                                
+                                self.messages?.append(object)
+                            } else {
+                                
+                                self.messages?.append(object)
+                            }
                         }
+                        self.tableView.reloadData()
                     }
-                    self.tableView.reloadData()
+                } else {
+                    // Log details of the failure
+                    println("Error: \(error!) \(error!.userInfo!)")
                 }
-            } else {
-                // Log details of the failure
-                println("Error: \(error!) \(error!.userInfo!)")
+            }
+        } else {
+            loaded = 1
+            self.messages = []
+            var query = PFQuery(className:"Message")
+            query.orderByDescending("createdAt")
+            query.findObjectsInBackgroundWithBlock {
+                (objects: [AnyObject]?, error: NSError?) -> Void in
+                
+                if error == nil {
+                    // The find succeeded.
+                    // Do something with the found objects
+                    if let objects = objects as? [PFObject] {
+                        for object in objects {
+                            
+                            var indexpath = NSIndexPath(forRow: self.messages!.count, inSection: 1)
+                            
+                            if object["sender"] as! String != fbUsername {
+                                self.addSpinner("Done", Animated: false)
+                                self.messages?.append(object)
+                            } else {
+                                self.addSpinner("Done", Animated: false)
+                                self.messages?.append(object)
+                            }
+                        }
+                        self.delay(seconds: 1.0, completion: { () -> () in
+                            self.tableView.reloadData()
+                            self.hideSpinner()
+                            self.beginInteraction()
+
+                        })
+                    }
+                } else {
+                    // Log details of the failure
+                    println("Error: \(error!) \(error!.userInfo!)")
+                }
             }
         }
-        
         
     }
     
@@ -136,6 +180,8 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
         
+        addSpinner("Loading", Animated: true)
+        ignoreInteraction()
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -178,6 +224,34 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
         UIView.animateWithDuration(0.3, animations: {
             self.view.frame = CGRectOffset(self.view.frame, 0, movement)
         })
+    }
+    
+    // MARK: - User interaction control
+    
+    func ignoreInteraction() {
+        UIApplication.sharedApplication().beginIgnoringInteractionEvents()
+    }
+    
+    func beginInteraction() {
+        UIApplication.sharedApplication().endIgnoringInteractionEvents()
+    }
+    
+    // MARK: - Activity Indicator
+    
+    func addSpinner(Error: String, Animated: Bool) {
+        SwiftSpinner.show(Error, animated: Animated)
+    }
+    
+    func hideSpinner() {
+        SwiftSpinner.hide()
+    }
+    
+    func delay(#seconds: Double, completion:()->()) {
+        let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64( Double(NSEC_PER_SEC) * seconds ))
+        
+        dispatch_after(popTime, dispatch_get_main_queue()) {
+            completion()
+        }
     }
 
     /*
