@@ -21,5 +21,6 @@ class MessageViewCell: UITableViewCell {
     
     @IBOutlet weak var messageCellText: UILabel!
     
+    @IBOutlet weak var nameCellText: UILabel!
     
 }

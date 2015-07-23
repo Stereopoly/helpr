@@ -60,6 +60,7 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate {
             addSpinner("Login canceled", Animated: false)
             delay(seconds: 1.0, completion: { () -> () in
                 self.hideSpinner()
+                tooLong = false
             })
         } else {
             

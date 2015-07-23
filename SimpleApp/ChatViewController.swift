@@ -17,12 +17,13 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
     
     @IBOutlet weak var tableView: UITableView!
     
-    @IBOutlet weak var chatField: UITextField!
-
+    @IBOutlet weak var messageText: UITextField!
+    
     @IBAction func sendButton(sender: AnyObject) {
-        if chatField.text.isEmpty {
+        if messageText.text.isEmpty {
             println("Empty")
         } else {
+            self.view.endEditing(true)
             submitMessage()
         }
     }
@@ -33,9 +34,9 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
 
         // Do any additional setup after loading the view.
         
-        NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "onTimer", userInfo: nil, repeats: true)
+        NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "onTimer", userInfo: nil, repeats: true)
         
-        chatField.delegate = self
+        self.messageText.delegate = self
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.reloadData()
@@ -47,8 +48,9 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
     func submitMessage() {
         var message = PFObject(className:"Message")
         
-        message["text"] = chatField.text
-        chatField.text = ""
+        message["text"] = messageText.text
+        message["sender"] =  fbUsername
+        messageText.text = ""
         
         message.saveInBackgroundWithBlock {
             (success: Bool, error: NSError?) -> Void in
@@ -63,6 +65,33 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
         }
     }
     
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let messages = messages {
+            return messages.count
+        } else {
+            return 0
+        }
+        
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCellWithIdentifier("MessageViewCell", forIndexPath: indexPath) as! MessageViewCell
+        var messageText = messages![indexPath.row]
+   //     cell.messageCellText.text = messageText["text"] as? String
+        
+        cell.textLabel?.text = messageText["text"] as? String
+        
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
+    func onTimer() {
+        getMessages()
+    }
+    
     func getMessages() {
         self.messages = []
         var query = PFQuery(className:"Message")
@@ -75,7 +104,12 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
                 // Do something with the found objects
                 if let objects = objects as? [PFObject] {
                     for object in objects {
-                        self.messages?.append(object)
+                        if object["sender"] as! String != fbUsername {
+                            println("here")
+                            self.messages?.append(object)
+                        } else {
+                            self.messages?.append(object)
+                        }
                     }
                     self.tableView.reloadData()
                 }
@@ -87,40 +121,6 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
         
         
     }
-    
-    // Refresh messages
-    
-    func onTimer() {
-        getMessages()
-    }
-
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        var cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! MessageViewCell
-        
-        
-        var messageText = messages![indexPath.row]
-        
-        cell.messageCellText.text = messageText["text"] as? String
-
-        
-        return cell
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let messages = messages {
-            return messages.count
-        } else {
-            return 0
-        }
-        
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-    }
-    
     
     override func viewWillAppear(animated: Bool) {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
