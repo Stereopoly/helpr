@@ -74,12 +74,18 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
         
     }
     
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("MessageViewCell", forIndexPath: indexPath) as! MessageViewCell
         var messageText = messages![indexPath.row]
    //     cell.messageCellText.text = messageText["text"] as? String
         
-        cell.textLabel?.text = messageText["text"] as? String
+        cell.messageCellText?.text = messageText["text"] as? String
+        cell.nameCellText?.text = messageText["sender"] as? String
+        
         
         return cell
     }
@@ -104,10 +110,14 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
                 // Do something with the found objects
                 if let objects = objects as? [PFObject] {
                     for object in objects {
+                        
+                        var indexpath = NSIndexPath(forRow: self.messages!.count, inSection: 1)
+                        
                         if object["sender"] as! String != fbUsername {
-                            println("here")
+                
                             self.messages?.append(object)
                         } else {
+                        
                             self.messages?.append(object)
                         }
                     }
