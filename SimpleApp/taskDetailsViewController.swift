@@ -15,6 +15,7 @@ class taskDetailsViewController: UIViewController {
     var label = ""
     var userId: String = ""
     var accepted: String = ""
+    var slow:Bool = true
     
     @IBOutlet weak var taskNameLabel: UILabel!
     
@@ -25,6 +26,21 @@ class taskDetailsViewController: UIViewController {
     @IBAction func acceptButton(sender: AnyObject) {
         addSpinner("Requesting...", Animated: true)
         ignoreInteraction()
+        
+        delay(seconds: 6.0) { () -> () in
+            if self.slow == true {
+                self.addSpinner("Taking longer than normal", Animated: true)
+                self.delay(seconds: 6.0, completion: { () -> () in
+                    if self.slow == true {
+                        self.addSpinner("Try again later", Animated: false)
+                        self.delay(seconds: 1.0, completion: { () -> () in
+                            self.hideSpinner()
+                            self.beginInteraction()
+                        })
+                    }
+                })
+            }
+        }
         
         var query = PFQuery(className: "request")
         query.whereKey("requester", equalTo: selectedRowDetail)
@@ -50,6 +66,7 @@ class taskDetailsViewController: UIViewController {
                         self.acceptButtonOutlet.setTitle("Accepted", forState: UIControlState.Normal)
                         self.hideSpinner()
                         self.beginInteraction()
+                        self.slow = false
                     })
                 } else {
                     self.sendPush()
@@ -57,6 +74,7 @@ class taskDetailsViewController: UIViewController {
             } else {
                 // Log details of the failure
                 println("Error: \(error!) \(error!.userInfo!)")
+                self.slow = false
             }
         }
     }
@@ -94,6 +112,7 @@ class taskDetailsViewController: UIViewController {
                 self.delay(seconds: 1.0, completion: { () -> () in
                     self.hideSpinner()
                     self.beginInteraction()
+                    self.slow = false
                 })
             })
             
@@ -128,6 +147,7 @@ class taskDetailsViewController: UIViewController {
                     self.addSpinner("Error", Animated: false)
                     self.delay(seconds: 1.0, completion: { () -> () in
                         self.hideSpinner()
+                        self.slow = false
                     })
                 } else {
                     // celebrate
@@ -144,6 +164,7 @@ class taskDetailsViewController: UIViewController {
                             self.delay(seconds: 1.0, completion: { () -> () in
                                 self.hideSpinner()
                                 self.beginInteraction()
+                                self.slow = false
                             })
                         } else {
                             if objects?.count == 1 {
@@ -164,6 +185,7 @@ class taskDetailsViewController: UIViewController {
                                         self.delay(seconds: 1.0, completion: { () -> () in
                                             self.hideSpinner()
                                             self.beginInteraction()
+                                            self.slow = false
                                         })
                                     } else if let object = object {
                                         // Saved
@@ -173,12 +195,15 @@ class taskDetailsViewController: UIViewController {
                                         
                                         object.saveInBackground()
                                         
+                                        
+                                        
                                         self.addSpinner("Success - The requester has been notified", Animated: false)
                                         self.delay(seconds: 1.0, completion: { () -> () in
                                             self.acceptButtonOutlet.backgroundColor = UIColor(red: 192/250, green: 57/250, blue: 43/250, alpha: 1.0)
                                             self.acceptButtonOutlet.enabled = false
                                             self.acceptButtonOutlet.setTitle("Accepted", forState: UIControlState.Normal)
                                             self.hideSpinner()
+                                            self.slow = false
                                         })
                                     }
                                     
@@ -186,6 +211,7 @@ class taskDetailsViewController: UIViewController {
                                 
                             } else {
                                 println("Error")
+                                self.slow = false
                             }
                         }
                     }

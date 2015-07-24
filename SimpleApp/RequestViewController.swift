@@ -45,7 +45,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                 request["requester"] = fbUsername
                 request["task"] = self.selectedRowData
                 request["zipcode"] = zipcode
-                request["accepted"] = false
+                request["accepted"] = "No"
                 
                 var query = PFQuery(className: "request")
                 query.whereKey("task", equalTo: self.selectedRowData)
