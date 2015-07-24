@@ -195,16 +195,31 @@ class taskDetailsViewController: UIViewController {
                                         
                                         object.saveInBackground()
                                         
+                                        var chatSave = PFObject(className: "chat")
+                                        chatSave["sender1"] = fbUsername
+                                        chatSave["sender2"] = selectedRowDetail
                                         
-                                        
-                                        self.addSpinner("Success - The requester has been notified", Animated: false)
-                                        self.delay(seconds: 1.0, completion: { () -> () in
-                                            self.acceptButtonOutlet.backgroundColor = UIColor(red: 192/250, green: 57/250, blue: 43/250, alpha: 1.0)
-                                            self.acceptButtonOutlet.enabled = false
-                                            self.acceptButtonOutlet.setTitle("Accepted", forState: UIControlState.Normal)
-                                            self.hideSpinner()
-                                            self.slow = false
+                                        chatSave.saveInBackgroundWithBlock({ (didWork, error) -> Void in
+                                            if error != nil {
+                                                println("Error")
+                                                self.addSpinner("Error", Animated: false)
+                                                self.delay(seconds: 1.0, completion: { () -> () in
+                                                    self.hideSpinner()
+                                                    self.beginInteraction()
+                                                    self.slow = false
+                                                })
+                                            } else {
+                                                self.addSpinner("Success - The requester has been notified", Animated: false)
+                                                self.delay(seconds: 1.0, completion: { () -> () in
+                                                    self.acceptButtonOutlet.backgroundColor = UIColor(red: 192/250, green: 57/250, blue: 43/250, alpha: 1.0)
+                                                    self.acceptButtonOutlet.enabled = false
+                                                    self.acceptButtonOutlet.setTitle("Accepted", forState: UIControlState.Normal)
+                                                    self.hideSpinner()
+                                                    self.slow = false
+                                                })
+                                            }
                                         })
+                                        
                                     }
                                     
                                 }
