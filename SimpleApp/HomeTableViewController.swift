@@ -42,6 +42,7 @@ class HomeTableViewController: PFQueryTableViewController {
         println("queryForTable")
         
         var query = PFQuery(className: "request")
+        query.whereKey("accepted", notEqualTo: "Yes")
         if zipcode != nil {
             query.whereKey("zipcode", equalTo: zipcode!)
             println("zipcode")

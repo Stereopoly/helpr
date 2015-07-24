@@ -14,7 +14,8 @@ class taskDetailsViewController: UIViewController {
     
     var label = ""
     var userId: String = ""
-
+    var accepted: String = ""
+    
     @IBOutlet weak var taskNameLabel: UILabel!
     
     @IBOutlet weak var nameLabel: UILabel!
@@ -22,7 +23,42 @@ class taskDetailsViewController: UIViewController {
     @IBOutlet weak var acceptButtonOutlet: UIButton!
     
     @IBAction func acceptButton(sender: AnyObject) {
-        sendPush()
+        addSpinner("Requesting...", Animated: true)
+        ignoreInteraction()
+        
+        var query = PFQuery(className: "request")
+        query.whereKey("requester", equalTo: selectedRowDetail)
+        
+        query.findObjectsInBackgroundWithBlock {
+            (objects: [AnyObject]?, error: NSError?) -> Void in
+            
+            if error == nil {
+                // The find succeeded.
+                println("Successfully retrieved \(objects!.count) scores.")
+                // Do something with the found objects
+                if let objects = objects as? [PFObject] {
+                    for object in objects {
+                        self.accepted = object["accepted"] as! String
+                        println(self.accepted)
+                    }
+                }
+                if self.accepted == "Yes" {
+                    self.addSpinner("This task has been already accepted", Animated: false)
+                    self.delay(seconds: 1.0, completion: { () -> () in
+                        self.acceptButtonOutlet.backgroundColor = UIColor(red: 192/250, green: 57/250, blue: 43/250, alpha: 1.0)
+                        self.acceptButtonOutlet.enabled = false
+                        self.acceptButtonOutlet.setTitle("Accepted", forState: UIControlState.Normal)
+                        self.hideSpinner()
+                        self.beginInteraction()
+                    })
+                } else {
+                    self.sendPush()
+                }
+            } else {
+                // Log details of the failure
+                println("Error: \(error!) \(error!.userInfo!)")
+            }
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -42,7 +78,7 @@ class taskDetailsViewController: UIViewController {
         acceptButtonOutlet.setTitle("Accept", forState: UIControlState.Normal)
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -51,8 +87,6 @@ class taskDetailsViewController: UIViewController {
     // MARK: - Push Notifications
     
     func sendPush() {
-        addSpinner("Requesting...", Animated: true)
-        ignoreInteraction()
         
         if self.nameLabel.text == "You" {
             delay(seconds: 1.0, completion: { () -> () in
@@ -77,11 +111,12 @@ class taskDetailsViewController: UIViewController {
             let taskName = selectedRowText
             let hasFiller = " has "
             let helpFiller = " help."
+            let talkFiller = " You may chat with him/her within the app now."
             
             let content: String = "accepted your request for "
             
             // compiles message
-            let fullMessage = currUsername + hasFiller + content + taskName + helpFiller
+            let fullMessage = currUsername + hasFiller + content + taskName + helpFiller + talkFiller
             
             println(fullMessage)
             
@@ -146,9 +181,9 @@ class taskDetailsViewController: UIViewController {
                                             self.hideSpinner()
                                         })
                                     }
-                                
+                                    
                                 }
-
+                                
                             } else {
                                 println("Error")
                             }
@@ -188,15 +223,15 @@ class taskDetailsViewController: UIViewController {
             completion()
         }
     }
-
+    
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }
