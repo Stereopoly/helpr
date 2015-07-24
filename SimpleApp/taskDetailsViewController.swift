@@ -24,8 +24,11 @@ class taskDetailsViewController: UIViewController {
     @IBOutlet weak var acceptButtonOutlet: UIButton!
     
     @IBAction func acceptButton(sender: AnyObject) {
-        addSpinner("Requesting...", Animated: true)
         ignoreInteraction()
+        
+        UIApplication.sharedApplication().beginIgnoringInteractionEvents()
+
+        addSpinner("Requesting...", Animated: true)
         
         delay(seconds: 6.0) { () -> () in
             if self.slow == true {
@@ -108,7 +111,7 @@ class taskDetailsViewController: UIViewController {
         
         if self.nameLabel.text == "You" {
             delay(seconds: 1.0, completion: { () -> () in
-                self.addSpinner("You requested this task", Animated: false)
+                self.addSpinner("Error - You requested this task", Animated: false)
                 self.delay(seconds: 1.0, completion: { () -> () in
                     self.hideSpinner()
                     self.beginInteraction()
@@ -216,6 +219,7 @@ class taskDetailsViewController: UIViewController {
                                                     self.acceptButtonOutlet.setTitle("Accepted", forState: UIControlState.Normal)
                                                     self.hideSpinner()
                                                     self.slow = false
+                                                    self.beginInteraction()
                                                 })
                                             }
                                         })

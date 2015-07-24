@@ -172,6 +172,9 @@ class HomeTableViewController: PFQueryTableViewController {
         
         performSegueWithIdentifier("toDetail", sender: self)
         
+        tableView.deselectRowAtIndexPath(indexPath!, animated: true)
+        
+        
     }
 
     

@@ -36,14 +36,20 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
 
         // Do any additional setup after loading the view.
         
-        NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "onTimer", userInfo: nil, repeats: true)
-        
         self.messageText.delegate = self
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.reloadData()
         
         self.tableView.registerClass(MessageViewCell.self, forCellReuseIdentifier: "cell")
+        
+        if checkForChat() {
+            getMessages()
+            NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "onTimer", userInfo: nil, repeats: true)
+        } else {
+            // segue away
+            self.performSegueWithIdentifier("toNoChat", sender: self)
+        }
         
     }
     
@@ -67,6 +73,27 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
         }
     }
     
+    func checkForChat() -> Bool {       // function to check if in a chat group
+        var check: Bool = false
+        
+        var query = PFQuery(className: "chat")
+        query.whereKey("sender1", equalTo: fbUsername)
+        
+        let objects = query.findObjects()
+        
+        println(objects?.count)
+        if objects?.count == 1 {
+            println("Found chat relationship")
+            check = true
+        } else {
+            println("Not in any chat group")
+            check = false
+        }
+        
+        println(check)
+        return check
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let messages = messages {
             return messages.count
@@ -82,6 +109,7 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("MessageViewCell", forIndexPath: indexPath) as! MessageViewCell
+
         var messageText = messages![indexPath.row]
    //     cell.messageCellText.text = messageText["text"] as? String
         
@@ -180,7 +208,6 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
         
-        addSpinner("Loading", Animated: true)
         ignoreInteraction()
     }
     
