@@ -9,6 +9,9 @@
 import UIKit
 import Parse
 
+var sender1: String = ""
+var sender2: String = ""
+
 class NoHelpViewController: UIViewController {
 
     override func viewDidLoad() {
@@ -30,9 +33,11 @@ class NoHelpViewController: UIViewController {
         if checkForChat() {
             println("Now is in chat group")
             
-            self.dismissViewControllerAnimated(true, completion: { () -> Void in
-                println("Dismissed")
-            })
+            self.navigationController?.popViewControllerAnimated(false)
+//            self.dismissViewControllerAnimated(true, completion: { () -> Void in
+//                println("Dismissed")
+//                
+//            })
         } else {
             println("Still isn't in chat group. Stay here.")
         }
@@ -43,16 +48,30 @@ class NoHelpViewController: UIViewController {
         
         var query = PFQuery(className: "chat")
         query.whereKey("sender1", equalTo: fbUsername)
-        query.whereKey("sender2", equalTo: fbUsername)
+        
+        var query2 = PFQuery(className: "chat")
+        query2.whereKey("sender2", equalTo: fbUsername)
+        
+        let mergedQueries = PFQuery.orQueryWithSubqueries([query, query2])
         
         println("fbusername: " + fbUsername)
         
-        let objects = query.findObjects()
+        let objects = mergedQueries.findObjects()
         
         println(objects)
         if objects?.count == 1 {
             println("Found chat relationship")
             check = true
+            if let objects = objects {
+                for objects in objects {
+                    sender1 = objects["sender1"] as! String
+                    sender2 = objects["sender2"] as! String
+                    println("sender1: " + sender1)
+                    println("sender2: " + sender2)
+                }
+            }
+            println(sender1)
+        
         } else {
             println("Not in any chat group")
             check = false

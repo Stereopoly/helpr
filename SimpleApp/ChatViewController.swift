@@ -36,16 +36,20 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
 
         // Do any additional setup after loading the view.
         
+        self.addSpinner("Loading...", Animated: true)
+        
         self.messageText.delegate = self
         self.tableView.dataSource = self
         self.tableView.delegate = self
-        self.tableView.reloadData()
         
         self.tableView.registerClass(MessageViewCell.self, forCellReuseIdentifier: "cell")
         
         if checkForChat() {
             getMessages()
+            self.hideSpinner()
+            println("Hide spinner")
             NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "onTimer", userInfo: nil, repeats: true)
+          
         } else {
             // segue away
             println("Segue away")
@@ -95,6 +99,14 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
         if objects?.count == 1 {
             println("Found chat relationship")
             check = true
+            if let objects = objects {
+                for objects in objects {
+                    sender1 = objects["sender1"] as! String
+                    sender2 = objects["sender2"] as! String
+                    println("sender1: " + sender1)
+                    println("sender2: " + sender2)
+                }
+            }
         } else {
             println("Not in any chat group")
             check = false
@@ -148,6 +160,13 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
             self.messages = []
             var query = PFQuery(className:"Message")
             query.orderByDescending("createdAt")
+            query.whereKey("sender", equalTo: sender1)
+            
+            var query2 = PFQuery(className: "Message")
+            query2.orderByDescending("createdAt")
+            query2.whereKey("sender", equalTo: sender2)
+            let comboQuery = PFQuery.orQueryWithSubqueries([query, query2])
+            
             query.findObjectsInBackgroundWithBlock {
                 (objects: [AnyObject]?, error: NSError?) -> Void in
                 
@@ -172,6 +191,11 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
                 } else {
                     // Log details of the failure
                     println("Error: \(error!) \(error!.userInfo!)")
+                    self.addSpinner("Error", Animated: false)
+                    self.delay(seconds: 1.0, completion: { () -> () in
+                        self.hideSpinner()
+                        
+                    })
                 }
             }
         } else {
@@ -208,6 +232,11 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
                 } else {
                     // Log details of the failure
                     println("Error: \(error!) \(error!.userInfo!)")
+                    self.addSpinner("Error", Animated: false)
+                    self.delay(seconds: 1.0, completion: { () -> () in
+                        self.hideSpinner()
+                        
+                    })
                 }
             }
         }
