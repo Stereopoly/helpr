@@ -1153,10 +1153,10 @@
             </objects>
             <point key="canvasLocation" x="1191" y="1041"/>
         </scene>
-        <!--View Controller-->
+        <!--No Help View Controller-->
         <scene sceneID="O3H-Ec-d1i">
             <objects>
-                <viewController id="9yp-J1-2IC" sceneMemberID="viewController">
+                <viewController id="9yp-J1-2IC" customClass="NoHelpViewController" customModule="Wanna_Help" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0Zt-XD-GNQ"/>
                         <viewControllerLayoutGuide type="bottom" id="LCZ-w1-FZc"/>
@@ -1165,8 +1165,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Once you acccept a request, a chat window will appear here." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xsd-Jv-2z4">
-                                <rect key="frame" x="167" y="269" width="267" height="62"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Once you acccept a request, a chat window will appear here." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xsd-Jv-2z4">
+                                <rect key="frame" x="185" y="269" width="230" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="267" id="Ykp-cN-pZk"/>
                                 </constraints>

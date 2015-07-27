@@ -23,6 +23,7 @@
 		556EB0241B38CC1E00784845 /* SimpleAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556EB0231B38CC1E00784845 /* SimpleAppTests.swift */; };
 		55A31E6B1B580EA700A094B6 /* ZipCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A31E6A1B580EA700A094B6 /* ZipCodeViewController.swift */; };
 		55B1EF261B4EDC6200B8D890 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B1EF251B4EDC6200B8D890 /* HomeTableViewController.swift */; };
+		55C359FC1B668F0E00A392C5 /* NoHelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C359FB1B668F0E00A392C5 /* NoHelpViewController.swift */; };
 		55C82BE11B4D890A00220E17 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55C82BE01B4D890A00220E17 /* AudioToolbox.framework */; };
 		55C82BE31B4D891000220E17 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55C82BE21B4D891000220E17 /* CFNetwork.framework */; };
 		55C82BE51B4D891600220E17 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55C82BE41B4D891600220E17 /* CoreGraphics.framework */; };
@@ -74,6 +75,7 @@
 		556EB0231B38CC1E00784845 /* SimpleAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleAppTests.swift; sourceTree = "<group>"; };
 		55A31E6A1B580EA700A094B6 /* ZipCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZipCodeViewController.swift; sourceTree = "<group>"; };
 		55B1EF251B4EDC6200B8D890 /* HomeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
+		55C359FB1B668F0E00A392C5 /* NoHelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoHelpViewController.swift; sourceTree = "<group>"; };
 		55C82BE01B4D890A00220E17 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		55C82BE21B4D891000220E17 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		55C82BE41B4D891600220E17 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -177,6 +179,7 @@
 				55A31E6A1B580EA700A094B6 /* ZipCodeViewController.swift */,
 				552B86101B596883003739A8 /* taskDetailsViewController.swift */,
 				55583E361B604C4D00204898 /* ChatViewController.swift */,
+				55C359FB1B668F0E00A392C5 /* NoHelpViewController.swift */,
 				5520DFAB1B6064C00099D879 /* MessageViewCell.swift */,
 				556EB0111B38CC1E00784845 /* Main.storyboard */,
 				5550082C1B4C3C8B008E61E5 /* Launch Screen.xib */,
@@ -396,6 +399,7 @@
 				550AF7A21B3A0C8000CB390B /* SignUpViewController.swift in Sources */,
 				55A31E6B1B580EA700A094B6 /* ZipCodeViewController.swift in Sources */,
 				55B1EF261B4EDC6200B8D890 /* HomeTableViewController.swift in Sources */,
+				55C359FC1B668F0E00A392C5 /* NoHelpViewController.swift in Sources */,
 				55583E371B604C4D00204898 /* ChatViewController.swift in Sources */,
 				550AF7A01B3A085F00CB390B /* StartViewController.swift in Sources */,
 				5520DFAC1B6064C00099D879 /* MessageViewCell.swift in Sources */,

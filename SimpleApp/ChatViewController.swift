@@ -50,7 +50,9 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
             // segue away
             println("Segue away")
             self.performSegueWithIdentifier("toNoChat", sender: self)
-        } // TODO: - Stops interaction or something here
+            self.navigationController?.popViewControllerAnimated(false)
+            
+        }
         
     }
     
@@ -79,9 +81,15 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
         
         var query = PFQuery(className: "chat")
         query.whereKey("sender1", equalTo: fbUsername)
-        query.whereKey("sender2", equalTo: fbUsername)
         
-        let objects = query.findObjects()
+        var query2 = PFQuery(className: "chat")
+        query2.whereKey("sender2", equalTo: fbUsername)
+        
+        let mergedQueries = PFQuery.orQueryWithSubqueries([query, query2])
+        
+        println("fbusername: " + fbUsername)
+        
+        let objects = mergedQueries.findObjects()
         
         println(objects)
         if objects?.count == 1 {
@@ -209,6 +217,8 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
     override func viewWillAppear(animated: Bool) {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+        
+        println("Viewwillappear - Chat")
         
     }
     
