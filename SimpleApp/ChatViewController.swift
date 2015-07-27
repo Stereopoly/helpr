@@ -48,6 +48,7 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
             NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "onTimer", userInfo: nil, repeats: true)
         } else {
             // segue away
+            println("Segue away")
             self.performSegueWithIdentifier("toNoChat", sender: self)
         } // TODO: - Stops interaction or something here
         
@@ -77,10 +78,8 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
         var check: Bool = false
         
         var query = PFQuery(className: "chat")
-//        query.whereKey("sender1", equalTo: fbUsername)
-//        query.whereKey("sender2", equalTo: fbUsername)
-        
-        println(fbUsername)
+        query.whereKey("sender1", equalTo: fbUsername)
+        query.whereKey("sender2", equalTo: fbUsername)
         
         let objects = query.findObjects()
         
@@ -211,7 +210,6 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
         
-        ignoreInteraction()
     }
     
     override func viewWillDisappear(animated: Bool) {

@@ -12,7 +12,6 @@ import SwiftSpinner
 
 class taskDetailsViewController: UIViewController {
     
-    var label = ""
     var userId: String = ""
     var accepted: String = ""
     var slow:Bool = true
@@ -53,12 +52,12 @@ class taskDetailsViewController: UIViewController {
             
             if error == nil {
                 // The find succeeded.
-                println("Successfully retrieved \(objects!.count) scores.")
+                println("Successfully retrieved \(objects!.count) objects.")
                 // Do something with the found objects
                 if let objects = objects as? [PFObject] {
                     for object in objects {
                         self.accepted = object["accepted"] as! String
-                        println(self.accepted)
+                        println("Self.accepted: " + self.accepted)
                     }
                 }
                 if self.accepted == "Yes" {
@@ -125,7 +124,7 @@ class taskDetailsViewController: UIViewController {
             // only ios
             baseQuery.whereKey("deviceType", equalTo: "ios")
             
-            baseQuery.whereKey("username", equalTo: label)
+            baseQuery.whereKey("user", equalTo: selectedRowDetail)
             
             
             // compile message
@@ -140,7 +139,7 @@ class taskDetailsViewController: UIViewController {
             // compiles message
             let fullMessage = currUsername + hasFiller + content + taskName + helpFiller + talkFiller
             
-            println(fullMessage)
+            println("Fullmessage: " + fullMessage)
             
             // sends push notification
             PFPush.sendPushMessageToQueryInBackground(baseQuery, withMessage: fullMessage) { (didSend, error) -> Void in
