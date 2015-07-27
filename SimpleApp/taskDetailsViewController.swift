@@ -151,6 +151,7 @@ class taskDetailsViewController: UIViewController {
                     self.delay(seconds: 1.0, completion: { () -> () in
                         self.hideSpinner()
                         self.slow = false
+                        self.beginInteraction()
                     })
                 } else {
                     // celebrate
@@ -231,6 +232,7 @@ class taskDetailsViewController: UIViewController {
                             } else {
                                 println("Error")
                                 self.slow = false
+                                self.beginInteraction()
                             }
                         }
                     }

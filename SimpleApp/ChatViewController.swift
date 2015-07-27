@@ -49,7 +49,7 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
         } else {
             // segue away
             self.performSegueWithIdentifier("toNoChat", sender: self)
-        }
+        } // TODO: - Stops interaction or something here
         
     }
     
@@ -77,11 +77,14 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
         var check: Bool = false
         
         var query = PFQuery(className: "chat")
-        query.whereKey("sender1", equalTo: fbUsername)
+//        query.whereKey("sender1", equalTo: fbUsername)
+//        query.whereKey("sender2", equalTo: fbUsername)
+        
+        println(fbUsername)
         
         let objects = query.findObjects()
         
-        println(objects?.count)
+        println(objects)
         if objects?.count == 1 {
             println("Found chat relationship")
             check = true

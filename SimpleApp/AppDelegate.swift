@@ -101,7 +101,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         let installation = PFInstallation.currentInstallation()
         installation.setDeviceTokenFromData(deviceToken)
-        installation.saveInBackground()
+        
+        let request = FBSDKGraphRequest(graphPath: "me", parameters: nil)
+        request.startWithCompletionHandler { (connection, result, error) -> Void in
+            if error != nil {
+                println("Error")
+            } else if let userData = result as? [String:AnyObject] {
+                let username = userData["name"] as? String
+                fbUsername = username!
+                println(fbUsername)
+                installation["user"] = fbUsername
+                installation.saveInBackground()
+                println("Push notifs registered")
+            }
+        }
+        
+        
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {

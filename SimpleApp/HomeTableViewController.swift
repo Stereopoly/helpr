@@ -66,6 +66,10 @@ class HomeTableViewController: PFQueryTableViewController {
         
         println(fbUsername)
         
+        let installation = PFInstallation.currentInstallation()
+        installation["user"] = fbUsername
+        installation.saveInBackground()
+        
         
    //     self.loadObjects()
         
@@ -160,6 +164,7 @@ class HomeTableViewController: PFQueryTableViewController {
             }
         }
     }
+
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let indexPath = tableView.indexPathForSelectedRow();
