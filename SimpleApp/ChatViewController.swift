@@ -55,6 +55,7 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
             println("Segue away")
             self.performSegueWithIdentifier("toNoChat", sender: self)
             self.navigationController?.popViewControllerAnimated(false)
+            self.hideSpinner()
             
         }
         

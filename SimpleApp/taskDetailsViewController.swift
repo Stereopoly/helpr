@@ -70,6 +70,7 @@ class taskDetailsViewController: UIViewController {
                         self.beginInteraction()
                         self.slow = false
                     })
+                    self.beginInteraction()
                 } else {
                     self.sendPush()
                 }
