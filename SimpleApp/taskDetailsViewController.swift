@@ -10,6 +10,8 @@ import UIKit
 import Parse
 import SwiftSpinner
 
+var acceptedTask: String = ""
+
 class taskDetailsViewController: UIViewController {
     
     var userId: String = ""
@@ -127,6 +129,7 @@ class taskDetailsViewController: UIViewController {
             
             baseQuery.whereKey("user", equalTo: selectedRowDetail)
             
+            acceptedTask = selectedRowText
             
             // compile message
             let currUsername = fbUsername
@@ -196,6 +199,7 @@ class taskDetailsViewController: UIViewController {
                                         println(object)
                                         
                                         object["accepted"] = "Yes"
+                                        object["acceptedBy"] = fbUsername
                                         
                                         object.saveInBackground()
                                         
