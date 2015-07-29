@@ -109,9 +109,10 @@ class ProfileViewController: UIViewController {
                         for object in objects {
                             println(object)
                             let name = object["requester"] as? String
+                            let sFiller = "'s"
                             let requestFiller = " request for "
                             let task = object["task"] as? String
-                            self.acceptedLabel.text = name! + requestFiller + task!
+                            self.acceptedLabel.text = name! + sFiller + requestFiller + task!
                             self.acceptedLabel.hidden = false
                         }
                     } else {
