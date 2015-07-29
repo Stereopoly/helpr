@@ -22,6 +22,12 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet weak var acceptedLabel: UILabel!
     
+    @IBOutlet weak var recievedButton: UIButton!
+    
+    @IBOutlet weak var didNotRecieveButton: UIButton!
+    
+    @IBOutlet weak var withdrawButton: UIButton!
+    
     @IBAction func logoutButton(sender: AnyObject) {
         FBSDKAccessToken.currentAccessToken() == nil
         self.navigationController?.popViewControllerAnimated(false)
@@ -44,6 +50,11 @@ class ProfileViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
+        
+        recievedButton.layer.cornerRadius = 20
+        didNotRecieveButton.layer.cornerRadius = 20
+        withdrawButton.layer.cornerRadius = 20
+
         getTask()
         getAccepted()
     }
