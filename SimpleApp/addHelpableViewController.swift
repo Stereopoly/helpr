@@ -13,9 +13,9 @@ import SwiftSpinner
 
 class addHelpableViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
-    let pickerData = ["Math", "Science", "English", "History", "Writing", "Health"]
+    let pickerData = ["", "Math", "Science", "English", "History", "Writing", "Health"]
     var selectedRowData:String = ""
-
+    
     @IBOutlet weak var pickerView: UIPickerView!
     
     @IBOutlet weak var addButtonLabel: UIButton!
@@ -26,80 +26,87 @@ class addHelpableViewController: UIViewController, UIPickerViewDataSource, UIPic
         ignoreInteraction()
         addSpinner("Adding", Animated: true)
         
-        
-        
-        var request = PFObject(className: "help")
-        request["helper"] = fbUsername
-        request["helpable"] = selectedRowData
-        
-        var query = PFQuery(className: "help")
-        query.whereKey("helpable", equalTo: selectedRowData)
-        query.whereKey("helper", equalTo: fbUsername)
-        
-        query.findObjectsInBackgroundWithBlock {
-            (objects: [AnyObject]?, error: NSError?) -> Void in
+        if selectedRowData.isEmpty == true {
+            self.addSpinner("Select a task", Animated: false)
+            self.delay(seconds: 1.0, completion: { () -> () in
+                self.hideSpinner()
+                self.beginInteraction()
+            })
+        } else {
             
-            if error == nil {
-                // The find succeeded.
-                println("Successfully retrieved \(objects!.count) tasks.")
-                // Do something with the found objects
-                if objects!.count == 0 {
-                    request.saveInBackgroundWithBlock({ (didWork, error) -> Void in
+            var request = PFObject(className: "help")
+            request["helper"] = fbUsername
+            request["helpable"] = selectedRowData
+            
+            var query = PFQuery(className: "help")
+            query.whereKey("helpable", equalTo: selectedRowData)
+            query.whereKey("helper", equalTo: fbUsername)
+            
+            query.findObjectsInBackgroundWithBlock {
+                (objects: [AnyObject]?, error: NSError?) -> Void in
+                
+                if error == nil {
+                    // The find succeeded.
+                    println("Successfully retrieved \(objects!.count) tasks.")
+                    // Do something with the found objects
+                    if objects!.count == 0 {
+                        request.saveInBackgroundWithBlock({ (didWork, error) -> Void in
+                            self.delay(seconds: 1.0, completion: { () -> () in
+                                println(request)
+                                if error != nil {
+                                    // handle error
+                                    println("Error")
+                                    self.addSpinner("Please try again later", Animated: false)
+                                    self.delay(seconds: 1.0, completion: { () -> () in
+                                        self.hideSpinner()
+                                        self.beginInteraction()
+                                    })
+                                } else {
+                                    println("Success")
+                                    self.addSpinner("Success", Animated: false)
+                                    self.delay(seconds: 1.0, completion: { () -> () in
+                                        self.hideSpinner()
+                                        self.beginInteraction()
+                                    })
+                                }
+                            })
+                            
+                        })
+                    } else {
                         self.delay(seconds: 1.0, completion: { () -> () in
-                            println(request)
-                            if error != nil {
-                                // handle error
-                                println("Error")
-                                self.addSpinner("Please try again later", Animated: false)
-                                self.delay(seconds: 1.0, completion: { () -> () in
-                                    self.hideSpinner()
-                                    self.beginInteraction()
-                                })
-                            } else {
-                                println("Success")
-                                self.addSpinner("Success", Animated: false)
-                                self.delay(seconds: 1.0, completion: { () -> () in
-                                    self.hideSpinner()
-                                    self.beginInteraction()
-                                })
-                            }
+                            self.addSpinner("Already added", Animated: false)
+                            self.delay(seconds: 1.0, completion: { () -> () in
+                                self.hideSpinner()
+                                self.beginInteraction()
+                            })
                         })
                         
-                    })
+                    }
                 } else {
+                    // Log details of the failure
+                    println("Error: \(error!) \(error!.userInfo!)")
+                    self.addSpinner("Please try again later", Animated: false)
                     self.delay(seconds: 1.0, completion: { () -> () in
-                        self.addSpinner("Already added", Animated: false)
-                        self.delay(seconds: 1.0, completion: { () -> () in
-                            self.hideSpinner()
-                            self.beginInteraction()
-                        })
+                        self.hideSpinner()
                     })
-                    
                 }
-            } else {
-                // Log details of the failure
-                println("Error: \(error!) \(error!.userInfo!)")
-                self.addSpinner("Please try again later", Animated: false)
-                self.delay(seconds: 1.0, completion: { () -> () in
-                    self.hideSpinner()
-                })
             }
         }
-
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         pickerView.delegate = self
-
+        
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(animated: Bool) {
         addButtonLabel.layer.cornerRadius = 20
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -157,16 +164,16 @@ class addHelpableViewController: UIViewController, UIPickerViewDataSource, UIPic
             completion()
         }
     }
-
+    
     
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }

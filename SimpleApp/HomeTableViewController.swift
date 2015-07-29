@@ -19,6 +19,7 @@ var selectedRowText = ""
 var selectedRowDetail = ""
 var fbUsername: String = ""
 var zipcode: Int?
+var helpable: [String] = []
 
 
 class HomeTableViewController: PFQueryTableViewController {
@@ -33,7 +34,7 @@ class HomeTableViewController: PFQueryTableViewController {
         self.parseClassName = "request"
         self.pullToRefreshEnabled = true
         self.paginationEnabled = false     // load more... button on table view
-     //   self.objectsPerPage = 5
+        //   self.objectsPerPage = 5
         
     }
     
@@ -47,18 +48,21 @@ class HomeTableViewController: PFQueryTableViewController {
             query.whereKey("zipcode", equalTo: zipcode!)
             println("zipcode")
         }
+        if helpable.isEmpty == false {
+            query.whereKey("task", containedIn: helpable)
+        }
         query.orderByAscending("createdAt")
         
         return query
     }
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+        
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
@@ -70,19 +74,12 @@ class HomeTableViewController: PFQueryTableViewController {
         installation["user"] = fbUsername
         installation.saveInBackground()
         
-        
-   //     self.loadObjects()
-        
-  //      let user = FBSDKAccessToken.currentAccessToken()
-        
-  //      println(user)
-        
     }
     
     override func viewWillAppear(animated: Bool) {
-        
+        getHelpable()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -139,12 +136,13 @@ class HomeTableViewController: PFQueryTableViewController {
                 
                 query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
                     if error == nil {
-                        println(objects?.count)
+                        println("User count: \(objects?.count)")
                         if objects!.count == 1 {
                             if let zip = objects?[0] {
                                 zipcode = zip["zipcode"] as? Int
                                 println(objects?[0])
-                                self.loadObjects()
+                                self.getHelpable()
+                                //      self.loadObjects()
                             }
                         } else {
                             //    SwiftSpinner.setTitleFont(UIFont(name: "System", size: 19))
@@ -155,16 +153,42 @@ class HomeTableViewController: PFQueryTableViewController {
                         }
                     }
                 }
-
+                
                 self.delay(seconds: 1.0, completion: { () -> () in
                     self.hideSpinner()
                     self.endIgnore()
-
+                    
                 })
             }
         }
     }
-
+    
+    func getHelpable() {
+        var query = PFQuery(className: "help")
+        query.whereKey("helper", equalTo: fbUsername)
+        
+        query.findObjectsInBackgroundWithBlock {
+            (objects, error) -> Void in
+            if error == nil {
+                if let objects = objects {
+                    println("Objects: \(objects)")
+                    for object in objects {
+                        
+                        if let object = object as? PFObject {
+                            
+                            helpable.append( object["helpable"] as! String )
+                            
+                        }
+                    }
+                }
+                println("Array: \(helpable)")
+            } else {
+                println("Error: \(error)")
+            }
+        }
+        
+    }
+    
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let indexPath = tableView.indexPathForSelectedRow();
@@ -172,7 +196,7 @@ class HomeTableViewController: PFQueryTableViewController {
         println(tableView.cellForRowAtIndexPath(indexPath!))
         
         selectedRowText = tableView.cellForRowAtIndexPath(indexPath!)!.textLabel!.text!
-            
+        
         selectedRowDetail = tableView.cellForRowAtIndexPath(indexPath!)!.detailTextLabel!.text!
         
         performSegueWithIdentifier("toDetail", sender: self)
@@ -181,7 +205,7 @@ class HomeTableViewController: PFQueryTableViewController {
         
         
     }
-
+    
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
         var cell = tableView.dequeueReusableCellWithIdentifier("cell") as? PFTableViewCell
@@ -236,42 +260,42 @@ class HomeTableViewController: PFQueryTableViewController {
     func endIgnore() {
         UIApplication.sharedApplication().endIgnoringInteractionEvents()
     }
-
+    
     /*
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    if editingStyle == .Delete {
+    // Delete the row from the data source
+    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+    } else if editingStyle == .Insert {
+    // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }
     }
     */
-
+    
     /*
     // Override to support rearranging the table view.
     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
+    
     }
     */
-
+    
     /*
     // Override to support conditional rearranging of the table view.
     override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
+    // Return NO if you do not want the item to be re-orderable.
+    return true
     }
     */
-
+    
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }
