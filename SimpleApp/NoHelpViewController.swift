@@ -20,7 +20,9 @@ class NoHelpViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         self.navigationItem.setHidesBackButton(true, animated: false)
+        self.navigationItem.title = ""
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -28,6 +30,7 @@ class NoHelpViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
+        
         println("Viewwillappear - No Help")
         
         if checkForChat() {

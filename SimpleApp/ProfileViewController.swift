@@ -39,14 +39,46 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.addSpinner("Loading", Animated: true)
+        self.beginIgnore()
+        
         // Do any additional setup after loading the view.
         nameLabel.hidden = true
         taskLabel.hidden = true
         acceptedLabel.hidden = true
-        nameLabel.text = fbUsername
         nameLabel.hidden = false
-        //     getUsername()
         
+        let request = FBSDKGraphRequest(graphPath: "me", parameters: nil)
+        
+        request.startWithCompletionHandler {
+            
+            (connection, result, error) in
+            
+            if error != nil {
+                // Some error checking here
+                println("Error in user request")
+                self.addSpinner("Error", Animated: false)
+                self.delay(seconds: 1.0, completion: { () -> () in
+                    self.hideSpinner()
+                    self.endIgnore()
+                })
+            }
+            else if let userData = result as? [String:AnyObject] {
+                
+                // Access user data
+                let username = userData["name"] as? String
+                fbUsername = username!
+                self.addSpinner("Done", Animated: false)
+                self.delay(seconds: 1.0, completion: { () -> () in
+                    self.nameLabel.text = fbUsername
+                    self.getTask()
+                    self.getAccepted()
+                    self.hideSpinner()
+                    self.endIgnore()
+                })
+            }
+        
+        }
     }
     
     override func viewWillAppear(animated: Bool) {

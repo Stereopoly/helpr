@@ -43,6 +43,7 @@ class HomeTableViewController: PFQueryTableViewController {
         println("queryForTable")
         
         var query = PFQuery(className: "request")
+        query.whereKey("requester", notEqualTo: fbUsername)
         query.whereKey("accepted", notEqualTo: "Yes")
         if zipcode != nil {
             query.whereKey("zipcode", equalTo: zipcode!)
@@ -182,6 +183,7 @@ class HomeTableViewController: PFQueryTableViewController {
                     }
                 }
                 println("Array: \(helpable)")
+                self.loadObjects()
             } else {
                 println("Error: \(error)")
             }
