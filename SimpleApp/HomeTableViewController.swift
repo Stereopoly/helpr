@@ -108,61 +108,37 @@ class HomeTableViewController: PFQueryTableViewController {
         
         addSpinner("Loading", Animated: true)
         
-        let request = FBSDKGraphRequest(graphPath: "me", parameters: nil)
+        var query = PFQuery(className: "_User")
+        query.whereKey("username", equalTo: fbUsername)
         
-        request.startWithCompletionHandler {
-            
-            (connection, result, error) in
-            
-            if error != nil {
-                // Some error checking here
-                println("Error in user request")
-                self.addSpinner("Error", Animated: false)
-                self.delay(seconds: 1.0, completion: { () -> () in
-                    self.hideSpinner()
-                    self.endIgnore()
-                })
-            }
-            else if let userData = result as? [String:AnyObject] {
-                
-                // Access user data
-                let username = userData["name"] as? String
-                fbUsername = username!
-                println(fbUsername)
-                self.addSpinner("Done", Animated: false)
-                slow = false
-                
-                var query = PFQuery(className: "_User")
-                query.whereKey("username", equalTo: fbUsername)
-                
-                query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
-                    if error == nil {
-                        println("User count: \(objects?.count)")
-                        if objects!.count == 1 {
-                            if let zip = objects?[0] {
-                                zipcode = zip["zipcode"] as? Int
-                                println(objects?[0])
-                                self.getHelpable()
-                                //      self.loadObjects()
-                            }
-                        } else {
-                            //    SwiftSpinner.setTitleFont(UIFont(name: "System", size: 19))
-                            self.addSpinner("Error", Animated: false)
-                            self.delay(seconds: 1.0, completion: { () -> () in
-                                self.hideSpinner()
-                            })
-                        }
+        query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+            slow = false
+            if error == nil {
+                println("User count: \(objects?.count)")
+                if objects!.count == 1 {
+                    if let zip = objects?[0] {
+                        zipcode = zip["zipcode"] as? Int
+                        println(objects?[0])
+                        self.getHelpable()
+                        //      self.loadObjects()
                     }
+                } else {
+                    //    SwiftSpinner.setTitleFont(UIFont(name: "System", size: 19))
+                    self.addSpinner("Error", Animated: false)
+                    self.delay(seconds: 1.0, completion: { () -> () in
+                        self.hideSpinner()
+                    })
                 }
-                
-                self.delay(seconds: 1.0, completion: { () -> () in
-                    self.hideSpinner()
-                    self.endIgnore()
-                    
-                })
             }
         }
+        
+        self.delay(seconds: 1.0, completion: { () -> () in
+            self.hideSpinner()
+            self.endIgnore()
+            
+        })
     }
+    
     
     func getHelpable() {
         var query = PFQuery(className: "help")
