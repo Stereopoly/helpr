@@ -14,6 +14,9 @@ import ParseUI
 import ParseFacebookUtilsV4
 import SwiftSpinner
 
+var accepted:Bool = false
+var name = ""
+
 class ProfileViewController: UIViewController {
     
     @IBOutlet weak var nameLabel: UILabel!
@@ -25,6 +28,36 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var withdrawButton: UIButton!
     
     @IBOutlet weak var closeRequestButton: UIButton!
+    
+    @IBAction func withdrawButtonPressed(sender: AnyObject) {
+        var objectId = ""
+        println("Withdraw")
+        self.withdrawButton.enabled = false
+        
+        var query = PFQuery(className: "request")
+        query.whereKey("requester", equalTo: name)
+        
+        let objects = query.findObjects()
+        
+        if let objects = objects {
+            println(objects)
+            for object in objects {
+                objectId = object["objectId"] as! String
+            }
+        }
+        
+        var query2 = PFQuery(className: "request")
+        let acceptedTask = query2.getObjectWithId(objectId)
+        
+        println(acceptedTask)
+        
+        if let acceptedTask = acceptedTask {
+            acceptedTask["accepted"] = "No"
+            acceptedTask.save()
+        }
+        
+        
+    }
     
     @IBAction func logoutButton(sender: AnyObject) {
         FBSDKAccessToken.currentAccessToken() == nil
@@ -45,6 +78,9 @@ class ProfileViewController: UIViewController {
         taskLabel.hidden = true
         acceptedLabel.hidden = true
         nameLabel.hidden = false
+        
+        withdrawButton.hidden = true
+        closeRequestButton.hidden = true
         
         let request = FBSDKGraphRequest(graphPath: "me", parameters: nil)
         
@@ -104,6 +140,7 @@ class ProfileViewController: UIViewController {
             } else {
                 println("Objects: \(objects?.count)")
                 if objects?.count == 1 {
+                    self.closeRequestButton.hidden = false
                     if let objects = objects {
                         for object in objects {
                             println(object)
@@ -126,6 +163,7 @@ class ProfileViewController: UIViewController {
                     println("No requests")
                     self.taskLabel.text = "You currently do not have any requests."
                     self.taskLabel.hidden = false
+                    self.closeRequestButton.hidden = true
                 }
             }
         }
@@ -144,15 +182,18 @@ class ProfileViewController: UIViewController {
                     if objects.count == 0 {
                         self.acceptedLabel.text = "You have not accepted any tasks."
                         self.acceptedLabel.hidden = false
+                        self.withdrawButton.hidden = true
+                        accepted = true
                     }
                     if objects.count == 1 {
+                        self.withdrawButton.hidden = false
                         for object in objects {
                             println(object)
-                            let name = object["requester"] as? String
+                            name = (object["requester"] as? String)!
                             let sFiller = "'s"
                             let requestFiller = " request for "
                             let task = object["task"] as? String
-                            self.acceptedLabel.text = name! + sFiller + requestFiller + task!
+                            self.acceptedLabel.text = name + sFiller + requestFiller + task!
                             self.acceptedLabel.hidden = false
                         }
                     } else {

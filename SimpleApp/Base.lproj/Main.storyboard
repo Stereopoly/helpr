@@ -810,10 +810,10 @@
             </objects>
             <point key="canvasLocation" x="2609" y="323"/>
         </scene>
-        <!--View Controller-->
+        <!--Close Request View Controller-->
         <scene sceneID="9ZP-nK-jlJ">
             <objects>
-                <viewController id="dBc-za-wXK" sceneMemberID="viewController">
+                <viewController id="dBc-za-wXK" customClass="CloseRequestViewController" customModule="Wanna_Help" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WMQ-9r-IIZ"/>
                         <viewControllerLayoutGuide type="bottom" id="QLs-dC-D7k"/>
@@ -885,6 +885,10 @@
                             <constraint firstItem="JKi-t5-FXy" firstAttribute="top" secondItem="WMQ-9r-IIZ" secondAttribute="bottom" constant="86" id="zpR-db-IWy"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="didNotReceiveButton" destination="f3f-W7-f4I" id="sRG-X2-Y9x"/>
+                        <outlet property="recievedButton" destination="0Tn-FV-JC1" id="LRH-Az-4r6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gZn-ct-hdY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1000,7 +1004,7 @@
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <action selector="acceptButton:" destination="eXi-he-5LQ" eventType="touchUpInside" id="weV-1a-jjH"/>
+                                    <action selector="withdrawButtonPressed:" destination="pZh-sY-qgU" eventType="touchUpInside" id="Rfo-YH-4TP"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRO-eg-1m2">

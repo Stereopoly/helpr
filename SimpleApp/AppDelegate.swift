@@ -14,7 +14,8 @@ import FBSDKLoginKit
 import ParseUI
 import ParseFacebookUtilsV4
 import SwiftSpinner
-
+import Mixpanel
+    
 var inApp: Bool = false
     
 @UIApplicationMain
@@ -25,6 +26,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // Mixpanel
+        
+        Mixpanel.sharedInstanceWithToken("1bbc577c7ad35b4a30387a2c1c670823")
+        let mixpanel: Mixpanel = Mixpanel.sharedInstance()
+        mixpanel.track("App launched")
         
         // Push Notifs
         
