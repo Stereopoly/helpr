@@ -257,7 +257,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                         println("Error in accepted")
                         self.acceptedLabel.text = "You have not accepted any tasks."
                         self.acceptedLabel.hidden = false
-                        self.withdrawButton.hidden = false
+                        self.withdrawButton.hidden = true
                     }
                 }
             }

@@ -759,11 +759,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What do you need help with?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2KV-Hb-X6d">
-                                <rect key="frame" x="150" y="86" width="300" height="48"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What do you need help with?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2KV-Hb-X6d">
+                                <rect key="frame" x="150" y="86" width="300" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="F1P-7Y-OEt"/>
-                                    <constraint firstAttribute="height" constant="48" id="fuK-6L-QQ2"/>
+                                    <constraint firstAttribute="height" constant="80" id="fuK-6L-QQ2"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -797,7 +797,7 @@
                             <constraint firstItem="SMc-fG-KvQ" firstAttribute="centerX" secondItem="bZ2-yH-jzz" secondAttribute="centerX" id="PSX-Pp-HkX"/>
                             <constraint firstItem="2KV-Hb-X6d" firstAttribute="centerX" secondItem="bZ2-yH-jzz" secondAttribute="centerX" id="S0W-YG-4ze"/>
                             <constraint firstItem="bZ2-yH-jzz" firstAttribute="leading" secondItem="hyT-EQ-qb7" secondAttribute="leading" id="Zdq-cJ-GaM"/>
-                            <constraint firstItem="bZ2-yH-jzz" firstAttribute="top" secondItem="2KV-Hb-X6d" secondAttribute="bottom" constant="16" id="eaa-Oi-UBh"/>
+                            <constraint firstItem="bZ2-yH-jzz" firstAttribute="top" secondItem="2KV-Hb-X6d" secondAttribute="bottom" constant="-16" id="eaa-Oi-UBh"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Request" id="GE7-Q2-Svz"/>
@@ -951,7 +951,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Requested:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EOC-Nj-WaP">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I Requested:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EOC-Nj-WaP">
                                 <rect key="frame" x="113" y="164" width="375" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="375" id="1gt-0H-tsA"/>
@@ -961,7 +961,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Accepted:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JTE-Nq-XME">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I Accepted:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JTE-Nq-XME">
                                 <rect key="frame" x="16" y="315" width="568" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="568" id="h0j-47-LFO"/>

@@ -10,11 +10,11 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wanna Help?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TyR-jU-OCn">
-                    <rect key="frame" x="163" y="149" width="154" height="60"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wanna Help?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TyR-jU-OCn">
+                    <rect key="frame" x="8" y="178" width="464" height="80"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="60" id="NjO-Vg-COo"/>
-                        <constraint firstAttribute="width" constant="154" id="eY5-g4-EbW"/>
+                        <constraint firstAttribute="height" constant="80" id="NjO-Vg-COo"/>
+                        <constraint firstAttribute="width" constant="464" id="eY5-g4-EbW"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="26"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -23,7 +23,7 @@
             </subviews>
             <color key="backgroundColor" red="0.17254901959999999" green="0.24313725489999999" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="TyR-jU-OCn" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="149" id="eKq-J5-rS6"/>
+                <constraint firstItem="TyR-jU-OCn" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="178" id="eKq-J5-rS6"/>
                 <constraint firstItem="TyR-jU-OCn" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="tR0-4x-W3o"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>

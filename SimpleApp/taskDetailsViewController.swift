@@ -29,7 +29,7 @@ class taskDetailsViewController: UIViewController {
         
         UIApplication.sharedApplication().beginIgnoringInteractionEvents()
 
-        addSpinner("Requesting...", Animated: true)
+        addSpinner("Accepting...", Animated: true)
         
         delay(seconds: 6.0) { () -> () in
             if self.slow == true {

@@ -15,7 +15,7 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
     
     var kbHeight: CGFloat!
     var messages: [PFObject]?
-    var loaded = 0
+    var loaded = 1
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -158,17 +158,19 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
     
     func getMessages() {
         if loaded == 1 {
+            println("Loaded = 1")
             self.messages = []
             var query = PFQuery(className:"Message")
-            query.orderByDescending("createdAt")
+      //      query.orderByDescending("createdAt")
             query.whereKey("sender", equalTo: sender1)
             
             var query2 = PFQuery(className: "Message")
-            query2.orderByDescending("createdAt")
+     //       query2.orderByDescending("createdAt")
             query2.whereKey("sender", equalTo: sender2)
             let comboQuery = PFQuery.orQueryWithSubqueries([query, query2])
+            comboQuery.orderByDescending("createdAt")
             
-            query.findObjectsInBackgroundWithBlock {
+            comboQuery.findObjectsInBackgroundWithBlock {
                 (objects: [AnyObject]?, error: NSError?) -> Void in
                 
                 if error == nil {
