@@ -276,6 +276,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                     println("No requests")
                     self.taskLabel.text = "None."
                     self.taskLabel.hidden = false
+                    self.closeRequestButton.hidden = true
                 }
             }
         }

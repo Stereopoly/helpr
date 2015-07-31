@@ -63,6 +63,8 @@ class CloseRequestViewController: UIViewController {
         let otherAction = DOAlertAction(title: otherButtonTitle, style: .Default) { action in
             NSLog("The \"Okay/Cancel\" alert's other action occured.")
             self.closeRequest()
+            self.navigationController?.popViewControllerAnimated(false)
+   
         }
         
         // Add the actions.
@@ -104,11 +106,6 @@ class CloseRequestViewController: UIViewController {
                     })
                 } else {
                     println("Success closing request")
-                    self.addSpinner("Closed", Animated: false)
-                    self.delay(seconds: 1.0, completion: { () -> () in
-                        self.hideSpinner()
-                        self.endIgnore()
-                    })
                 }
             })
         }
