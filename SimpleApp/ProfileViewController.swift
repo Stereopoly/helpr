@@ -16,6 +16,7 @@ import SwiftSpinner
 
 var accepted:Bool = false
 var withdraw: Bool = true
+var accept:Bool = true
 var name = ""
 
 class ProfileViewController: UIViewController {
@@ -29,6 +30,15 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var withdrawButton: UIButton!
     
     @IBOutlet weak var closeRequestButton: UIButton!
+    
+    @IBAction func closeRequestButtonPressed(sender: AnyObject) {
+        if accept == false {
+            tabBarController?.selectedIndex = 1
+            accept = true
+        } else {
+            self.performSegueWithIdentifier("toCloseRequest", sender: self)
+        }
+    }
     
     @IBAction func withdrawButtonPressed(sender: AnyObject) {
         if withdraw == false {
@@ -59,6 +69,7 @@ class ProfileViewController: UIViewController {
             
             if let acceptedTask = acceptedTask {
                 acceptedTask["accepted"] = "No"
+                acceptedTask["acceptedBy"] = NSNull()
                 acceptedTask.save()
             }
         }
@@ -169,7 +180,8 @@ class ProfileViewController: UIViewController {
                     println("No requests")
                     self.taskLabel.text = "You currently do not have any requests."
                     self.taskLabel.hidden = false
-                    self.closeRequestButton.hidden = true
+                    self.closeRequestButton.titleLabel?.text = "Go Request"
+                    self.closeRequestButton.hidden = false
                 }
             }
         }

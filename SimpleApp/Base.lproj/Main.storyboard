@@ -1019,7 +1019,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="dBc-za-wXK" kind="show" id="jIl-4R-Jhu"/>
+                                    <action selector="closeRequestButtonPressed:" destination="pZh-sY-qgU" eventType="touchUpInside" id="2Ex-V5-QSd"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1065,6 +1065,7 @@
                         <outlet property="taskLabel" destination="xbh-3W-Pgj" id="Jhu-wi-u3k"/>
                         <outlet property="withdrawButton" destination="i9C-Qu-zug" id="N1g-Rn-72w"/>
                         <segue destination="aea-Hc-XXF" kind="showDetail" identifier="profileToStart" id="rJU-rD-EcA"/>
+                        <segue destination="dBc-za-wXK" kind="show" identifier="toCloseRequest" id="zhz-qw-uvF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n97-ia-nog" userLabel="First Responder" sceneMemberID="firstResponder"/>
