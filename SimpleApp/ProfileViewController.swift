@@ -14,12 +14,9 @@ import ParseUI
 import ParseFacebookUtilsV4
 import SwiftSpinner
 
-var accepted:Bool = false
-var withdraw: Bool = true
-var accept:Bool = true
 var name = ""
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     @IBOutlet weak var nameLabel: UILabel!
     
@@ -32,54 +29,41 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var closeRequestButton: UIButton!
     
     @IBAction func closeRequestButtonPressed(sender: AnyObject) {
-        if accept == false {
-            tabBarController?.selectedIndex = 1
-            accept = true
-        } else {
-            self.performSegueWithIdentifier("toCloseRequest", sender: self)
-        }
-    }
-    
-    @IBAction func withdrawButtonPressed(sender: AnyObject) {
-        if withdraw == false {
-            tabBarController?.selectedIndex = 2
-            withdraw = true
-        } else {
-            var objectId = ""
-            println("Withdraw")
-            self.withdrawButton.enabled = false
-            
-            var query = PFQuery(className: "request")
-            query.whereKey("requester", equalTo: name)
-            
-            let objects = query.findObjects()
-            if objects != nil {
-                if let objects = objects {
-                    println(objects)
-                    for object in objects {
-                        objectId = object.objectId as! String!
-                        println("ObjectId: \(objectId)")
-                    }
-                }
-            }
-            
-            var query2 = PFQuery(className: "request")
-            let acceptedTask = query2.getObjectWithId(objectId)
-            
-            
-            if let acceptedTask = acceptedTask {
-                acceptedTask["accepted"] = "No"
-                acceptedTask["acceptedBy"] = NSNull()
-                acceptedTask.save()
-            }
-        }
+        
+        self.performSegueWithIdentifier("toCloseRequest", sender: self)
         
     }
     
-    @IBAction func logoutButton(sender: AnyObject) {
-        FBSDKAccessToken.currentAccessToken() == nil
-        self.navigationController?.popViewControllerAnimated(false)
-        self.performSegueWithIdentifier("profileToStart", sender: self)
+    @IBAction func withdrawButtonPressed(sender: AnyObject) {
+        var objectId = ""
+        println("Withdraw")
+        self.withdrawButton.enabled = false
+        
+        var query = PFQuery(className: "request")
+        query.whereKey("requester", equalTo: name)
+        
+        let objects = query.findObjects()
+        if objects != nil {
+            if let objects = objects {
+                println(objects)
+                for object in objects {
+                    objectId = object.objectId as! String!
+                    println("ObjectId: \(objectId)")
+                }
+            }
+        }
+        
+        var query2 = PFQuery(className: "request")
+        let acceptedTask = query2.getObjectWithId(objectId)
+        
+        
+        if let acceptedTask = acceptedTask {
+            acceptedTask["accepted"] = "No"
+            acceptedTask["acceptedBy"] = NSNull()
+            acceptedTask.save()
+        }
+        
+        
     }
     
     var slow: Bool = true
@@ -128,15 +112,23 @@ class ProfileViewController: UIViewController {
                     self.endIgnore()
                 })
             }
-        
+            
         }
+        var loginButton = FBSDKLoginButton()
+        loginButton.readPermissions = ["public_profile"]
+        let size = self.view.frame.size.width  as CGFloat
+        let screenwidth = self.view.frame.size.width
+        let screenheight = self.view.frame.height
+        loginButton.frame = CGRectMake(screenwidth/2 - size/2, screenheight - 107, size, 50)
+        loginButton.delegate = self
+        self.view.addSubview(loginButton)
     }
     
     override func viewWillAppear(animated: Bool) {
         
         withdrawButton.layer.cornerRadius = 20
         closeRequestButton.layer.cornerRadius = 20
-
+        
         getTask()
         getAccepted()
     }
@@ -144,6 +136,54 @@ class ProfileViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: - Facebook Login
+    
+    func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
+        beginIgnore()
+        addSpinner("Logging out", Animated: true)
+        delay(seconds: 6.0) { () -> () in
+            if tooLong == true {
+                self.addSpinner("Taking longer than normal", Animated: true)
+                self.delay(seconds: 6.0, completion: { () -> () in
+                    self.addSpinner("Try again later", Animated: false)
+                })
+            }
+        }
+        
+        if result.isCancelled {
+            println("Facebook logout canceled")
+            addSpinner("Logout canceled", Animated: false)
+            delay(seconds: 1.0, completion: { () -> () in
+                self.hideSpinner()
+                tooLong = false
+            })
+        } else {
+            
+            delay(seconds: 1.0) { () -> () in
+                
+                if error == nil {
+                    println("Login complete.")
+                    
+                }
+                else {
+                    self.addSpinner("Error in login", Animated: false)
+                    self.delay(seconds: 1.0, completion: { () -> () in
+                        println(error.localizedDescription)
+                        self.hideSpinner()
+                    })
+                    
+                }
+            }
+        }
+    }
+    
+    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
+        println("User logged out...")
+        
+        self.navigationController?.popViewControllerAnimated(false)
+        self.performSegueWithIdentifier("profileToStart", sender: self)
     }
     
     func getTask() {
@@ -180,8 +220,6 @@ class ProfileViewController: UIViewController {
                     println("No requests")
                     self.taskLabel.text = "You currently do not have any requests."
                     self.taskLabel.hidden = false
-                    self.closeRequestButton.titleLabel?.text = "Go Request"
-                    self.closeRequestButton.hidden = false
                 }
             }
         }
@@ -198,16 +236,14 @@ class ProfileViewController: UIViewController {
             } else {
                 if let objects = objects {
                     if objects.count == 0 {
+                        println("0 objects")
                         self.acceptedLabel.text = "You have not accepted any tasks."
                         self.acceptedLabel.hidden = false
-                        self.withdrawButton.titleLabel?.text = "Go Accept"
-                        self.withdrawButton.hidden = false
-                        withdraw = true
-                        accepted = true
+                        self.withdrawButton.hidden = true
                     }
                     if objects.count == 1 {
                         for object in objects {
-                            println(object)
+                            println("1 object")
                             name = (object["requester"] as? String)!
                             let sFiller = "'s"
                             let requestFiller = " request for "
@@ -219,12 +255,9 @@ class ProfileViewController: UIViewController {
                         self.withdrawButton.hidden = false
                     } else {
                         println("Error in accepted")
-                        println(objects.count)
                         self.acceptedLabel.text = "You have not accepted any tasks."
                         self.acceptedLabel.hidden = false
-                        self.withdrawButton.titleLabel?.text = "Go Accept"
                         self.withdrawButton.hidden = false
-                        withdraw = true
                     }
                 }
             }

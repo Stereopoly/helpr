@@ -24,15 +24,8 @@ class CloseRequestViewController: UIViewController {
         
         self.title = "Close Request"
         
-        if accepted == true {
-            println("Accepted = true")
-            recievedButton.hidden = false
-            didNotReceiveButton.hidden = false
-        } else {
-            println("Accepted = false")
-            recievedButton.hidden = true
-            didNotReceiveButton.hidden = true
-        }
+        recievedButton.hidden = false
+        didNotReceiveButton.hidden = false
     }
 
     override func didReceiveMemoryWarning() {
