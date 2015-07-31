@@ -176,7 +176,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
     }
     
     override func viewWillAppear(animated: Bool) {
-        requestButtonOutlet.layer.cornerRadius = 20
+        requestButtonOutlet.layer.cornerRadius = 4
     }
     
     override func didReceiveMemoryWarning() {

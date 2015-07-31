@@ -11,17 +11,19 @@ import Parse
 import SwiftSpinner
 
 class CloseRequestViewController: UIViewController {
+    
+    var acceptedBy = ""
 
     @IBOutlet weak var recievedButton: UIButton!
     
     @IBOutlet weak var didNotReceiveButton: UIButton!
     
     @IBAction func recievedButtonPressed(sender: AnyObject) {
-        
+        recievedAlert()
     }
     
     @IBAction func didNotRecieveButtonPressed(sender: AnyObject) {
-       showOkayCancelAlert()
+       cancelAlert()
     }
     
     override func viewDidLoad() {
@@ -39,6 +41,8 @@ class CloseRequestViewController: UIViewController {
         
         println(myRequestedTask)
         
+        addPoints()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,7 +51,7 @@ class CloseRequestViewController: UIViewController {
     }
     
     /// Show an alert with an "Okay" and "Cancel" button.
-    func showOkayCancelAlert() {
+    func cancelAlert() {
         let title = "Are you sure?"
         let message = ""
         let cancelButtonTitle = "Cancel"
@@ -65,6 +69,34 @@ class CloseRequestViewController: UIViewController {
             self.closeRequest()
             self.navigationController?.popViewControllerAnimated(false)
    
+        }
+        
+        // Add the actions.
+        alertCotroller.addAction(cancelAction)
+        alertCotroller.addAction(otherAction)
+        
+        presentViewController(alertCotroller, animated: true, completion: nil)
+    }
+    
+    /// Show an alert with an "Okay" and "Cancel" button.
+    func recievedAlert() {
+        let title = "Are you sure?"
+        let message = ""
+        let cancelButtonTitle = "Cancel"
+        let otherButtonTitle = "Yes"
+        
+        let alertCotroller = DOAlertController(title: title, message: message, preferredStyle: .Alert)
+        
+        // Create the actions.
+        let cancelAction = DOAlertAction(title: cancelButtonTitle, style: .Cancel) { action in
+            NSLog("The \"Okay/Cancel\" alert's cancel action occured.")
+        }
+        
+        let otherAction = DOAlertAction(title: otherButtonTitle, style: .Default) { action in
+            NSLog("The \"Okay/Cancel\" alert's other action occured.")
+            self.closeRequestWithPoints()
+            self.navigationController?.popViewControllerAnimated(false)
+            
         }
         
         // Add the actions.
@@ -111,6 +143,74 @@ class CloseRequestViewController: UIViewController {
         }
 
         
+    }
+    
+    
+    func closeRequestWithPoints() {
+        var objectId = ""
+        
+        var query = PFQuery(className: "request")
+        query.whereKey("requester", equalTo: fbUsername)
+        query.whereKey("task", equalTo: myRequestedTask)
+        query.whereKeyExists("acceptedBy")
+        
+        let objects = query.findObjects()
+        if objects != nil {
+            if let objects = objects {
+                println(objects.count)
+                if objects.count == 0 {
+                    println("Not accepted - no help was given by anyone")
+                } else {
+                    for object in objects {
+                        objectId = object.objectId as! String!
+                        acceptedBy = object["acceptedBy"] as! String
+                        println("Accepted by: \(acceptedBy)")
+                        println("ObjectId: \(objectId)")
+                    }
+                    var query2 = PFQuery(className: "request")
+                    let task = query2.getObjectWithId(objectId)
+                    
+                    if let task = task {
+                        task.deleteInBackgroundWithBlock({ (delete, error) -> Void in
+                            if error != nil {
+                                println("Error closing request")
+                                self.addSpinner("Error closing request", Animated: false)
+                                self.delay(seconds: 1.0, completion: { () -> () in
+                                    self.hideSpinner()
+                                    self.endIgnore()
+                                })
+                            } else {
+                                println("Success closing request")
+                            }
+                        })
+                    }
+                    
+                }
+            }
+        }
+        
+    }
+    
+    func addPoints() {
+        var userId = ""
+        var user = PFUser.query()
+        user?.whereKey("username", equalTo: acceptedBy)
+        
+        user?.findObjectsInBackgroundWithBlock({ (users, error) -> Void in
+            if error != nil {
+                println("Error in user find")
+            } else {
+                println("Success in user find")
+                println(users?.count)
+                if let users = users {
+                    for user in users {
+                        println(user)
+                        userId = user.objectId as! String!
+                        println("Userid: \(userId)")
+                    }
+                }
+            }
+        })
     }
     
     // MARK: - Activity Indicator

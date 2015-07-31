@@ -104,7 +104,7 @@ class addHelpableViewController: UIViewController, UIPickerViewDataSource, UIPic
     }
     
     override func viewWillAppear(animated: Bool) {
-        addButtonLabel.layer.cornerRadius = 20
+        addButtonLabel.layer.cornerRadius = 4
     }
     
     override func didReceiveMemoryWarning() {
