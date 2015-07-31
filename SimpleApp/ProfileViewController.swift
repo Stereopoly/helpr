@@ -15,6 +15,7 @@ import ParseFacebookUtilsV4
 import SwiftSpinner
 
 var accepted:Bool = false
+var withdraw: Bool = true
 var name = ""
 
 class ProfileViewController: UIViewController {
@@ -30,32 +31,37 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var closeRequestButton: UIButton!
     
     @IBAction func withdrawButtonPressed(sender: AnyObject) {
-        var objectId = ""
-        println("Withdraw")
-        self.withdrawButton.enabled = false
-        
-        var query = PFQuery(className: "request")
-        query.whereKey("requester", equalTo: name)
-        
-        let objects = query.findObjects()
-        
-        if let objects = objects {
-            println(objects)
-            for object in objects {
-                objectId = object["objectId"] as! String
+        if withdraw == false {
+            tabBarController?.selectedIndex = 2
+            withdraw = true
+        } else {
+            var objectId = ""
+            println("Withdraw")
+            self.withdrawButton.enabled = false
+            
+            var query = PFQuery(className: "request")
+            query.whereKey("requester", equalTo: name)
+            
+            let objects = query.findObjects()
+            if objects != nil {
+                if let objects = objects {
+                    println(objects)
+                    for object in objects {
+                        objectId = object.objectId as! String!
+                        println("ObjectId: \(objectId)")
+                    }
+                }
+            }
+            
+            var query2 = PFQuery(className: "request")
+            let acceptedTask = query2.getObjectWithId(objectId)
+            
+            
+            if let acceptedTask = acceptedTask {
+                acceptedTask["accepted"] = "No"
+                acceptedTask.save()
             }
         }
-        
-        var query2 = PFQuery(className: "request")
-        let acceptedTask = query2.getObjectWithId(objectId)
-        
-        println(acceptedTask)
-        
-        if let acceptedTask = acceptedTask {
-            acceptedTask["accepted"] = "No"
-            acceptedTask.save()
-        }
-        
         
     }
     
@@ -182,11 +188,12 @@ class ProfileViewController: UIViewController {
                     if objects.count == 0 {
                         self.acceptedLabel.text = "You have not accepted any tasks."
                         self.acceptedLabel.hidden = false
-                        self.withdrawButton.hidden = true
+                        self.withdrawButton.titleLabel?.text = "Go Accept"
+                        self.withdrawButton.hidden = false
+                        withdraw = true
                         accepted = true
                     }
                     if objects.count == 1 {
-                        self.withdrawButton.hidden = false
                         for object in objects {
                             println(object)
                             name = (object["requester"] as? String)!
@@ -196,8 +203,16 @@ class ProfileViewController: UIViewController {
                             self.acceptedLabel.text = name + sFiller + requestFiller + task!
                             self.acceptedLabel.hidden = false
                         }
+                        self.withdrawButton.titleLabel?.text = "Withdraw"
+                        self.withdrawButton.hidden = false
                     } else {
-                        println("Error")
+                        println("Error in accepted")
+                        println(objects.count)
+                        self.acceptedLabel.text = "You have not accepted any tasks."
+                        self.acceptedLabel.hidden = false
+                        self.withdrawButton.titleLabel?.text = "Go Accept"
+                        self.withdrawButton.hidden = false
+                        withdraw = true
                     }
                 }
             }
