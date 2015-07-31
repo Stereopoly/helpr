@@ -823,7 +823,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Tn-FV-JC1">
-                                <rect key="frame" x="135" y="316" width="125" height="40"/>
+                                <rect key="frame" x="145" y="316" width="125" height="40"/>
                                 <color key="backgroundColor" red="0.18039215689999999" green="0.80000000000000004" blue="0.4431372549" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="kym-Sl-ncB"/>
@@ -833,6 +833,9 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="recievedButtonPressed:" destination="dBc-za-wXK" eventType="touchUpInside" id="NfH-bi-qVv"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Did you recieve help?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JKi-t5-FXy">
                                 <rect key="frame" x="165" y="150" width="270" height="60"/>
@@ -855,7 +858,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f3f-W7-f4I">
-                                <rect key="frame" x="340" y="316" width="125" height="40"/>
+                                <rect key="frame" x="330" y="316" width="125" height="40"/>
                                 <color key="backgroundColor" red="0.75294117650000003" green="0.22352941179999999" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Hpv-Pj-pca"/>
@@ -871,16 +874,19 @@
                                         <exclude reference="K6p-xe-Z6l"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <action selector="didNotRecieveButtonPressed:" destination="dBc-za-wXK" eventType="touchUpInside" id="8zl-p3-HaE"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.17254901959999999" green="0.24313725489999999" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="f3f-W7-f4I" firstAttribute="leading" secondItem="RGU-vx-ROp" secondAttribute="trailing" constant="19" id="FSe-Di-JXR"/>
+                            <constraint firstItem="f3f-W7-f4I" firstAttribute="leading" secondItem="RGU-vx-ROp" secondAttribute="trailing" constant="9" id="FSe-Di-JXR"/>
                             <constraint firstAttribute="centerX" secondItem="RGU-vx-ROp" secondAttribute="centerX" id="MGW-Pa-laX"/>
                             <constraint firstAttribute="centerY" secondItem="f3f-W7-f4I" secondAttribute="centerY" constant="-36" id="ex4-9E-VnC"/>
                             <constraint firstItem="RGU-vx-ROp" firstAttribute="top" secondItem="JKi-t5-FXy" secondAttribute="bottom" constant="115" id="jH2-kS-hqz"/>
                             <constraint firstAttribute="centerY" secondItem="0Tn-FV-JC1" secondAttribute="centerY" constant="-36" id="kcc-0G-f3E"/>
-                            <constraint firstItem="RGU-vx-ROp" firstAttribute="leading" secondItem="0Tn-FV-JC1" secondAttribute="trailing" constant="19" id="luf-nj-NcD"/>
+                            <constraint firstItem="RGU-vx-ROp" firstAttribute="leading" secondItem="0Tn-FV-JC1" secondAttribute="trailing" constant="9" id="luf-nj-NcD"/>
                             <constraint firstAttribute="centerX" secondItem="JKi-t5-FXy" secondAttribute="centerX" id="tcx-Zs-Saf"/>
                             <constraint firstItem="JKi-t5-FXy" firstAttribute="top" secondItem="WMQ-9r-IIZ" secondAttribute="bottom" constant="86" id="zpR-db-IWy"/>
                         </constraints>

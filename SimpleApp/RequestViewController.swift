@@ -16,14 +16,14 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
     
     // MARK: - Variables
     
-    let pickerData = ["Math", "Science", "English", "History", "Writing", "Health"]
+    let pickerData = ["", "Math", "Science", "English", "History", "Writing", "Health"]
     var selectedRowData:String = ""
     
     // MARK: - Outlets
     
-//    @IBOutlet weak var requestTextField: UITextField!
+    //    @IBOutlet weak var requestTextField: UITextField!
     
-//    @IBOutlet weak var requestLabel: UILabel!
+    //    @IBOutlet weak var requestLabel: UILabel!
     
     @IBOutlet weak var pickerView: UIPickerView!
     
@@ -37,68 +37,77 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
         ignoreInteraction()
         addSpinner("Requesting task", Animated: true)
         
-        queryZipcode { () -> Void in
+        if selectedRowData.isEmpty == true {
+            self.addSpinner("Select a task", Animated: false)
+            self.delay(seconds: 1.0, completion: { () -> () in
+                self.hideSpinner()
+                self.beginInteraction()
+            })
+        } else {
             
-            self.checkForMultiple { () -> Void in
+            queryZipcode { () -> Void in
                 
-                var request = PFObject(className: "request")
-                request["requester"] = fbUsername
-                request["task"] = self.selectedRowData
-                request["zipcode"] = zipcode
-                request["accepted"] = "No"
-                
-                var query = PFQuery(className: "request")
-                query.whereKey("task", equalTo: self.selectedRowData)
-                query.whereKey("requester", equalTo: fbUsername)
-                
-                query.findObjectsInBackgroundWithBlock {
-                    (objects: [AnyObject]?, error: NSError?) -> Void in
+                self.checkForMultiple { () -> Void in
                     
-                    if error == nil {
-                        // The find succeeded.
-                        println("Successfully retrieved \(objects!.count) tasks.")
-                        // Do something with the found objects
-                        if objects!.count == 0 {
-                            request.saveInBackgroundWithBlock({ (didWork, error) -> Void in
+                    var request = PFObject(className: "request")
+                    request["requester"] = fbUsername
+                    request["task"] = self.selectedRowData
+                    request["zipcode"] = zipcode
+                    request["accepted"] = "No"
+                    
+                    var query = PFQuery(className: "request")
+                    query.whereKey("task", equalTo: self.selectedRowData)
+                    query.whereKey("requester", equalTo: fbUsername)
+                    
+                    query.findObjectsInBackgroundWithBlock {
+                        (objects: [AnyObject]?, error: NSError?) -> Void in
+                        
+                        if error == nil {
+                            // The find succeeded.
+                            println("Successfully retrieved \(objects!.count) tasks.")
+                            // Do something with the found objects
+                            if objects!.count == 0 {
+                                request.saveInBackgroundWithBlock({ (didWork, error) -> Void in
+                                    self.delay(seconds: 1.0, completion: { () -> () in
+                                        println(request)
+                                        if error != nil {
+                                            // handle error
+                                            println("Error")
+                                            self.addSpinner("Please try again later", Animated: false)
+                                            self.delay(seconds: 1.0, completion: { () -> () in
+                                                self.hideSpinner()
+                                                self.beginInteraction()
+                                            })
+                                        } else {
+                                            println("Success")
+                                            self.addSpinner("Success", Animated: false)
+                                            self.delay(seconds: 1.0, completion: { () -> () in
+                                                self.hideSpinner()
+                                                self.beginInteraction()
+                                            })
+                                        }
+                                    })
+                                    
+                                })
+                            }
+                            else {
                                 self.delay(seconds: 1.0, completion: { () -> () in
-                                    println(request)
-                                    if error != nil {
-                                        // handle error
-                                        println("Error")
-                                        self.addSpinner("Please try again later", Animated: false)
-                                        self.delay(seconds: 1.0, completion: { () -> () in
-                                            self.hideSpinner()
-                                            self.beginInteraction()
-                                        })
-                                    } else {
-                                        println("Success")
-                                        self.addSpinner("Success", Animated: false)
-                                        self.delay(seconds: 1.0, completion: { () -> () in
-                                            self.hideSpinner()
-                                            self.beginInteraction()
-                                        })
-                                    }
+                                    self.addSpinner("Already requested task", Animated: false)
+                                    self.delay(seconds: 1.0, completion: { () -> () in
+                                        self.hideSpinner()
+                                        self.beginInteraction()
+                                    })
                                 })
                                 
-                            })
-                        }
-                        else {
+                            }
+                        } else {
+                            // Log details of the failure
+                            println("Error: \(error!) \(error!.userInfo!)")
+                            self.addSpinner("Please try again later", Animated: false)
                             self.delay(seconds: 1.0, completion: { () -> () in
-                                self.addSpinner("Already requested task", Animated: false)
-                                self.delay(seconds: 1.0, completion: { () -> () in
-                                    self.hideSpinner()
-                                    self.beginInteraction()
-                                })
+                                self.hideSpinner()
                             })
-                            
                         }
-                    } else {
-                        // Log details of the failure
-                        println("Error: \(error!) \(error!.userInfo!)")
-                        self.addSpinner("Please try again later", Animated: false)
-                        self.delay(seconds: 1.0, completion: { () -> () in
-                            self.hideSpinner()
-                        })
                     }
                 }
             }
@@ -109,7 +118,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
     func checkForMultiple(completion: (() -> Void) ) {
         var query = PFQuery(className: "request")
         query.whereKey("requester", equalTo: fbUsername)
-
+        
         query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
             if error == nil {
                 println(objects!.count)
@@ -143,7 +152,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                         completion()
                     }
                 } else {
-                //    SwiftSpinner.setTitleFont(UIFont(name: "System", size: 19))
+                    //    SwiftSpinner.setTitleFont(UIFont(name: "System", size: 19))
                     self.addSpinner("Error", Animated: false)
                     self.delay(seconds: 1.0, completion: { () -> () in
                         self.hideSpinner()

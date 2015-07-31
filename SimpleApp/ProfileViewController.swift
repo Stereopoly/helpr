@@ -16,6 +16,9 @@ import SwiftSpinner
 
 var name = ""
 
+var myRequestedTask: String = ""
+
+
 class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     @IBOutlet weak var nameLabel: UILabel!
@@ -135,8 +138,8 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     override func viewWillAppear(animated: Bool) {
         
-        withdrawButton.layer.cornerRadius = 20
-        closeRequestButton.layer.cornerRadius = 20
+        withdrawButton.layer.cornerRadius = 4
+        closeRequestButton.layer.cornerRadius = 4
         
         getTask()
         getAccepted()
@@ -167,7 +170,6 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
         
         var query2 = PFQuery(className: "chat")
         let chat = query2.getObjectWithId(objectId)
-        
         
         if let chat = chat {
             chat.deleteInBackgroundWithBlock({ (delete, error) -> Void in
@@ -255,6 +257,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                         for object in objects {
                             println(object)
                             self.taskLabel.text = object["task"] as? String
+                            myRequestedTask = object["task"] as! String
                             if object["accepted"] as? String == "No" {
                                 println("Not accepted")
                                 let pendingFiller = " - Pending"
