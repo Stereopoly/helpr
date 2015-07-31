@@ -35,6 +35,9 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     @IBAction func withdrawButtonPressed(sender: AnyObject) {
+        self.addSpinner("Withdrawing...", Animated: true)
+        self.beginIgnore()
+        
         var objectId = ""
         println("Withdraw")
         self.withdrawButton.enabled = false
@@ -51,6 +54,8 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                     println("ObjectId: \(objectId)")
                 }
             }
+        } else {
+            println("No objects - Error should not occur")
         }
         
         var query2 = PFQuery(className: "request")
@@ -63,7 +68,11 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
             acceptedTask.save()
         }
         
+        deleteChatConnection()
         
+        self.acceptedLabel.text = "None."
+        self.acceptedLabel.hidden = false
+        self.withdrawButton.hidden = true
     }
     
     var slow: Bool = true
@@ -136,6 +145,50 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func deleteChatConnection() {
+        var objectId = ""
+        
+        var query = PFQuery(className: "chat")
+        query.whereKey("sender1", equalTo: fbUsername)
+        query.whereKey("sender2", equalTo: name)
+        
+        let objects = query.findObjects()
+        if objects != nil {
+            if let objects = objects {
+                println(objects)
+                for object in objects {
+                    objectId = object.objectId as! String!
+                    println("ObjectId: \(objectId)")
+                }
+            }
+        }
+        
+        var query2 = PFQuery(className: "chat")
+        let chat = query2.getObjectWithId(objectId)
+        
+        
+        if let chat = chat {
+            chat.deleteInBackgroundWithBlock({ (delete, error) -> Void in
+                if error != nil {
+                    println("Error deleting")
+                    self.addSpinner("Error withdrawing", Animated: false)
+                    self.delay(seconds: 1.0, completion: { () -> () in
+                        self.hideSpinner()
+                        self.endIgnore()
+                    })
+                } else {
+                    println("Success deleting chat connection")
+                    self.addSpinner("Done", Animated: false)
+                    self.delay(seconds: 1.0, completion: { () -> () in
+                        self.hideSpinner()
+                        self.endIgnore()
+                    })
+                }
+            })
+        }
+
     }
     
     // MARK: - Facebook Login
@@ -218,7 +271,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                     }
                 } else {
                     println("No requests")
-                    self.taskLabel.text = "You currently do not have any requests."
+                    self.taskLabel.text = "None."
                     self.taskLabel.hidden = false
                 }
             }
@@ -237,7 +290,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                 if let objects = objects {
                     if objects.count == 0 {
                         println("0 objects")
-                        self.acceptedLabel.text = "You have not accepted any tasks."
+                        self.acceptedLabel.text = "None."
                         self.acceptedLabel.hidden = false
                         self.withdrawButton.hidden = true
                     }
@@ -255,7 +308,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                         self.withdrawButton.hidden = false
                     } else {
                         println("Error in accepted")
-                        self.acceptedLabel.text = "You have not accepted any tasks."
+                        self.acceptedLabel.text = "None."
                         self.acceptedLabel.hidden = false
                         self.withdrawButton.hidden = true
                     }
