@@ -133,6 +133,23 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate {
                         self.endIgnore()
                     })
                 } else {
+                    var query = PFQuery(className: "points")
+                    query.whereKey("username", equalTo: fbUsername)
+                    let objects = query.findObjects()
+                    
+                    if objects?.count == 1 {
+                        println("Already have points row - no problem")
+                    }
+                    if objects?.count == 0 {
+                        var points = PFObject(className: "points")
+                        points["username"] = fbUsername
+                        points["points"] = 60
+                        
+                        points.save()
+                    } else {
+                        println("Error in points class")
+                    }
+                    
                     self.addSpinner("Success", Animated: false)
                     self.delay(seconds: 1.0, completion: { () -> () in
                         self.navigationController?.popViewControllerAnimated(false)

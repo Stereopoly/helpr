@@ -76,6 +76,12 @@ class ZipCodeViewController: UIViewController {
                                 })
                             } else {
                                 println("Success")
+                                var points = PFObject(className: "points")
+                                points["username"] = fbUsername
+                                points["points"] = 60
+                                
+                                points.save()
+                                
                                 self.addSpinner("Success", Animated: false)
                                 self.delay(seconds: 1.0, completion: { () -> () in
                                     self.performSegueWithIdentifier("zipcodeToTabBar", sender: self)

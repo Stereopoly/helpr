@@ -192,25 +192,31 @@ class CloseRequestViewController: UIViewController {
     }
     
     func addPoints() {
-        var userId = ""
-        var user = PFUser.query()
-        user?.whereKey("username", equalTo: acceptedBy)
+
+        var objectId = ""
+        var userPoints: Int = 0
         
-        user?.findObjectsInBackgroundWithBlock({ (users, error) -> Void in
-            if error != nil {
-                println("Error in user find")
-            } else {
-                println("Success in user find")
-                println(users?.count)
-                if let users = users {
-                    for user in users {
-                        println(user)
-                        userId = user.objectId as! String!
-                        println("Userid: \(userId)")
-                    }
+        var query = PFQuery(className: "points")
+        query.whereKey("username", equalTo: acceptedBy)
+        
+        let objects = query.findObjects()
+        if objects != nil {
+            if let objects = objects {
+                println(objects)
+                for object in objects {
+                    objectId = object.objectId as! String!
+                    println("ObjectId: \(objectId)")
                 }
             }
-        })
+        }
+        
+        var query2 = PFQuery(className: "points")
+        let points = query2.getObjectWithId(objectId)
+        
+        if let points = points {
+            userPoints = points["points"] as! Int
+            println(userPoints)
+        }
     }
     
     // MARK: - Activity Indicator

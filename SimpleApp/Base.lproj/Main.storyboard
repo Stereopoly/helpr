@@ -315,7 +315,7 @@
                                                         <constraint firstAttribute="height" constant="21" id="lqF-db-dQm"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
@@ -330,7 +330,7 @@
                                                         <constraint firstAttribute="width" constant="565" id="y6t-hd-0IJ"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
@@ -854,7 +854,7 @@
                                     <constraint firstAttribute="width" constant="42" id="WQV-Vf-tNd"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f3f-W7-f4I">
@@ -928,7 +928,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HIN-aa-AyS">
-                                <rect key="frame" x="90" y="98" width="420" height="60"/>
+                                <rect key="frame" x="90" y="83" width="420" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="fCt-yq-9wc"/>
                                     <constraint firstAttribute="width" constant="420" id="uTw-F5-K5t"/>
@@ -1013,11 +1013,22 @@
                                     <action selector="closeRequestButtonPressed:" destination="pZh-sY-qgU" eventType="touchUpInside" id="2Ex-V5-QSd"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Points" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sp6-ae-KqV">
+                                <rect key="frame" x="225" y="135" width="150" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="KD2-vv-f7f"/>
+                                    <constraint firstAttribute="height" constant="21" id="eZe-SY-Nqa"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.17254901959999999" green="0.24313725489999999" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="EOC-Nj-WaP" firstAttribute="centerX" secondItem="xbh-3W-Pgj" secondAttribute="centerX" id="8Fq-OT-7ve"/>
-                            <constraint firstItem="EOC-Nj-WaP" firstAttribute="top" secondItem="HIN-aa-AyS" secondAttribute="bottom" constant="6" id="DUp-sd-PEp"/>
+                            <constraint firstAttribute="centerX" secondItem="Sp6-ae-KqV" secondAttribute="centerX" id="Bxr-MX-1zd"/>
+                            <constraint firstItem="EOC-Nj-WaP" firstAttribute="top" secondItem="HIN-aa-AyS" secondAttribute="bottom" constant="21" id="DUp-sd-PEp"/>
                             <constraint firstAttribute="centerX" secondItem="scF-9c-kfX" secondAttribute="centerX" id="HhO-OR-zRl"/>
                             <constraint firstItem="i9C-Qu-zug" firstAttribute="top" secondItem="Qsy-2o-BBh" secondAttribute="bottom" constant="15" id="OOR-U1-rzQ"/>
                             <constraint firstItem="SRO-eg-1m2" firstAttribute="top" secondItem="xbh-3W-Pgj" secondAttribute="bottom" constant="15" id="Pp4-LL-y4x"/>
@@ -1030,10 +1041,11 @@
                             <constraint firstItem="xbh-3W-Pgj" firstAttribute="top" secondItem="EOC-Nj-WaP" secondAttribute="bottom" constant="8" id="giF-7u-zts"/>
                             <constraint firstItem="Qsy-2o-BBh" firstAttribute="top" secondItem="JTE-Nq-XME" secondAttribute="bottom" constant="3" id="hfc-mq-gbb"/>
                             <constraint firstItem="scF-9c-kfX" firstAttribute="top" secondItem="Qsy-2o-BBh" secondAttribute="bottom" constant="15" id="jpD-rn-2OG"/>
-                            <constraint firstItem="HIN-aa-AyS" firstAttribute="top" secondItem="hBj-A6-S0A" secondAttribute="bottom" constant="34" id="mgq-Dv-m5W"/>
+                            <constraint firstItem="HIN-aa-AyS" firstAttribute="top" secondItem="hBj-A6-S0A" secondAttribute="bottom" constant="19" id="mgq-Dv-m5W"/>
                             <constraint firstItem="EOC-Nj-WaP" firstAttribute="centerX" secondItem="HIN-aa-AyS" secondAttribute="centerX" id="pKm-90-UXC"/>
                             <constraint firstItem="Qsy-2o-BBh" firstAttribute="top" secondItem="JTE-Nq-XME" secondAttribute="bottom" constant="3" id="sgR-NV-jtH"/>
                             <constraint firstAttribute="centerX" secondItem="Qsy-2o-BBh" secondAttribute="centerX" id="teg-7Z-zCI"/>
+                            <constraint firstItem="Sp6-ae-KqV" firstAttribute="top" secondItem="HIN-aa-AyS" secondAttribute="bottom" constant="-8" id="ucU-Np-LIH"/>
                             <constraint firstItem="Qsy-2o-BBh" firstAttribute="top" secondItem="JTE-Nq-XME" secondAttribute="bottom" constant="8" id="wlO-9G-kL2"/>
                             <constraint firstAttribute="centerX" secondItem="JTE-Nq-XME" secondAttribute="centerX" id="xay-y6-eCY"/>
                         </constraints>
@@ -1051,6 +1063,7 @@
                         <outlet property="acceptedLabel" destination="Qsy-2o-BBh" id="wHM-kx-Tdl"/>
                         <outlet property="closeRequestButton" destination="SRO-eg-1m2" id="2Ye-hv-Ba3"/>
                         <outlet property="nameLabel" destination="HIN-aa-AyS" id="a7f-lu-Ee6"/>
+                        <outlet property="pointsLabel" destination="Sp6-ae-KqV" id="a8w-ZI-hSz"/>
                         <outlet property="taskLabel" destination="xbh-3W-Pgj" id="Jhu-wi-u3k"/>
                         <outlet property="withdrawButton" destination="i9C-Qu-zug" id="N1g-Rn-72w"/>
                         <segue destination="aea-Hc-XXF" kind="showDetail" identifier="profileToStart" id="rJU-rD-EcA"/>
@@ -1349,7 +1362,7 @@
                                     <constraint firstAttribute="width" constant="230" id="Ykp-cN-pZk"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
