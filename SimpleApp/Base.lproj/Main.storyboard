@@ -1169,11 +1169,11 @@
             </objects>
             <point key="canvasLocation" x="1191" y="317"/>
         </scene>
-        <!--Offer-->
+        <!--Give-->
         <scene sceneID="RO1-Gd-mc6">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XeQ-0J-Fby" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Offer" id="5v8-j9-A7v"/>
+                    <tabBarItem key="tabBarItem" title="Give" id="5v8-j9-A7v"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Lxk-ei-31y">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

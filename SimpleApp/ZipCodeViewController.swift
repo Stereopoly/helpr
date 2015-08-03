@@ -78,7 +78,7 @@ class ZipCodeViewController: UIViewController {
                                 println("Success")
                                 var points = PFObject(className: "points")
                                 points["username"] = fbUsername
-                                points["points"] = 60
+                                points["points"] = 3
                                 
                                 points.save()
                                 
