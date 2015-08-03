@@ -13,7 +13,7 @@ import SwiftSpinner
 var acceptedBy = ""
 
 class CloseRequestViewController: UIViewController {
-
+    
     @IBOutlet weak var recievedButton: UIButton!
     
     @IBOutlet weak var didNotReceiveButton: UIButton!
@@ -23,12 +23,12 @@ class CloseRequestViewController: UIViewController {
     }
     
     @IBAction func didNotRecieveButtonPressed(sender: AnyObject) {
-       cancelAlert()
+        cancelAlert()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         
         recievedButton.layer.cornerRadius = 4
@@ -42,7 +42,7 @@ class CloseRequestViewController: UIViewController {
         println(myRequestedTask)
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -68,7 +68,7 @@ class CloseRequestViewController: UIViewController {
             
             justVerified = true
             self.navigationController?.popViewControllerAnimated(false)
-   
+            
         }
         
         // Add the actions.
@@ -279,11 +279,11 @@ class CloseRequestViewController: UIViewController {
                         }
                     })
                 }
-
+                
             })
         }
     }
-
+    
     
     // MARK: - Activity Indicator
     
@@ -310,15 +310,15 @@ class CloseRequestViewController: UIViewController {
         UIApplication.sharedApplication().endIgnoringInteractionEvents()
     }
     
-
+    
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }

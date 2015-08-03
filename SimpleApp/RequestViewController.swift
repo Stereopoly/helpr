@@ -68,6 +68,11 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                             println("Points: \(userPoints)")
                             if userPoints < 1 {
                                 println("Not enough points")
+                                self.addSpinner("You don't have enough points", Animated: false)
+                                self.delay(seconds: 1.0, completion: { () -> () in
+                                    self.hideSpinner()
+                                    self.beginInteraction()
+                                })
                             } else {
                                 println("Enough points to request")
                                 updatedUserPoints = userPoints - 1

@@ -20,8 +20,11 @@ var myRequestedTask: String = ""
 
 var justVerified:Bool = false
 
-
 class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
+    
+    var taskPending: Bool = false
+    
+    var currentUserPoints = 0
     
     @IBOutlet weak var nameLabel: UILabel!
     
@@ -36,8 +39,11 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBOutlet weak var closeRequestButton: UIButton!
     
     @IBAction func closeRequestButtonPressed(sender: AnyObject) {
-        
-        self.performSegueWithIdentifier("toCloseRequest", sender: self)
+        if taskPending == true {
+            
+        } else {
+            self.performSegueWithIdentifier("toCloseRequest", sender: self)
+        }
         
     }
     
@@ -88,6 +94,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                     self.nameLabel.text = fbUsername
                     self.getTask()
                     self.getAccepted()
+                    self.getPoints()
                     self.hideSpinner()
                     self.endIgnore()
                 })
@@ -114,9 +121,15 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
             self.taskLabel.text = "None."
             self.taskLabel.hidden = false
             self.closeRequestButton.hidden = true
+            
+            getTask()
+            getAccepted()
+            getPoints()
+            
         } else {
             getTask()
             getAccepted()
+            getPoints()
         }
     }
     
@@ -303,6 +316,8 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                                 let pendingFiller = " - Pending"
                                 self.taskLabel.text = (object["task"] as? String)! + pendingFiller
                                 self.taskLabel.hidden = false
+                                
+                                self.taskPending = true
                             }
                             if object["accepted"] as? String == "Yes" {
                                 println("Not accepted")
@@ -359,6 +374,39 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                 }
             }
         }
+    }
+    
+    func getPoints() {
+        var objectId = ""
+        var userPoints: Int = 0
+        var updatedUserPoints: Int?
+        
+        var query = PFQuery(className: "points")
+        query.whereKey("username", equalTo: fbUsername)
+        
+        query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+            if objects != nil {
+                if let objects = objects {
+                    println(objects)
+                    for object in objects {
+                        objectId = object.objectId as! String!
+                        println("ObjectId: \(objectId)")
+                    }
+                }
+                
+                var query2 = PFQuery(className: "points")
+                query2.getObjectInBackgroundWithId(objectId, block: { (points, error) -> Void in
+                    if let points = points {
+                        self.currentUserPoints = points["points"] as! Int
+                        println("Points: \(userPoints)")
+                    }
+                    self.pointsLabel.text = "Points: \(self.currentUserPoints)"   // set label
+                })
+            } else {
+                println("Error - User has no points class")
+            }
+        }
+        
     }
     
     // MARK: - Activity Indicator
