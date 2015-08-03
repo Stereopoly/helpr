@@ -70,6 +70,8 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
         withdrawButton.hidden = true
         closeRequestButton.hidden = true
         
+        NSTimer.scheduledTimerWithTimeInterval(4, target: self, selector: "onTimer", userInfo: nil, repeats: true)
+        
         let request = FBSDKGraphRequest(graphPath: "me", parameters: nil)
         
         request.startWithCompletionHandler {
@@ -132,6 +134,12 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
             getAccepted()
             getPoints()
         }
+    }
+    
+    func onTimer() {
+        getTask()
+        getAccepted()
+        getPoints()
     }
     
     override func didReceiveMemoryWarning() {
