@@ -40,6 +40,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     @IBAction func closeRequestButtonPressed(sender: AnyObject) {
         if taskPending == true {
+            closeRequestAlert()
             
         } else {
             self.performSegueWithIdentifier("toCloseRequest", sender: self)
@@ -136,6 +137,81 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func closeRequestAlert() {
+        let title = "Are you sure you want to close your request?"
+        let message = ""
+        let cancelButtonTitle = "Cancel"
+        let otherButtonTitle = "Yes"
+        
+        let alertCotroller = DOAlertController(title: title, message: message, preferredStyle: .Alert)
+        
+        // Create the actions.
+        let cancelAction = DOAlertAction(title: cancelButtonTitle, style: .Cancel) { action in
+            NSLog("The \"Okay/Cancel\" alert's cancel action occured.")
+        }
+        
+        let otherAction = DOAlertAction(title: otherButtonTitle, style: .Default) { action in
+            NSLog("The \"Okay/Cancel\" alert's other action occured.")
+            self.closeRequest()
+            
+            self.taskLabel.text = "None."
+            self.taskLabel.hidden = false
+            self.closeRequestButton.hidden = true
+            justVerified = false
+            
+        }
+        
+        // Add the actions.
+        alertCotroller.addAction(cancelAction)
+        alertCotroller.addAction(otherAction)
+        
+        presentViewController(alertCotroller, animated: true, completion: nil)
+    }
+    
+    func closeRequest() {
+        var objectId = ""
+        
+        var query = PFQuery(className: "request")
+        query.whereKey("requester", equalTo: fbUsername)
+        query.whereKey("task", equalTo: myRequestedTask)
+        
+        query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+            if objects != nil {
+                if let objects = objects {
+                    println(objects)
+                    for object in objects {
+                        objectId = object.objectId as! String!
+                        println("ObjectId: \(objectId)")
+                    }
+                }
+                
+                var query2 = PFQuery(className: "request")
+                query2.getObjectInBackgroundWithId(objectId, block: { (task, error) -> Void in
+                    if let task = task {
+                        task.deleteInBackgroundWithBlock({ (delete, error) -> Void in
+                            if error != nil {
+                                println("Error closing request")
+                                self.addSpinner("Error closing request", Animated: false)
+                                self.delay(seconds: 1.0, completion: { () -> () in
+                                    self.hideSpinner()
+                                    self.endIgnore()
+                                })
+                            } else {
+                                println("Success closing request")
+                            }
+                        })
+                    } else {
+                        println("Error in object retrival")
+                    }
+                })
+            } else {
+                println("Error in object request")
+            }
+            
+        }
+        
     }
     
     /// Show an alert with an "Okay" and "Cancel" button.
