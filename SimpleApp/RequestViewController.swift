@@ -44,75 +44,127 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                 self.beginInteraction()
             })
         } else {
+            var objectId = ""
+            var userPoints: Int = 0
+            var updatedUserPoints: Int?
             
-            queryZipcode { () -> Void in
-                
-                self.checkForMultiple { () -> Void in
+            var query = PFQuery(className: "points")
+            query.whereKey("username", equalTo: fbUsername)
+            
+            query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+                if objects != nil {
+                    if let objects = objects {
+                        println(objects)
+                        for object in objects {
+                            objectId = object.objectId as! String!
+                            println("ObjectId: \(objectId)")
+                        }
+                    }
                     
-                    var request = PFObject(className: "request")
-                    request["requester"] = fbUsername
-                    request["task"] = self.selectedRowData
-                    request["zipcode"] = zipcode
-                    request["accepted"] = "No"
-                    
-                    var query = PFQuery(className: "request")
-                    query.whereKey("task", equalTo: self.selectedRowData)
-                    query.whereKey("requester", equalTo: fbUsername)
-                    
-                    query.findObjectsInBackgroundWithBlock {
-                        (objects: [AnyObject]?, error: NSError?) -> Void in
-                        
-                        if error == nil {
-                            // The find succeeded.
-                            println("Successfully retrieved \(objects!.count) tasks.")
-                            // Do something with the found objects
-                            if objects!.count == 0 {
-                                request.saveInBackgroundWithBlock({ (didWork, error) -> Void in
-                                    self.delay(seconds: 1.0, completion: { () -> () in
-                                        println(request)
-                                        if error != nil {
-                                            // handle error
-                                            println("Error")
-                                            self.addSpinner("Please try again later", Animated: false)
-                                            self.delay(seconds: 1.0, completion: { () -> () in
-                                                self.hideSpinner()
-                                                self.beginInteraction()
-                                            })
-                                        } else {
-                                            println("Success")
-                                            self.addSpinner("Success", Animated: false)
-                                            self.delay(seconds: 1.0, completion: { () -> () in
-                                                self.hideSpinner()
-                                                self.beginInteraction()
-                                            })
-                                        }
-                                    })
-                                    
-                                })
+                    var query2 = PFQuery(className: "points")
+                    query2.getObjectInBackgroundWithId(objectId, block: { (points, error) -> Void in
+                        if let points = points {
+                            userPoints = points["points"] as! Int
+                            println("Points: \(userPoints)")
+                            if userPoints < 1 {
+                                println("Not enough points")
+                            } else {
+                                println("Enough points to request")
+                                updatedUserPoints = userPoints - 1
+                                println("Updated points: \(updatedUserPoints)")
+                                points["points"] = updatedUserPoints
+                                
+                                points.saveInBackground()
+                                
+                                println("Points subtracted")
+                                
+                                self.makeRequest()
                             }
-                            else {
+                            
+                        } else {
+                            println("Error in points save")
+                        }
+                    })
+                } else {
+                    println("Error - User has no points class")
+                    self.addSpinner("Error in points", Animated: false)
+                    self.delay(seconds: 1.0, completion: { () -> () in
+                        self.hideSpinner()
+                    })
+                }
+            }
+            
+        }
+        
+    }
+    
+    func makeRequest() {
+        queryZipcode { () -> Void in
+            
+            self.checkForMultiple { () -> Void in
+                
+                var request = PFObject(className: "request")
+                request["requester"] = fbUsername
+                request["task"] = self.selectedRowData
+                request["zipcode"] = zipcode
+                request["accepted"] = "No"
+                
+                var query = PFQuery(className: "request")
+                query.whereKey("task", equalTo: self.selectedRowData)
+                query.whereKey("requester", equalTo: fbUsername)
+                
+                query.findObjectsInBackgroundWithBlock {
+                    (objects: [AnyObject]?, error: NSError?) -> Void in
+                    
+                    if error == nil {
+                        // The find succeeded.
+                        println("Successfully retrieved \(objects!.count) tasks.")
+                        // Do something with the found objects
+                        if objects!.count == 0 {
+                            request.saveInBackgroundWithBlock({ (didWork, error) -> Void in
                                 self.delay(seconds: 1.0, completion: { () -> () in
-                                    self.addSpinner("Already requested task", Animated: false)
-                                    self.delay(seconds: 1.0, completion: { () -> () in
-                                        self.hideSpinner()
-                                        self.beginInteraction()
-                                    })
+                                    println(request)
+                                    if error != nil {
+                                        // handle error
+                                        println("Error")
+                                        self.addSpinner("Please try again later", Animated: false)
+                                        self.delay(seconds: 1.0, completion: { () -> () in
+                                            self.hideSpinner()
+                                            self.beginInteraction()
+                                        })
+                                    } else {
+                                        println("Success")
+                                        self.addSpinner("Success", Animated: false)
+                                        self.delay(seconds: 1.0, completion: { () -> () in
+                                            self.hideSpinner()
+                                            self.beginInteraction()
+                                        })
+                                    }
                                 })
                                 
-                            }
-                        } else {
-                            // Log details of the failure
-                            println("Error: \(error!) \(error!.userInfo!)")
-                            self.addSpinner("Please try again later", Animated: false)
-                            self.delay(seconds: 1.0, completion: { () -> () in
-                                self.hideSpinner()
                             })
                         }
+                        else {
+                            self.delay(seconds: 1.0, completion: { () -> () in
+                                self.addSpinner("Already requested task", Animated: false)
+                                self.delay(seconds: 1.0, completion: { () -> () in
+                                    self.hideSpinner()
+                                    self.beginInteraction()
+                                })
+                            })
+                            
+                        }
+                    } else {
+                        // Log details of the failure
+                        println("Error: \(error!) \(error!.userInfo!)")
+                        self.addSpinner("Please try again later", Animated: false)
+                        self.delay(seconds: 1.0, completion: { () -> () in
+                            self.hideSpinner()
+                        })
                     }
                 }
             }
         }
-        
     }
     
     func checkForMultiple(completion: (() -> Void) ) {

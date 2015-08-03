@@ -10,9 +10,9 @@ import UIKit
 import Parse
 import SwiftSpinner
 
+var acceptedBy = ""
+
 class CloseRequestViewController: UIViewController {
-    
-    var acceptedBy = ""
 
     @IBOutlet weak var recievedButton: UIButton!
     
@@ -170,8 +170,8 @@ class CloseRequestViewController: UIViewController {
                     } else {
                         for object in objects {
                             objectId = object.objectId as! String!
-                            self.acceptedBy = object["acceptedBy"] as! String
-                            println("Accepted by: \(self.acceptedBy)")
+                            acceptedBy = object["acceptedBy"] as! String
+                            println("Accepted by: \(acceptedBy)")
                             println("ObjectId: \(objectId)")
                         }
                         var query2 = PFQuery(className: "request")
@@ -250,8 +250,8 @@ class CloseRequestViewController: UIViewController {
         var objectId = ""
         
         var query = PFQuery(className: "chat")
-        query.whereKey("sender1", equalTo: fbUsername)
-        query.whereKey("sender2", equalTo: acceptedBy)
+        query.whereKey("sender1", equalTo: acceptedBy)
+        query.whereKey("sender2", equalTo: fbUsername)
         
         query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
             if objects != nil {
@@ -270,18 +270,12 @@ class CloseRequestViewController: UIViewController {
                     chat.deleteInBackgroundWithBlock({ (delete, error) -> Void in
                         if error != nil {
                             println("Error deleting")
-                            self.addSpinner("Error withdrawing", Animated: false)
+                            self.addSpinner("Error closing chat", Animated: false)
                             self.delay(seconds: 1.0, completion: { () -> () in
                                 self.hideSpinner()
-                                self.endIgnore()
                             })
                         } else {
                             println("Success deleting chat connection")
-                            self.addSpinner("Done", Animated: false)
-                            self.delay(seconds: 1.0, completion: { () -> () in
-                                self.hideSpinner()
-                                self.endIgnore()
-                            })
                         }
                     })
                 }
