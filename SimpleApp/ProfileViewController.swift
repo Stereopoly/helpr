@@ -40,70 +40,8 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     @IBAction func withdrawButtonPressed(sender: AnyObject) {
-        /// Show an alert with an "Okay" and "Cancel" button.
-        func recievedAlert() {
-            let title = "Are you sure?"
-            let message = ""
-            let cancelButtonTitle = "Cancel"
-            let otherButtonTitle = "Yes"
-            
-            let alertCotroller = DOAlertController(title: title, message: message, preferredStyle: .Alert)
-            
-            // Create the actions.
-            let cancelAction = DOAlertAction(title: cancelButtonTitle, style: .Cancel) { action in
-                NSLog("The \"Okay/Cancel\" alert's cancel action occured.")
-            }
-            
-            let otherAction = DOAlertAction(title: otherButtonTitle, style: .Default) { action in
-                NSLog("The \"Okay/Cancel\" alert's other action occured.")
-                
-                self.addSpinner("Withdrawing...", Animated: true)
-                self.beginIgnore()
-                
-                var objectId = ""
-                println("Withdraw")
-                self.withdrawButton.enabled = false
-                
-                var query = PFQuery(className: "request")
-                query.whereKey("requester", equalTo: name)
-                
-                let objects = query.findObjects()
-                if objects != nil {
-                    if let objects = objects {
-                        println(objects)
-                        for object in objects {
-                            objectId = object.objectId as! String!
-                            println("ObjectId: \(objectId)")
-                        }
-                    }
-                } else {
-                    println("No objects - Error should not occur")
-                }
-                
-                var query2 = PFQuery(className: "request")
-                let acceptedTask = query2.getObjectWithId(objectId)
-                
-                
-                if let acceptedTask = acceptedTask {
-                    acceptedTask["accepted"] = "No"
-                    acceptedTask["acceptedBy"] = NSNull()
-                    acceptedTask.save()
-                }
-                
-                self.deleteChatConnection()
-                
-                self.acceptedLabel.text = "None."
-                self.acceptedLabel.hidden = false
-                self.withdrawButton.hidden = true
-                
-            }
-            
-            // Add the actions.
-            alertCotroller.addAction(cancelAction)
-            alertCotroller.addAction(otherAction)
-            
-            presentViewController(alertCotroller, animated: true, completion: nil)
-        }
+        println("Pressed")
+        recievedAlert()
     }
     
     var slow: Bool = true
@@ -176,6 +114,71 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    /// Show an alert with an "Okay" and "Cancel" button.
+    func recievedAlert() {
+        let title = "Are you sure?"
+        let message = ""
+        let cancelButtonTitle = "Cancel"
+        let otherButtonTitle = "Yes"
+        
+        let alertCotroller = DOAlertController(title: title, message: message, preferredStyle: .Alert)
+        
+        // Create the actions.
+        let cancelAction = DOAlertAction(title: cancelButtonTitle, style: .Cancel) { action in
+            NSLog("The \"Okay/Cancel\" alert's cancel action occured.")
+        }
+        
+        let otherAction = DOAlertAction(title: otherButtonTitle, style: .Default) { action in
+            NSLog("The \"Okay/Cancel\" alert's other action occured.")
+            
+            self.addSpinner("Withdrawing...", Animated: true)
+            self.beginIgnore()
+            
+            var objectId = ""
+            println("Withdraw")
+            self.withdrawButton.enabled = false
+            
+            var query = PFQuery(className: "request")
+            query.whereKey("requester", equalTo: name)
+            
+            let objects = query.findObjects()
+            if objects != nil {
+                if let objects = objects {
+                    println(objects)
+                    for object in objects {
+                        objectId = object.objectId as! String!
+                        println("ObjectId: \(objectId)")
+                    }
+                }
+            } else {
+                println("No objects - Error should not occur")
+            }
+            
+            var query2 = PFQuery(className: "request")
+            let acceptedTask = query2.getObjectWithId(objectId)
+            
+            
+            if let acceptedTask = acceptedTask {
+                acceptedTask["accepted"] = "No"
+                acceptedTask["acceptedBy"] = NSNull()
+                acceptedTask.save()
+            }
+            
+            self.deleteChatConnection()
+            
+            self.acceptedLabel.text = "None."
+            self.acceptedLabel.hidden = false
+            self.withdrawButton.hidden = true
+            
+        }
+        
+        // Add the actions.
+        alertCotroller.addAction(cancelAction)
+        alertCotroller.addAction(otherAction)
+        
+        presentViewController(alertCotroller, animated: true, completion: nil)
     }
     
     func deleteChatConnection() {

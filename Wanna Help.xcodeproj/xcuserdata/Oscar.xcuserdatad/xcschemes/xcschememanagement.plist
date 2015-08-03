@@ -12,7 +12,12 @@
 		<key>Wanna Help 2.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>11</integer>
+			<integer>2</integer>
+		</dict>
+		<key>Wanna Help 4.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>14</integer>
 		</dict>
 		<key>Wanna Help.xcscheme</key>
 		<dict>

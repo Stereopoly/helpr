@@ -41,8 +41,6 @@ class CloseRequestViewController: UIViewController {
         
         println(myRequestedTask)
         
-        addPoints()
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -154,37 +152,40 @@ class CloseRequestViewController: UIViewController {
         query.whereKey("task", equalTo: myRequestedTask)
         query.whereKeyExists("acceptedBy")
         
-        let objects = query.findObjects()
-        if objects != nil {
-            if let objects = objects {
-                println(objects.count)
-                if objects.count == 0 {
-                    println("Not accepted - no help was given by anyone")
-                } else {
-                    for object in objects {
-                        objectId = object.objectId as! String!
-                        acceptedBy = object["acceptedBy"] as! String
-                        println("Accepted by: \(acceptedBy)")
-                        println("ObjectId: \(objectId)")
+        query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+            if objects != nil {
+                if let objects = objects {
+                    println(objects.count)
+                    if objects.count == 0 {
+                        println("Not accepted - no help was given by anyone")
+                    } else {
+                        for object in objects {
+                            objectId = object.objectId as! String!
+                            self.acceptedBy = object["acceptedBy"] as! String
+                            println("Accepted by: \(self.acceptedBy)")
+                            println("ObjectId: \(objectId)")
+                        }
+                        var query2 = PFQuery(className: "request")
+                        let task = query2.getObjectWithId(objectId)
+                        
+                        if let task = task {
+                            task.deleteInBackgroundWithBlock({ (delete, error) -> Void in
+                                if error != nil {
+                                    println("Error closing request")
+                                    self.addSpinner("Error closing request", Animated: false)
+                                    self.delay(seconds: 1.0, completion: { () -> () in
+                                        self.hideSpinner()
+                                        self.endIgnore()
+                                    })
+                                } else {
+                                    println("Success closing request")
+                                    self.deleteChatConnection()
+                                    self.addPoints()
+                                }
+                            })
+                        }
+                        
                     }
-                    var query2 = PFQuery(className: "request")
-                    let task = query2.getObjectWithId(objectId)
-                    
-                    if let task = task {
-                        task.deleteInBackgroundWithBlock({ (delete, error) -> Void in
-                            if error != nil {
-                                println("Error closing request")
-                                self.addSpinner("Error closing request", Animated: false)
-                                self.delay(seconds: 1.0, completion: { () -> () in
-                                    self.hideSpinner()
-                                    self.endIgnore()
-                                })
-                            } else {
-                                println("Success closing request")
-                            }
-                        })
-                    }
-                    
                 }
             }
         }
@@ -192,12 +193,54 @@ class CloseRequestViewController: UIViewController {
     }
     
     func addPoints() {
-
+        
         var objectId = ""
         var userPoints: Int = 0
+        var updatedUserPoints: Int?
         
         var query = PFQuery(className: "points")
         query.whereKey("username", equalTo: acceptedBy)
+        println("acceptedBy: \(acceptedBy)")
+        
+        query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+            if objects != nil {
+                if let objects = objects {
+                    println(objects)
+                    for object in objects {
+                        objectId = object.objectId as! String!
+                        println("ObjectId: \(objectId)")
+                    }
+                }
+                
+                var query2 = PFQuery(className: "points")
+                query2.getObjectInBackgroundWithId(objectId, block: { (points, error) -> Void in
+                    if let points = points {
+                        userPoints = points["points"] as! Int
+                        println("Points: \(userPoints)")
+                        updatedUserPoints = userPoints + 1
+                        println("Updated points: \(updatedUserPoints)")
+                        points["points"] = updatedUserPoints
+                        
+                        points.saveInBackground()
+                        
+                        println("Points saved")
+                    } else {
+                        println("Error in points save")
+                    }
+                })
+            } else {
+                println("Error - User has no points class")
+            }
+        }
+        
+    }
+    
+    func deleteChatConnection() {
+        var objectId = ""
+        
+        var query = PFQuery(className: "chat")
+        query.whereKey("sender1", equalTo: fbUsername)
+        query.whereKey("sender2", equalTo: acceptedBy)
         
         let objects = query.findObjects()
         if objects != nil {
@@ -210,14 +253,31 @@ class CloseRequestViewController: UIViewController {
             }
         }
         
-        var query2 = PFQuery(className: "points")
-        let points = query2.getObjectWithId(objectId)
+        var query2 = PFQuery(className: "chat")
+        let chat = query2.getObjectWithId(objectId)
         
-        if let points = points {
-            userPoints = points["points"] as! Int
-            println(userPoints)
+        if let chat = chat {
+            chat.deleteInBackgroundWithBlock({ (delete, error) -> Void in
+                if error != nil {
+                    println("Error deleting")
+                    self.addSpinner("Error withdrawing", Animated: false)
+                    self.delay(seconds: 1.0, completion: { () -> () in
+                        self.hideSpinner()
+                        self.endIgnore()
+                    })
+                } else {
+                    println("Success deleting chat connection")
+                    self.addSpinner("Done", Animated: false)
+                    self.delay(seconds: 1.0, completion: { () -> () in
+                        self.hideSpinner()
+                        self.endIgnore()
+                    })
+                }
+            })
         }
+        
     }
+
     
     // MARK: - Activity Indicator
     
