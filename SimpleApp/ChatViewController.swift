@@ -16,6 +16,7 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
     var kbHeight: CGFloat!
     var messages: [PFObject]?
     var loaded = 1
+    var reloadTimer: NSTimer?
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -48,7 +49,7 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
             getMessages()
             self.hideSpinner()
             println("Hide spinner")
-            NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "onTimer", userInfo: nil, repeats: true)
+            reloadTimer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "onTimer", userInfo: nil, repeats: true)
           
         } else {
             // segue away

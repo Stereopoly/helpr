@@ -222,6 +222,7 @@ class taskDetailsViewController: UIViewController {
                                                     self.acceptButtonOutlet.backgroundColor = UIColor(red: 192/250, green: 57/250, blue: 43/250, alpha: 1.0)
                                                     self.acceptButtonOutlet.enabled = false
                                                     self.acceptButtonOutlet.setTitle("Accepted", forState: UIControlState.Normal)
+                                                    self.navigationController?.popViewControllerAnimated(false)
                                                     self.hideSpinner()
                                                     self.slow = false
                                                     self.beginInteraction()
