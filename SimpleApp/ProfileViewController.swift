@@ -18,6 +18,8 @@ var name = ""
 
 var myRequestedTask: String = ""
 
+var justVerified:Bool = false
+
 
 class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
     
@@ -106,9 +108,16 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
         
         withdrawButton.layer.cornerRadius = 4
         closeRequestButton.layer.cornerRadius = 4
-        
-        getTask()
-        getAccepted()
+        if justVerified == true {
+            justVerified = false
+            
+            self.taskLabel.text = "None."
+            self.taskLabel.hidden = false
+            self.closeRequestButton.hidden = true
+        } else {
+            getTask()
+            getAccepted()
+        }
     }
     
     override func didReceiveMemoryWarning() {

@@ -65,6 +65,8 @@ class CloseRequestViewController: UIViewController {
         let otherAction = DOAlertAction(title: otherButtonTitle, style: .Default) { action in
             NSLog("The \"Okay/Cancel\" alert's other action occured.")
             self.closeRequest()
+            
+            justVerified = true
             self.navigationController?.popViewControllerAnimated(false)
    
         }
@@ -93,6 +95,8 @@ class CloseRequestViewController: UIViewController {
         let otherAction = DOAlertAction(title: otherButtonTitle, style: .Default) { action in
             NSLog("The \"Okay/Cancel\" alert's other action occured.")
             self.closeRequestWithPoints()
+            
+            justVerified = true
             self.navigationController?.popViewControllerAnimated(false)
             
         }
@@ -111,35 +115,40 @@ class CloseRequestViewController: UIViewController {
         query.whereKey("requester", equalTo: fbUsername)
         query.whereKey("task", equalTo: myRequestedTask)
         
-        let objects = query.findObjects()
-        if objects != nil {
-            if let objects = objects {
-                println(objects)
-                for object in objects {
-                    objectId = object.objectId as! String!
-                    println("ObjectId: \(objectId)")
+        query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+            if objects != nil {
+                if let objects = objects {
+                    println(objects)
+                    for object in objects {
+                        objectId = object.objectId as! String!
+                        println("ObjectId: \(objectId)")
+                    }
                 }
+                
+                var query2 = PFQuery(className: "request")
+                query2.getObjectInBackgroundWithId(objectId, block: { (task, error) -> Void in
+                    if let task = task {
+                        task.deleteInBackgroundWithBlock({ (delete, error) -> Void in
+                            if error != nil {
+                                println("Error closing request")
+                                self.addSpinner("Error closing request", Animated: false)
+                                self.delay(seconds: 1.0, completion: { () -> () in
+                                    self.hideSpinner()
+                                    self.endIgnore()
+                                })
+                            } else {
+                                println("Success closing request")
+                            }
+                        })
+                    } else {
+                        println("Error in object retrival")
+                    }
+                })
+            } else {
+                println("Error in object request")
             }
+            
         }
-        
-        var query2 = PFQuery(className: "request")
-        let task = query2.getObjectWithId(objectId)
-        
-        if let task = task {
-            task.deleteInBackgroundWithBlock({ (delete, error) -> Void in
-                if error != nil {
-                    println("Error closing request")
-                    self.addSpinner("Error closing request", Animated: false)
-                    self.delay(seconds: 1.0, completion: { () -> () in
-                        self.hideSpinner()
-                        self.endIgnore()
-                    })
-                } else {
-                    println("Success closing request")
-                }
-            })
-        }
-
         
     }
     
@@ -187,6 +196,8 @@ class CloseRequestViewController: UIViewController {
                         
                     }
                 }
+            } else {
+                println("Error in finding object")
             }
         }
         
@@ -242,40 +253,41 @@ class CloseRequestViewController: UIViewController {
         query.whereKey("sender1", equalTo: fbUsername)
         query.whereKey("sender2", equalTo: acceptedBy)
         
-        let objects = query.findObjects()
-        if objects != nil {
-            if let objects = objects {
-                println(objects)
-                for object in objects {
-                    objectId = object.objectId as! String!
-                    println("ObjectId: \(objectId)")
+        query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+            if objects != nil {
+                if let objects = objects {
+                    println(objects)
+                    for object in objects {
+                        objectId = object.objectId as! String!
+                        println("ObjectId: \(objectId)")
+                    }
                 }
             }
-        }
-        
-        var query2 = PFQuery(className: "chat")
-        let chat = query2.getObjectWithId(objectId)
-        
-        if let chat = chat {
-            chat.deleteInBackgroundWithBlock({ (delete, error) -> Void in
-                if error != nil {
-                    println("Error deleting")
-                    self.addSpinner("Error withdrawing", Animated: false)
-                    self.delay(seconds: 1.0, completion: { () -> () in
-                        self.hideSpinner()
-                        self.endIgnore()
-                    })
-                } else {
-                    println("Success deleting chat connection")
-                    self.addSpinner("Done", Animated: false)
-                    self.delay(seconds: 1.0, completion: { () -> () in
-                        self.hideSpinner()
-                        self.endIgnore()
+            
+            var query2 = PFQuery(className: "chat")
+            query2.getObjectInBackgroundWithId(objectId, block: { (chat, error) -> Void in
+                if let chat = chat {
+                    chat.deleteInBackgroundWithBlock({ (delete, error) -> Void in
+                        if error != nil {
+                            println("Error deleting")
+                            self.addSpinner("Error withdrawing", Animated: false)
+                            self.delay(seconds: 1.0, completion: { () -> () in
+                                self.hideSpinner()
+                                self.endIgnore()
+                            })
+                        } else {
+                            println("Success deleting chat connection")
+                            self.addSpinner("Done", Animated: false)
+                            self.delay(seconds: 1.0, completion: { () -> () in
+                                self.hideSpinner()
+                                self.endIgnore()
+                            })
+                        }
                     })
                 }
+
             })
         }
-        
     }
 
     

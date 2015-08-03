@@ -167,6 +167,7 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
             var query2 = PFQuery(className: "Message")
      //       query2.orderByDescending("createdAt")
             query2.whereKey("sender", equalTo: sender2)
+            
             let comboQuery = PFQuery.orQueryWithSubqueries([query, query2])
             comboQuery.orderByDescending("createdAt")
             
@@ -189,6 +190,7 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
                                 self.messages?.append(object)
                             }
                         }
+                        println("Count: \(self.messages?.count)")
                         self.tableView.reloadData()
                     }
                 } else {
@@ -249,6 +251,21 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
     override func viewWillAppear(animated: Bool) {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+        
+        if checkForChat() {
+            getMessages()
+            self.hideSpinner()
+            println("Hide spinner")
+            NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "onTimer", userInfo: nil, repeats: true)
+            
+        } else {
+            // segue away
+            println("Segue away")
+            self.performSegueWithIdentifier("toNoChat", sender: self)
+            self.navigationController?.popViewControllerAnimated(false)
+            self.hideSpinner()
+            
+        }
         
         println("Viewwillappear - Chat")
         
