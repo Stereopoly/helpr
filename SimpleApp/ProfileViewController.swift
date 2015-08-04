@@ -26,6 +26,8 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     var currentUserPoints = 0
     
+    var reloadTimer: NSTimer?
+    
     @IBOutlet weak var nameLabel: UILabel!
     
     @IBOutlet weak var taskLabel: UILabel!
@@ -70,7 +72,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
         withdrawButton.hidden = true
         closeRequestButton.hidden = true
         
-        NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "onTimer", userInfo: nil, repeats: true)
+        reloadTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "onTimer", userInfo: nil, repeats: true)
         
         let request = FBSDKGraphRequest(graphPath: "me", parameters: nil)
         
@@ -118,6 +120,8 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
         
         withdrawButton.layer.cornerRadius = 4
         closeRequestButton.layer.cornerRadius = 4
+        reloadTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "onTimer", userInfo: nil, repeats: true)
+
         if justVerified == true {
             justVerified = false
             
@@ -134,6 +138,10 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
             getAccepted()
             getPoints()
         }
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        reloadTimer!.invalidate()
     }
     
     func onTimer() {
@@ -207,6 +215,9 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                                 })
                             } else {
                                 println("Success closing request")
+                                self.taskLabel.text = "None."
+                                self.taskLabel.hidden = false
+                                self.closeRequestButton.hidden = true
                             }
                         })
                     } else {
@@ -237,7 +248,6 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
         
         let otherAction = DOAlertAction(title: otherButtonTitle, style: .Default) { action in
             NSLog("The \"Okay/Cancel\" alert's other action occured.")
-            
             self.addSpinner("Withdrawing...", Animated: true)
             self.beginIgnore()
             
@@ -276,6 +286,12 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
             self.acceptedLabel.text = "None."
             self.acceptedLabel.hidden = false
             self.withdrawButton.hidden = true
+            
+            self.addSpinner("Done", Animated: false)
+            self.delay(seconds: 1.0, completion: { () -> () in
+                self.hideSpinner()
+            })
+            self.endIgnore()
             
         }
         

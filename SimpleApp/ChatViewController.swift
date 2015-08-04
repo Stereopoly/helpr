@@ -34,32 +34,23 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-            
-        self.addSpinner("Loading...", Animated: true)
         
+        // Do any additional setup after loading the view.
+                
         self.messageText.delegate = self
         self.tableView.dataSource = self
         self.tableView.delegate = self
         
         self.tableView.registerClass(MessageViewCell.self, forCellReuseIdentifier: "cell")
         
-        if checkForChat() {
-            getMessages()
-            self.hideSpinner()
-            println("Hide spinner")
-            reloadTimer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "onTimer", userInfo: nil, repeats: true)
-          
-        } else {
-            // segue away
-            println("Segue away")
-            self.performSegueWithIdentifier("toNoChat", sender: self)
-            self.navigationController?.popViewControllerAnimated(false)
-            self.hideSpinner()
-            
-        }
+        getMessages()
+        println("Hide spinner")
+        reloadTimer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "onTimer", userInfo: nil, repeats: true)
         
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        reloadTimer?.invalidate()
     }
     
     func submitMessage() {
@@ -83,42 +74,6 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
         }
     }
     
-    func checkForChat() -> Bool {       // function to check if in a chat group
-        var check: Bool = false
-        
-        var query = PFQuery(className: "chat")
-        query.whereKey("sender1", equalTo: fbUsername)
-        
-        var query2 = PFQuery(className: "chat")
-        query2.whereKey("sender2", equalTo: fbUsername)
-        
-        let mergedQueries = PFQuery.orQueryWithSubqueries([query, query2])
-        
-        println("fbusername: " + fbUsername)
-        
-        let objects = mergedQueries.findObjects()
-        
-        println(objects)
-        if objects?.count == 1 {
-            println("Found chat relationship")
-            check = true
-            if let objects = objects {
-                for objects in objects {
-                    sender1 = objects["sender1"] as! String
-                    sender2 = objects["sender2"] as! String
-                    println("sender1: " + sender1)
-                    println("sender2: " + sender2)
-                }
-            }
-        } else {
-            println("Not in any chat group")
-            check = false
-        }
-        
-        println(check)
-        return check
-    }
-    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let messages = messages {
             return messages.count
@@ -134,9 +89,9 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("MessageViewCell", forIndexPath: indexPath) as! MessageViewCell
-
+        
         var messageText = messages![indexPath.row]
-   //     cell.messageCellText.text = messageText["text"] as? String
+        //     cell.messageCellText.text = messageText["text"] as? String
         
         if fbUsername == messageText["sender"] as! String {
             cell.nameCellText.text = "You"
@@ -160,22 +115,23 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
     
     func getMessages() {
         if loaded == 1 {
-            println("Loaded = 1")
             self.messages = []
+            println("Selected Chat: \(selectedChat)")
+            
             var query = PFQuery(className:"Message")
-      //      query.orderByDescending("createdAt")
-            query.whereKey("sender", equalTo: sender1)
+            query.whereKey("sender", equalTo: fbUsername)
+            query.whereKey("receiever", equalTo: selectedChat)
             
             var query2 = PFQuery(className: "Message")
-     //       query2.orderByDescending("createdAt")
-            query2.whereKey("sender", equalTo: sender2)
+        //    query2.whereKey("sender", equalTo: selectedChat)
+        //    query2.whereKey("receiever", equalTo: fbUsername)
             
             let comboQuery = PFQuery.orQueryWithSubqueries([query, query2])
             comboQuery.orderByDescending("createdAt")
             
             comboQuery.findObjectsInBackgroundWithBlock {
                 (objects: [AnyObject]?, error: NSError?) -> Void in
-                
+                println("Messages found: \(objects?.count)")
                 if error == nil {
                     // The find succeeded.
                     // Do something with the found objects
@@ -205,69 +161,12 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
                     })
                 }
             }
-        } else {
-            loaded = 1
-            self.messages = []
-            var query = PFQuery(className:"Message")
-            query.orderByDescending("createdAt")
-            query.findObjectsInBackgroundWithBlock {
-                (objects: [AnyObject]?, error: NSError?) -> Void in
-                
-                if error == nil {
-                    // The find succeeded.
-                    // Do something with the found objects
-                    if let objects = objects as? [PFObject] {
-                        for object in objects {
-                            
-                            var indexpath = NSIndexPath(forRow: self.messages!.count, inSection: 1)
-                            
-                            if object["sender"] as! String != fbUsername {
-                                self.addSpinner("Done", Animated: false)
-                                self.messages?.append(object)
-                            } else {
-                                self.addSpinner("Done", Animated: false)
-                                self.messages?.append(object)
-                            }
-                        }
-                        self.delay(seconds: 1.0, completion: { () -> () in
-                            self.tableView.reloadData()
-                            self.hideSpinner()
-                            self.beginInteraction()
-
-                        })
-                    }
-                } else {
-                    // Log details of the failure
-                    println("Error: \(error!) \(error!.userInfo!)")
-                    self.addSpinner("Error", Animated: false)
-                    self.delay(seconds: 1.0, completion: { () -> () in
-                        self.hideSpinner()
-                        
-                    })
-                }
-            }
         }
-        
     }
     
     override func viewWillAppear(animated: Bool) {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
-        
-        if checkForChat() {
-            getMessages()
-            self.hideSpinner()
-            println("Hide spinner")
-            NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "onTimer", userInfo: nil, repeats: true)
-            
-        } else {
-            // segue away
-            println("Segue away")
-            self.performSegueWithIdentifier("toNoChat", sender: self)
-            self.navigationController?.popViewControllerAnimated(false)
-            self.hideSpinner()
-            
-        }
         
         println("Viewwillappear - Chat")
         
@@ -278,7 +177,7 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
         
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -342,15 +241,15 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
             completion()
         }
     }
-
+    
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }
