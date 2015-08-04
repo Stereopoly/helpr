@@ -67,6 +67,7 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
         
         message["text"] = messageText.text
         message["sender"] =  fbUsername
+        message["receiver"] = selectedChat
         messageText.text = ""
         
         message.saveInBackgroundWithBlock {
