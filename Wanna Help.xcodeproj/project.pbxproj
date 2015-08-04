@@ -38,6 +38,7 @@
 		55C82BFE1B4DA31400220E17 /* RequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C82BFD1B4DA31400220E17 /* RequestViewController.swift */; };
 		55C82C001B4DA43B00220E17 /* CustomField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C82BFF1B4DA43B00220E17 /* CustomField.swift */; };
 		55CAA8C41B6BE313007AB136 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CAA8C31B6BE313007AB136 /* AlertView.swift */; };
+		55E110001B711BC2000A361C /* ChatConnectionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E10FFF1B711BC2000A361C /* ChatConnectionsTableViewController.swift */; };
 		55EA171B1B6046BE005685D7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 556EB0111B38CC1E00784845 /* Main.storyboard */; };
 		55ECEE011B6AA0E5003B36F2 /* CloseRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55ECEE001B6AA0E5003B36F2 /* CloseRequestViewController.swift */; };
 		5F8C2B82A5929299BEB84C15 /* Pods_Wanna_Help.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02165CF310D1C542AAF35FF5 /* Pods_Wanna_Help.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -92,6 +93,7 @@
 		55C82BFD1B4DA31400220E17 /* RequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestViewController.swift; sourceTree = "<group>"; };
 		55C82BFF1B4DA43B00220E17 /* CustomField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomField.swift; sourceTree = "<group>"; };
 		55CAA8C31B6BE313007AB136 /* AlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
+		55E10FFF1B711BC2000A361C /* ChatConnectionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatConnectionsTableViewController.swift; sourceTree = "<group>"; };
 		55ECEE001B6AA0E5003B36F2 /* CloseRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloseRequestViewController.swift; sourceTree = "<group>"; };
 		9FB3942755ADEB1A250CEA1A /* Pods-Wanna Help.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wanna Help.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Wanna Help/Pods-Wanna Help.debug.xcconfig"; sourceTree = "<group>"; };
 		F807A638B30085D0AFF82622 /* Pods_SimpleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SimpleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -184,6 +186,7 @@
 				55A31E6A1B580EA700A094B6 /* ZipCodeViewController.swift */,
 				552B86101B596883003739A8 /* taskDetailsViewController.swift */,
 				55583E361B604C4D00204898 /* ChatViewController.swift */,
+				55E10FFF1B711BC2000A361C /* ChatConnectionsTableViewController.swift */,
 				55C359FB1B668F0E00A392C5 /* NoHelpViewController.swift */,
 				5520DFAB1B6064C00099D879 /* MessageViewCell.swift */,
 				556EB0111B38CC1E00784845 /* Main.storyboard */,
@@ -405,6 +408,7 @@
 				556EB00E1B38CC1E00784845 /* AppDelegate.swift in Sources */,
 				550AF7A21B3A0C8000CB390B /* SignUpViewController.swift in Sources */,
 				55A31E6B1B580EA700A094B6 /* ZipCodeViewController.swift in Sources */,
+				55E110001B711BC2000A361C /* ChatConnectionsTableViewController.swift in Sources */,
 				55B1EF261B4EDC6200B8D890 /* HomeTableViewController.swift in Sources */,
 				55CAA8C41B6BE313007AB136 /* AlertView.swift in Sources */,
 				55C359FC1B668F0E00A392C5 /* NoHelpViewController.swift in Sources */,
