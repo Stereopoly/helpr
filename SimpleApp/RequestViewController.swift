@@ -44,64 +44,74 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                 self.beginInteraction()
             })
         } else {
-            var objectId = ""
-            var userPoints: Int = 0
-            var updatedUserPoints: Int?
-            
-            var query = PFQuery(className: "points")
-            query.whereKey("username", equalTo: fbUsername)
-            
-            query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
-                if objects != nil {
-                    if let objects = objects {
-                        println(objects)
-                        for object in objects {
-                            objectId = object.objectId as! String!
-                            println("ObjectId: \(objectId)")
-                        }
+            makeRequest()
+        }
+    }
+    
+    func subtractPoints() {
+        var objectId = ""
+        var userPoints: Int = 0
+        var updatedUserPoints: Int?
+        
+        var query = PFQuery(className: "points")
+        query.whereKey("username", equalTo: fbUsername)
+        
+        query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+            if objects != nil {
+                if let objects = objects {
+                    println(objects)
+                    for object in objects {
+                        objectId = object.objectId as! String!
+                        println("ObjectId: \(objectId)")
                     }
-                    
-                    var query2 = PFQuery(className: "points")
-                    query2.getObjectInBackgroundWithId(objectId, block: { (points, error) -> Void in
-                        if let points = points {
-                            userPoints = points["points"] as! Int
-                            println("Points: \(userPoints)")
-                            if userPoints < 1 {
-                                println("Not enough points")
-                                self.addSpinner("You don't have enough points", Animated: false)
-                                self.delay(seconds: 1.0, completion: { () -> () in
-                                    self.hideSpinner()
-                                    self.beginInteraction()
-                                })
-                            } else {
-                                println("Enough points to request")
-                                updatedUserPoints = userPoints - 1
-                                println("Updated points: \(updatedUserPoints)")
-                                points["points"] = updatedUserPoints
-                                
-                                points.saveInBackground()
-                                
-                                println("Points subtracted")
-                                
-                                self.makeRequest()
-                            }
-                            
-                        } else {
-                            println("Error in points save")
-                        }
-                    })
-                } else {
-                    println("Error - User has no points class")
-                    self.addSpinner("Error in points", Animated: false)
-                    self.delay(seconds: 1.0, completion: { () -> () in
-                        self.hideSpinner()
-                    })
                 }
+                
+                var query2 = PFQuery(className: "points")
+                query2.getObjectInBackgroundWithId(objectId, block: { (points, error) -> Void in
+                    if let points = points {
+                        userPoints = points["points"] as! Int
+                        println("Points: \(userPoints)")
+                        if userPoints < 1 {
+                            println("Not enough points")
+                            self.addSpinner("You don't have enough points", Animated: false)
+                            self.delay(seconds: 1.0, completion: { () -> () in
+                                self.hideSpinner()
+                                self.beginInteraction()
+                            })
+                        } else {
+                            println("Enough points to request")
+                            updatedUserPoints = userPoints - 1
+                            println("Updated points: \(updatedUserPoints)")
+                            points["points"] = updatedUserPoints
+                            
+                            points.saveInBackground()
+                            println("Points subtracted")
+                            
+                            println("Success")
+                            self.addSpinner("Success", Animated: false)
+                            self.delay(seconds: 1.0, completion: { () -> () in
+                                self.tabBarController?.selectedIndex = 0
+                                self.hideSpinner()
+                                self.beginInteraction()
+                            })
+                        }
+                        
+                    } else {
+                        println("Error in points save")
+                    }
+                })
+            } else {
+                println("Error - User has no points class")
+                self.addSpinner("Error in points", Animated: false)
+                self.delay(seconds: 1.0, completion: { () -> () in
+                    self.hideSpinner()
+                })
             }
-            
         }
         
     }
+    
+    
     
     func makeRequest() {
         queryZipcode { () -> Void in
@@ -138,13 +148,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                                             self.beginInteraction()
                                         })
                                     } else {
-                                        println("Success")
-                                        self.addSpinner("Success", Animated: false)
-                                        self.delay(seconds: 1.0, completion: { () -> () in
-                                            self.tabBarController?.selectedIndex = 0
-                                            self.hideSpinner()
-                                            self.beginInteraction()
-                                        })
+                                        self.subtractPoints()
                                     }
                                 })
                                 
