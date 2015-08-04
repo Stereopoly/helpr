@@ -36,7 +36,7 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
+            
         self.addSpinner("Loading...", Animated: true)
         
         self.messageText.delegate = self

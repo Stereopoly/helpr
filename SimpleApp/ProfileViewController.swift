@@ -70,7 +70,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
         withdrawButton.hidden = true
         closeRequestButton.hidden = true
         
-        NSTimer.scheduledTimerWithTimeInterval(4, target: self, selector: "onTimer", userInfo: nil, repeats: true)
+        NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "onTimer", userInfo: nil, repeats: true)
         
         let request = FBSDKGraphRequest(graphPath: "me", parameters: nil)
         
@@ -162,12 +162,11 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
         
         let otherAction = DOAlertAction(title: otherButtonTitle, style: .Default) { action in
             NSLog("The \"Okay/Cancel\" alert's other action occured.")
-            self.closeRequest()
-            
             self.taskLabel.text = "None."
             self.taskLabel.hidden = false
             self.closeRequestButton.hidden = true
-            justVerified = false
+            
+            self.closeRequest()
             
         }
         

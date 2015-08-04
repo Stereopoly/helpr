@@ -37,6 +37,7 @@ class NoHelpViewController: UIViewController {
             println("Now is in chat group")
             
             self.navigationController?.popViewControllerAnimated(false)
+            
 //            self.dismissViewControllerAnimated(true, completion: { () -> Void in
 //                println("Dismissed")
 //                

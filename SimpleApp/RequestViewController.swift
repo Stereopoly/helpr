@@ -141,6 +141,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                                         println("Success")
                                         self.addSpinner("Success", Animated: false)
                                         self.delay(seconds: 1.0, completion: { () -> () in
+                                            self.tabBarController?.selectedIndex = 0
                                             self.hideSpinner()
                                             self.beginInteraction()
                                         })
