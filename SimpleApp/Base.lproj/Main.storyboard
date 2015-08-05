@@ -8,7 +8,7 @@
         <!--Start-->
         <scene sceneID="GPC-f2-jzn">
             <objects>
-                <viewController storyboardIdentifier="startPage" title="Start" id="aea-Hc-XXF" customClass="StartViewController" customModule="Wanna_Help" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="startPage" title="Start" id="aea-Hc-XXF" customClass="StartViewController" customModule="helpr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="iqL-eS-cRh"/>
                         <viewControllerLayoutGuide type="bottom" id="sIA-o1-TH8"/>
@@ -46,7 +46,7 @@
         <!--Zip Code View Controller-->
         <scene sceneID="pDr-yd-CrC">
             <objects>
-                <viewController storyboardIdentifier="zipcode" id="oPN-vH-9a3" customClass="ZipCodeViewController" customModule="Wanna_Help" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="zipcode" id="oPN-vH-9a3" customClass="ZipCodeViewController" customModule="helpr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="a8f-la-pHc"/>
                         <viewControllerLayoutGuide type="bottom" id="LkE-28-An2"/>
@@ -130,7 +130,7 @@
         <!--Login-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController title="Login" id="BYZ-38-t0r" customClass="ViewController" customModule="Wanna_Help" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Login" id="BYZ-38-t0r" customClass="ViewController" customModule="helpr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -284,10 +284,10 @@
             </objects>
             <point key="canvasLocation" x="410" y="990"/>
         </scene>
-        <!--Chat-->
+        <!--Chat View Controller-->
         <scene sceneID="2j7-Qf-cUC">
             <objects>
-                <viewController id="6BJ-by-hY3" customClass="ChatViewController" customModule="Wanna_Help" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="6BJ-by-hY3" customClass="ChatViewController" customModule="helpr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="VLh-IK-7ts"/>
                         <viewControllerLayoutGuide type="bottom" id="eqM-S3-FnW"/>
@@ -302,8 +302,9 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="504" id="egC-ez-8tq"/>
                                 </constraints>
+                                <color key="sectionIndexBackgroundColor" white="0.96999999999999997" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MessageViewCell" rowHeight="54" id="2UV-7p-503" customClass="MessageViewCell" customModule="Wanna_Help" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MessageViewCell" rowHeight="54" id="2UV-7p-503" customClass="MessageViewCell" customModule="helpr" customModuleProvider="target">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2UV-7p-503" id="dM3-Gk-8au">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -408,7 +409,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Chat" id="E61-WA-1KK"/>
+                    <navigationItem key="navigationItem" id="E61-WA-1KK"/>
                     <connections>
                         <outlet property="messageText" destination="O0c-nk-wuR" id="R78-fb-rEq"/>
                         <outlet property="sendButtonOutlet" destination="I5v-iS-XAi" id="0lZ-Q8-MQp"/>
@@ -422,7 +423,7 @@
         <!--Sign Up-->
         <scene sceneID="04H-1x-Mbq">
             <objects>
-                <viewController title="Sign Up" id="DNT-oF-sep" customClass="SignUpViewController" customModule="Wanna_Help" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Sign Up" id="DNT-oF-sep" customClass="SignUpViewController" customModule="helpr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="acV-eF-vUf"/>
                         <viewControllerLayoutGuide type="bottom" id="B3G-5M-r8r"/>
@@ -625,7 +626,7 @@
         <!--Wanna Help?-->
         <scene sceneID="rWF-6F-J2K">
             <objects>
-                <tableViewController id="i1D-Sd-Pla" customClass="HomeTableViewController" customModule="Wanna_Help" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="i1D-Sd-Pla" customClass="HomeTableViewController" customModule="helpr" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="22" sectionFooterHeight="22" id="ak4-Ft-FpH">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -672,7 +673,7 @@
         <!--Task Details View Controller-->
         <scene sceneID="N9p-ur-2Lc">
             <objects>
-                <viewController id="eXi-he-5LQ" customClass="taskDetailsViewController" customModule="Wanna_Help" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="eXi-he-5LQ" customClass="taskDetailsViewController" customModule="helpr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hjz-Nh-I7B"/>
                         <viewControllerLayoutGuide type="bottom" id="KOK-Ws-14R"/>
@@ -752,7 +753,7 @@
         <!--Request-->
         <scene sceneID="9ZB-fH-Y5i">
             <objects>
-                <viewController id="ahG-z7-Thp" customClass="RequestViewController" customModule="Wanna_Help" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ahG-z7-Thp" customClass="RequestViewController" customModule="helpr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="s9K-C5-RbR"/>
                         <viewControllerLayoutGuide type="bottom" id="oAu-8C-H5p"/>
@@ -815,7 +816,7 @@
         <!--Close Request View Controller-->
         <scene sceneID="9ZP-nK-jlJ">
             <objects>
-                <viewController id="dBc-za-wXK" customClass="CloseRequestViewController" customModule="Wanna_Help" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="dBc-za-wXK" customClass="CloseRequestViewController" customModule="helpr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WMQ-9r-IIZ"/>
                         <viewControllerLayoutGuide type="bottom" id="QLs-dC-D7k"/>
@@ -905,7 +906,7 @@
         <!--Profile-->
         <scene sceneID="HzE-dX-Fla">
             <objects>
-                <viewController title="Profile" id="pZh-sY-qgU" customClass="ProfileViewController" customModule="Wanna_Help" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Profile" id="pZh-sY-qgU" customClass="ProfileViewController" customModule="helpr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hBj-A6-S0A"/>
                         <viewControllerLayoutGuide type="bottom" id="s7P-30-puK"/>
@@ -1130,7 +1131,7 @@
         <!--Add-->
         <scene sceneID="g6E-QH-4Td">
             <objects>
-                <viewController id="buc-yM-TX8" customClass="addHelpableViewController" customModule="Wanna_Help" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="buc-yM-TX8" customClass="addHelpableViewController" customModule="helpr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ejl-g4-0st"/>
                         <viewControllerLayoutGuide type="bottom" id="xzE-gE-b9O"/>
@@ -1306,7 +1307,7 @@
         <!--Can Help With-->
         <scene sceneID="Hv1-Cq-qh7">
             <objects>
-                <tableViewController id="hCd-d8-9Xw" customClass="viewHelpableTableViewController" customModule="Wanna_Help" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="hCd-d8-9Xw" customClass="viewHelpableTableViewController" customModule="helpr" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="22" sectionFooterHeight="22" id="dPy-ZA-QoD">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1396,7 +1397,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.17254901959999999" green="0.24313725489999999" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="1"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="34"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
                     </navigationBar>
@@ -1409,14 +1410,15 @@
             </objects>
             <point key="canvasLocation" x="1191" y="1041"/>
         </scene>
-        <!--Chat-->
+        <!--Messages-->
         <scene sceneID="TPx-xi-6GH">
             <objects>
-                <tableViewController id="8df-Rl-lI9" customClass="ChatConnectionsTableViewController" customModule="Wanna_Help" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="8df-Rl-lI9" customClass="ChatConnectionsTableViewController" customModule="helpr" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="QBd-Hg-LSb">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" white="0.96999999999999997" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="3ji-3h-Xhg">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -1431,7 +1433,7 @@
                             <outlet property="delegate" destination="8df-Rl-lI9" id="sou-4x-wg7"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Chat" id="Biv-To-dft"/>
+                    <navigationItem key="navigationItem" title="Messages" id="Biv-To-dft"/>
                     <connections>
                         <segue destination="6BJ-by-hY3" kind="show" identifier="toChat" id="bjE-Cw-8Ud"/>
                     </connections>
