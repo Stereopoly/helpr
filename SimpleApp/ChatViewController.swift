@@ -120,11 +120,11 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
             
             var query = PFQuery(className:"Message")
             query.whereKey("sender", equalTo: fbUsername)
-            query.whereKey("receiever", equalTo: selectedChat)
+            query.whereKey("receiver", equalTo: selectedChat)
             
             var query2 = PFQuery(className: "Message")
-        //    query2.whereKey("sender", equalTo: selectedChat)
-        //    query2.whereKey("receiever", equalTo: fbUsername)
+            query2.whereKey("sender", equalTo: selectedChat)
+            query2.whereKey("receiver", equalTo: fbUsername)
             
             let comboQuery = PFQuery.orQueryWithSubqueries([query, query2])
             comboQuery.orderByDescending("createdAt")
