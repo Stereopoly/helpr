@@ -29,6 +29,10 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     var reloadTimer: NSTimer?
     
+    @IBOutlet weak var acceptView: UIView!
+    
+    @IBOutlet weak var withdrawView: UIView!
+    
     @IBOutlet weak var nameLabel: UILabel!
     
     @IBOutlet weak var taskLabel: UILabel!
@@ -40,6 +44,8 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBOutlet weak var withdrawButton: UIButton!
     
     @IBOutlet weak var closeRequestButton: UIButton!
+    
+    @IBOutlet weak var canHelpWithButton: UIButton!
     
     @IBAction func closeRequestButtonPressed(sender: AnyObject) {
         if taskPending == true {
@@ -60,6 +66,10 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        acceptView.layer.cornerRadius = 4
+        withdrawView.layer.cornerRadius = 4
+        canHelpWithButton.layer.cornerRadius = 4
         
         self.addSpinner("Loading", Animated: true)
         self.beginIgnore()
@@ -109,7 +119,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
         }
         var loginButton = FBSDKLoginButton()
         loginButton.readPermissions = ["public_profile"]
-        let size = self.view.frame.size.width  as CGFloat
+        let size = self.view.frame.size.width - 20  as CGFloat
         let screenwidth = self.view.frame.size.width
         let screenheight = self.view.frame.height
         loginButton.frame = CGRectMake(screenwidth/2 - size/2, screenheight - 107, size, 50)

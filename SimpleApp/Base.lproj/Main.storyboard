@@ -348,6 +348,7 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="e9o-9i-EoX" secondAttribute="bottom" constant="-1" id="GLy-PX-0Bi"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.96999999999999997" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="messageCellText" destination="tKG-rk-qqD" id="QDh-5I-s7F"/>
                                             <outlet property="nameCellText" destination="e9o-9i-EoX" id="X28-hl-5O9"/>
@@ -412,7 +413,6 @@
                         <outlet property="messageText" destination="O0c-nk-wuR" id="R78-fb-rEq"/>
                         <outlet property="sendButtonOutlet" destination="I5v-iS-XAi" id="0lZ-Q8-MQp"/>
                         <outlet property="tableView" destination="jIQ-mB-HAb" id="Vml-7J-B1j"/>
-                        <segue destination="9yp-J1-2IC" kind="show" identifier="toNoChat" id="amq-ZL-APA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Th-9z-fjO" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -650,7 +650,9 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <color key="backgroundColor" white="0.96999999999999997" alpha="1" colorSpace="calibratedWhite"/>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.96999999999999997" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <segue destination="eXi-he-5LQ" kind="show" identifier="toDetail" trigger="accessoryAction" id="SYN-d0-yU6"/>
                                 </connections>
@@ -918,7 +920,6 @@
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="8uK-hY-l4n"/>
                                     <constraint firstAttribute="height" constant="50" id="Rvh-mX-QvG"/>
-                                    <constraint firstAttribute="width" constant="580" id="k2u-oN-qXH"/>
                                 </constraints>
                                 <state key="normal" title="I Can Help With">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -997,7 +998,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.96999999999999997" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="Qsy-2o-BBh" firstAttribute="top" secondItem="JTE-Nq-XME" secondAttribute="bottom" constant="8" symbolic="YES" id="168-m1-pfY"/>
                                     <constraint firstItem="i9C-Qu-zug" firstAttribute="top" secondItem="Qsy-2o-BBh" secondAttribute="bottom" constant="16" id="3cl-5Q-qam"/>
@@ -1059,7 +1060,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.96999999999999997" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="xbh-3W-Pgj" firstAttribute="leading" secondItem="P4x-tA-1OS" secondAttribute="leadingMargin" id="3Hi-aQ-Agi"/>
                                     <constraint firstItem="xbh-3W-Pgj" firstAttribute="top" secondItem="P4x-tA-1OS" secondAttribute="top" constant="37" id="5tw-hc-9cg"/>
@@ -1083,6 +1084,7 @@
                             <constraint firstItem="Sp6-ae-KqV" firstAttribute="top" secondItem="hBj-A6-S0A" secondAttribute="bottom" constant="71" id="4z6-FY-0g6"/>
                             <constraint firstAttribute="bottom" secondItem="P4x-tA-1OS" secondAttribute="bottom" constant="310" id="9Hf-Hz-Dz8"/>
                             <constraint firstItem="NCW-iD-t7e" firstAttribute="top" secondItem="P4x-tA-1OS" secondAttribute="bottom" constant="15" id="9qR-pA-yuS"/>
+                            <constraint firstItem="scF-9c-kfX" firstAttribute="leading" secondItem="86W-Dk-58D" secondAttribute="leadingMargin" constant="-6" id="DWL-iS-7Wf"/>
                             <constraint firstItem="scF-9c-kfX" firstAttribute="top" secondItem="NCW-iD-t7e" secondAttribute="bottom" constant="8" symbolic="YES" id="FoK-33-Akh"/>
                             <constraint firstItem="scF-9c-kfX" firstAttribute="top" secondItem="NCW-iD-t7e" secondAttribute="bottom" constant="8" id="H0r-4x-BaM"/>
                             <constraint firstItem="HIN-aa-AyS" firstAttribute="leading" secondItem="86W-Dk-58D" secondAttribute="leadingMargin" constant="-6" id="Mt5-hV-Or9"/>
@@ -1094,6 +1096,7 @@
                             <constraint firstItem="HIN-aa-AyS" firstAttribute="top" secondItem="hBj-A6-S0A" secondAttribute="bottom" constant="19" id="nOJ-zH-M0H"/>
                             <constraint firstItem="scF-9c-kfX" firstAttribute="centerX" secondItem="NCW-iD-t7e" secondAttribute="centerX" id="skm-vT-EM1"/>
                             <constraint firstItem="s7P-30-puK" firstAttribute="top" secondItem="scF-9c-kfX" secondAttribute="bottom" constant="66" id="tGy-3w-u23"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="scF-9c-kfX" secondAttribute="trailing" constant="-6" id="wV0-hm-aZS"/>
                             <constraint firstItem="NCW-iD-t7e" firstAttribute="leading" secondItem="86W-Dk-58D" secondAttribute="leading" constant="10" id="wu0-Pn-wup"/>
                             <constraint firstItem="P4x-tA-1OS" firstAttribute="centerX" secondItem="Sp6-ae-KqV" secondAttribute="centerX" id="x0r-He-6aA"/>
                         </constraints>
@@ -1107,12 +1110,15 @@
                     </view>
                     <navigationItem key="navigationItem" title="Me" id="5k3-FY-gnA"/>
                     <connections>
+                        <outlet property="acceptView" destination="P4x-tA-1OS" id="EFM-Xx-Sc2"/>
                         <outlet property="acceptedLabel" destination="Qsy-2o-BBh" id="wHM-kx-Tdl"/>
+                        <outlet property="canHelpWithButton" destination="scF-9c-kfX" id="iEy-nz-iga"/>
                         <outlet property="closeRequestButton" destination="SRO-eg-1m2" id="2Ye-hv-Ba3"/>
                         <outlet property="nameLabel" destination="HIN-aa-AyS" id="a7f-lu-Ee6"/>
                         <outlet property="pointsLabel" destination="Sp6-ae-KqV" id="a8w-ZI-hSz"/>
                         <outlet property="taskLabel" destination="xbh-3W-Pgj" id="Jhu-wi-u3k"/>
                         <outlet property="withdrawButton" destination="i9C-Qu-zug" id="N1g-Rn-72w"/>
+                        <outlet property="withdrawView" destination="NCW-iD-t7e" id="maz-ZZ-RWB"/>
                         <segue destination="aea-Hc-XXF" kind="showDetail" identifier="profileToStart" id="rJU-rD-EcA"/>
                         <segue destination="dBc-za-wXK" kind="show" identifier="toCloseRequest" id="zhz-qw-uvF"/>
                     </connections>
@@ -1417,6 +1423,7 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3ji-3h-Xhg" id="HoR-1N-pNA">
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.96999999999999997" alpha="1" colorSpace="calibratedWhite"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -1432,40 +1439,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3SW-yF-KNT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1191" y="1729"/>
-        </scene>
-        <!--No Help View Controller-->
-        <scene sceneID="O3H-Ec-d1i">
-            <objects>
-                <viewController id="9yp-J1-2IC" customClass="NoHelpViewController" customModule="Wanna_Help" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="0Zt-XD-GNQ"/>
-                        <viewControllerLayoutGuide type="bottom" id="LCZ-w1-FZc"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="5ch-tx-NOR">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Once you acccept a request, a chat window will appear here." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xsd-Jv-2z4">
-                                <rect key="frame" x="185" y="269" width="230" height="80"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="230" id="Ykp-cN-pZk"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="Xsd-Jv-2z4" firstAttribute="top" secondItem="0Zt-XD-GNQ" secondAttribute="bottom" constant="205" id="Wm5-B1-Rka"/>
-                            <constraint firstItem="Xsd-Jv-2z4" firstAttribute="centerY" secondItem="5ch-tx-NOR" secondAttribute="centerY" constant="9" id="Yov-wE-QDX"/>
-                            <constraint firstItem="Xsd-Jv-2z4" firstAttribute="centerX" secondItem="5ch-tx-NOR" secondAttribute="centerX" id="g1f-4F-Cyh"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="DE4-6Q-9am" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1947" y="1729"/>
         </scene>
     </scenes>
     <resources>
