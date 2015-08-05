@@ -20,7 +20,6 @@ class NoHelpViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         self.navigationItem.setHidesBackButton(true, animated: false)
-        self.navigationItem.backBarButtonItem?.title = ""
     }
     
 
