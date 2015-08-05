@@ -29,6 +29,8 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     var reloadTimer: NSTimer?
     
+    var tooSlow = true
+    
     @IBOutlet weak var acceptView: UIView!
     
     @IBOutlet weak var withdrawView: UIView!
@@ -67,6 +69,19 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        delay(seconds: 10.0) { () -> () in
+            if self.tooSlow == true {
+                self.addSpinner("Taking longer than normal", Animated: true)
+                self.delay(seconds: 6.0, completion: { () -> () in
+                    self.addSpinner("Try again later", Animated: false)
+                    self.delay(seconds: 1.0, completion: { () -> () in
+                        self.hideSpinner()
+                        self.endIgnore()
+                    })
+                })
+            }
+        }
+        
         acceptView.layer.cornerRadius = 4
         withdrawView.layer.cornerRadius = 4
         canHelpWithButton.layer.cornerRadius = 4
@@ -83,7 +98,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
         withdrawButton.hidden = true
         closeRequestButton.hidden = true
         
-        reloadTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "onTimer", userInfo: nil, repeats: true)
+        reloadTimer = NSTimer.scheduledTimerWithTimeInterval(8, target: self, selector: "onTimer", userInfo: nil, repeats: true)
         
         let request = FBSDKGraphRequest(graphPath: "me", parameters: nil)
         
@@ -111,6 +126,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                     self.getTask()
                     self.getAccepted()
                     self.getPoints()
+                    self.tooSlow = false
                     self.hideSpinner()
                     self.endIgnore()
                 })
@@ -131,7 +147,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
         
         withdrawButton.layer.cornerRadius = 4
         closeRequestButton.layer.cornerRadius = 4
-        reloadTimer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "onTimer", userInfo: nil, repeats: true)
+       // reloadTimer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "onTimer", userInfo: nil, repeats: true)
 
         if justVerified == true {
             justVerified = false
@@ -152,10 +168,6 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
         
         let mixpanel: Mixpanel = Mixpanel.sharedInstance()
         mixpanel.track("View Profile Screen")
-    }
-    
-    override func viewDidDisappear(animated: Bool) {
-        reloadTimer!.invalidate()
     }
     
     func onTimer() {

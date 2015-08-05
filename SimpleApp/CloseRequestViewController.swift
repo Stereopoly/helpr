@@ -139,6 +139,7 @@ class CloseRequestViewController: UIViewController {
                                 })
                             } else {
                                 println("Success closing request")
+                                self.deleteChatMessages()
                                 let mixpanel: Mixpanel = Mixpanel.sharedInstance()
                                 mixpanel.track("Request Closed", properties:["Points": false])
                             }
