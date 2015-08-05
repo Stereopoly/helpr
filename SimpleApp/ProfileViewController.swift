@@ -131,7 +131,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
         
         withdrawButton.layer.cornerRadius = 4
         closeRequestButton.layer.cornerRadius = 4
-        reloadTimer = NSTimer.scheduledTimerWithTimeInterval(7, target: self, selector: "onTimer", userInfo: nil, repeats: true)
+        reloadTimer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "onTimer", userInfo: nil, repeats: true)
 
         if justVerified == true {
             justVerified = false

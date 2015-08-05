@@ -324,7 +324,15 @@ class CloseRequestViewController: UIViewController {
                         println(objectId)
                         var delete = PFQuery(className: "Message")
                         delete.getObjectInBackgroundWithId(objectId, block: { (chatMessage, error) -> Void in
-                            
+                            if let chatMessage = chatMessage {
+                                chatMessage.deleteInBackgroundWithBlock({ (delete, error) -> Void in
+                                    if error != nil {
+                                        println("Error deleting message")
+                                    } else {
+                                        println("Success deleting chat message")
+                                    }
+                                })
+                            }
                         })
                     }
                     

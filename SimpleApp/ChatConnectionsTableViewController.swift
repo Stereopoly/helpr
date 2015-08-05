@@ -50,6 +50,10 @@ class ChatConnectionsTableViewController: PFQueryTableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.loadObjects()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
