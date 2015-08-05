@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>Pods-Wanna Help-Bolts.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>Pods-Wanna Help-FBSDKCoreKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>Pods-Wanna Help-FBSDKLoginKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>Pods-Wanna Help-Mixpanel.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
+		<key>Pods-Wanna Help-Parse.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
+		<key>Pods-Wanna Help-ParseFacebookUtilsV4.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
+		<key>Pods-Wanna Help-ParseUI.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>8</integer>
+		</dict>
+		<key>Pods-Wanna Help-SwiftSpinner.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>9</integer>
+		</dict>
+		<key>Pods-Wanna Help.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>1B763CEBC5720C44AE81D6E4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>48DA5BA2772F7BB3C17DDC9A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4E8635BBE0CD385073D8C098</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>893C7F1041F971F2065A14C6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8F33E78E05B19D554C077659</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>901B805017A7400ED70097BE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A9232D832D3A22ED43D83C7E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DA0680EE31B0DCDD9B49D1C5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EA094502D1216581FAB64737</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
