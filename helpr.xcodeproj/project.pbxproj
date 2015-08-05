@@ -67,13 +67,13 @@
 		555180B81B56C1B100A66D71 /* addHelpableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addHelpableViewController.swift; sourceTree = "<group>"; };
 		55583E331B604BE600204898 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		55583E361B604C4D00204898 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
-		556EB0081B38CC1E00784845 /* Wanna Help.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Wanna Help.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		556EB0081B38CC1E00784845 /* helpr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = helpr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		556EB00C1B38CC1E00784845 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		556EB00D1B38CC1E00784845 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		556EB00F1B38CC1E00784845 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		556EB0121B38CC1E00784845 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		556EB0141B38CC1E00784845 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		556EB01D1B38CC1E00784845 /* Wanna HelpTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Wanna HelpTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		556EB01D1B38CC1E00784845 /* helprTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = helprTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		556EB0221B38CC1E00784845 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		556EB0231B38CC1E00784845 /* SimpleAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleAppTests.swift; sourceTree = "<group>"; };
 		55A31E6A1B580EA700A094B6 /* ZipCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZipCodeViewController.swift; sourceTree = "<group>"; };
@@ -163,8 +163,8 @@
 		556EB0091B38CC1E00784845 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				556EB0081B38CC1E00784845 /* Wanna Help.app */,
-				556EB01D1B38CC1E00784845 /* Wanna HelpTests.xctest */,
+				556EB0081B38CC1E00784845 /* helpr.app */,
+				556EB01D1B38CC1E00784845 /* helprTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -244,9 +244,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		556EB0071B38CC1E00784845 /* Wanna Help */ = {
+		556EB0071B38CC1E00784845 /* helpr */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 556EB0271B38CC1E00784845 /* Build configuration list for PBXNativeTarget "Wanna Help" */;
+			buildConfigurationList = 556EB0271B38CC1E00784845 /* Build configuration list for PBXNativeTarget "helpr" */;
 			buildPhases = (
 				FFA966FA0C34E85C91BFD9B6 /* Check Pods Manifest.lock */,
 				556EB0041B38CC1E00784845 /* Sources */,
@@ -259,14 +259,14 @@
 			);
 			dependencies = (
 			);
-			name = "Wanna Help";
+			name = helpr;
 			productName = SimpleApp;
-			productReference = 556EB0081B38CC1E00784845 /* Wanna Help.app */;
+			productReference = 556EB0081B38CC1E00784845 /* helpr.app */;
 			productType = "com.apple.product-type.application";
 		};
-		556EB01C1B38CC1E00784845 /* Wanna HelpTests */ = {
+		556EB01C1B38CC1E00784845 /* helprTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 556EB02A1B38CC1E00784845 /* Build configuration list for PBXNativeTarget "Wanna HelpTests" */;
+			buildConfigurationList = 556EB02A1B38CC1E00784845 /* Build configuration list for PBXNativeTarget "helprTests" */;
 			buildPhases = (
 				556EB0191B38CC1E00784845 /* Sources */,
 				556EB01A1B38CC1E00784845 /* Frameworks */,
@@ -277,9 +277,9 @@
 			dependencies = (
 				556EB01F1B38CC1E00784845 /* PBXTargetDependency */,
 			);
-			name = "Wanna HelpTests";
+			name = helprTests;
 			productName = SimpleAppTests;
-			productReference = 556EB01D1B38CC1E00784845 /* Wanna HelpTests.xctest */;
+			productReference = 556EB01D1B38CC1E00784845 /* helprTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -306,7 +306,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 556EB0031B38CC1E00784845 /* Build configuration list for PBXProject "Wanna Help" */;
+			buildConfigurationList = 556EB0031B38CC1E00784845 /* Build configuration list for PBXProject "helpr" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -319,8 +319,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				556EB0071B38CC1E00784845 /* Wanna Help */,
-				556EB01C1B38CC1E00784845 /* Wanna HelpTests */,
+				556EB0071B38CC1E00784845 /* helpr */,
+				556EB01C1B38CC1E00784845 /* helprTests */,
 			);
 		};
 /* End PBXProject section */
@@ -433,7 +433,7 @@
 /* Begin PBXTargetDependency section */
 		556EB01F1B38CC1E00784845 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 556EB0071B38CC1E00784845 /* Wanna Help */;
+			target = 556EB0071B38CC1E00784845 /* helpr */;
 			targetProxy = 556EB01E1B38CC1E00784845 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -549,9 +549,10 @@
 				INFOPLIST_FILE = SimpleApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "Wanna Help";
+				PRODUCT_NAME = helpr;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -569,9 +570,10 @@
 				INFOPLIST_FILE = SimpleApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "Wanna Help";
+				PRODUCT_NAME = helpr;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -589,7 +591,7 @@
 				);
 				INFOPLIST_FILE = SimpleAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "Wanna HelpTests";
+				PRODUCT_NAME = helprTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SimpleApp.app/SimpleApp";
 			};
 			name = Debug;
@@ -604,7 +606,7 @@
 				);
 				INFOPLIST_FILE = SimpleAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "Wanna HelpTests";
+				PRODUCT_NAME = helprTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SimpleApp.app/SimpleApp";
 			};
 			name = Release;
@@ -612,7 +614,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		556EB0031B38CC1E00784845 /* Build configuration list for PBXProject "Wanna Help" */ = {
+		556EB0031B38CC1E00784845 /* Build configuration list for PBXProject "helpr" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				556EB0251B38CC1E00784845 /* Debug */,
@@ -621,7 +623,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		556EB0271B38CC1E00784845 /* Build configuration list for PBXNativeTarget "Wanna Help" */ = {
+		556EB0271B38CC1E00784845 /* Build configuration list for PBXNativeTarget "helpr" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				556EB0281B38CC1E00784845 /* Debug */,
@@ -630,7 +632,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		556EB02A1B38CC1E00784845 /* Build configuration list for PBXNativeTarget "Wanna HelpTests" */ = {
+		556EB02A1B38CC1E00784845 /* Build configuration list for PBXNativeTarget "helprTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				556EB02B1B38CC1E00784845 /* Debug */,

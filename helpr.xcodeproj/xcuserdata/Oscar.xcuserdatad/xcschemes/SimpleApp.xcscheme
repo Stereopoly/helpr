@@ -16,8 +16,22 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "556EB0071B38CC1E00784845"
                BuildableName = "Wanna Help.app"
-               BlueprintName = "Wanna Help"
-               ReferencedContainer = "container:Wanna Help.xcodeproj">
+               BlueprintName = "helpr"
+               ReferencedContainer = "container:helpr.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "556EB01C1B38CC1E00784845"
+               BuildableName = "Wanna HelpTests.xctest"
+               BlueprintName = "helprTests"
+               ReferencedContainer = "container:helpr.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -28,14 +42,24 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "556EB01C1B38CC1E00784845"
+               BuildableName = "Wanna HelpTests.xctest"
+               BlueprintName = "helprTests"
+               ReferencedContainer = "container:helpr.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "556EB0071B38CC1E00784845"
             BuildableName = "Wanna Help.app"
-            BlueprintName = "Wanna Help"
-            ReferencedContainer = "container:Wanna Help.xcodeproj">
+            BlueprintName = "helpr"
+            ReferencedContainer = "container:helpr.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -54,8 +78,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "556EB0071B38CC1E00784845"
             BuildableName = "Wanna Help.app"
-            BlueprintName = "Wanna Help"
-            ReferencedContainer = "container:Wanna Help.xcodeproj">
+            BlueprintName = "helpr"
+            ReferencedContainer = "container:helpr.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -73,8 +97,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "556EB0071B38CC1E00784845"
             BuildableName = "Wanna Help.app"
-            BlueprintName = "Wanna Help"
-            ReferencedContainer = "container:Wanna Help.xcodeproj">
+            BlueprintName = "helpr"
+            ReferencedContainer = "container:helpr.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

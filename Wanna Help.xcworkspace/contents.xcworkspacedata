@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Wanna Help.xcodeproj">
+      location = "group:/Users/Oscar/Desktop/Make School/SimpleApp/helpr.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
