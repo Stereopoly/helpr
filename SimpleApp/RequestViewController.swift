@@ -11,6 +11,7 @@ import UIKit
 import Parse
 import Bolts
 import SwiftSpinner
+import Mixpanel
 
 class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
     
@@ -33,7 +34,6 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
     
     @IBAction func requestButton(sender: AnyObject) {
         println("Pressed request button")
-        
         ignoreInteraction()
         addSpinner("Requesting task", Animated: true)
         
@@ -86,6 +86,9 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                             
                             points.saveInBackground()
                             println("Points subtracted")
+                            
+                            let mixpanel: Mixpanel = Mixpanel.sharedInstance()
+                            mixpanel.track("Request Made Successfully")
                             
                             println("Success")
                             self.addSpinner("Success", Animated: false)

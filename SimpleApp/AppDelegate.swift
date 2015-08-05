@@ -33,6 +33,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let mixpanel: Mixpanel = Mixpanel.sharedInstance()
         mixpanel.track("App launched")
         
+        // Tab bar icon colors
+        
+        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.whiteColor()], forState:.Normal)
+        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.whiteColor()], forState:.Selected)
+        UITabBar.appearance().tintColor = UIColor.whiteColor()
+        
         // Push Notifs
         
         // Register for Push Notitications

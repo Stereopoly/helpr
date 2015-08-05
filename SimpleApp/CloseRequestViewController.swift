@@ -9,6 +9,7 @@
 import UIKit
 import Parse
 import SwiftSpinner
+import Mixpanel
 
 var acceptedBy = ""
 
@@ -138,6 +139,8 @@ class CloseRequestViewController: UIViewController {
                                 })
                             } else {
                                 println("Success closing request")
+                                let mixpanel: Mixpanel = Mixpanel.sharedInstance()
+                                mixpanel.track("Request Closed", properties:["Points": false])
                             }
                         })
                     } else {
@@ -169,7 +172,7 @@ class CloseRequestViewController: UIViewController {
                         println("Not accepted - no help was given by anyone")
                     } else {
                         for object in objects {
-                            objectId = object.objectId as! String!
+                            objectId = object.objectId as String!
                             acceptedBy = object["acceptedBy"] as! String
                             println("Accepted by: \(acceptedBy)")
                             println("ObjectId: \(objectId)")
@@ -190,6 +193,10 @@ class CloseRequestViewController: UIViewController {
                                     println("Success closing request")
                                     self.deleteChatConnection()
                                     self.addPoints()
+                                    
+                                    let mixpanel: Mixpanel = Mixpanel.sharedInstance()
+                                    mixpanel.track("Request Closed", properties:["Points": true])
+                                    
                                 }
                             })
                         }

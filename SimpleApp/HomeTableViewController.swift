@@ -13,6 +13,7 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import ParseFacebookUtilsV4
 import SwiftSpinner
+import Mixpanel
 
 var tasks = [""]
 var selectedRowText = ""
@@ -79,6 +80,9 @@ class HomeTableViewController: PFQueryTableViewController {
     
     override func viewWillAppear(animated: Bool) {
         getHelpable()
+        
+        let mixpanel: Mixpanel = Mixpanel.sharedInstance()
+        mixpanel.track("View Give Screen")
     }
     
     override func didReceiveMemoryWarning() {

@@ -1204,6 +1204,9 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" id="MKw-cC-FfS">
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.17254901959999999" green="0.24313725489999999" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
                         <segue destination="JdN-7q-oL3" kind="relationship" relationship="viewControllers" id="qpX-H0-EZH"/>
@@ -1216,11 +1219,13 @@
             </objects>
             <point key="canvasLocation" x="1191" y="317"/>
         </scene>
-        <!--Give-->
+        <!--Navigation Controller-->
         <scene sceneID="RO1-Gd-mc6">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XeQ-0J-Fby" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Give" id="5v8-j9-A7v"/>
+                    <tabBarItem key="tabBarItem" title="" image="Handshake" id="5v8-j9-A7v">
+                        <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Lxk-ei-31y">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1240,11 +1245,13 @@
             </objects>
             <point key="canvasLocation" x="1947" y="-371"/>
         </scene>
-        <!--Get-->
+        <!--Navigation Controller-->
         <scene sceneID="5i9-rZ-8aA">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="uVc-qV-5XT" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Get" id="F9Z-87-BLD"/>
+                    <tabBarItem key="tabBarItem" title="" image="?" id="F9Z-87-BLD">
+                        <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="kVi-H7-H8F">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1264,11 +1271,13 @@
             </objects>
             <point key="canvasLocation" x="1947" y="317"/>
         </scene>
-        <!--Me-->
+        <!--Navigation Controller-->
         <scene sceneID="2iP-fb-ynn">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="JdN-7q-oL3" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Me" id="L4n-Aa-qdm"/>
+                    <tabBarItem key="tabBarItem" title="" image="Home" id="L4n-Aa-qdm">
+                        <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="uLW-v4-d82">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1368,11 +1377,13 @@
             </objects>
             <point key="canvasLocation" x="3942" y="1715"/>
         </scene>
-        <!--Chat-->
+        <!--Navigation Controller-->
         <scene sceneID="ctd-bX-QuT">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jvV-aH-ANQ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Chat" id="x16-ym-Uuz"/>
+                    <tabBarItem key="tabBarItem" title="" image="Chat" id="x16-ym-Uuz">
+                        <inset key="imageInsets" minX="0.0" minY="7" maxX="0.0" maxY="-7"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="5eM-5z-fL1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1457,6 +1468,12 @@
             <point key="canvasLocation" x="1947" y="1729"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="?" width="30" height="30"/>
+        <image name="Chat" width="30" height="30"/>
+        <image name="Handshake" width="30" height="30"/>
+        <image name="Home" width="30" height="30"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Ibn-0L-JYp"/>
         <segue reference="rJU-rD-EcA"/>

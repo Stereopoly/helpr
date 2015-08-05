@@ -13,6 +13,7 @@ import FBSDKLoginKit
 import ParseUI
 import ParseFacebookUtilsV4
 import SwiftSpinner
+import Mixpanel
 
 var name = ""
 
@@ -120,7 +121,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
         
         withdrawButton.layer.cornerRadius = 4
         closeRequestButton.layer.cornerRadius = 4
-        reloadTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "onTimer", userInfo: nil, repeats: true)
+        reloadTimer = NSTimer.scheduledTimerWithTimeInterval(7, target: self, selector: "onTimer", userInfo: nil, repeats: true)
 
         if justVerified == true {
             justVerified = false
@@ -138,6 +139,9 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
             getAccepted()
             getPoints()
         }
+        
+        let mixpanel: Mixpanel = Mixpanel.sharedInstance()
+        mixpanel.track("View Profile Screen")
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -157,7 +161,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     func closeRequestAlert() {
         let title = "Are you sure you want to close your request?"
-        let message = ""
+        let message = "Your points will be refunded."
         let cancelButtonTitle = "Cancel"
         let otherButtonTitle = "Yes"
         
@@ -176,6 +180,10 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
             
             self.closeRequest()
             
+            self.addPoints()
+            
+            let mixpanel: Mixpanel = Mixpanel.sharedInstance()
+            mixpanel.track("User Withdrew From Task")
         }
         
         // Add the actions.
@@ -500,6 +508,48 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                         println("Points: \(userPoints)")
                     }
                     self.pointsLabel.text = "Points: \(self.currentUserPoints)"   // set label
+                })
+            } else {
+                println("Error - User has no points class")
+            }
+        }
+        
+    }
+    
+    func addPoints() {
+        
+        var objectId = ""
+        var userPoints: Int = 0
+        var updatedUserPoints: Int?
+        
+        var query = PFQuery(className: "points")
+        query.whereKey("username", equalTo: fbUsername)
+        
+        query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+            if objects != nil {
+                if let objects = objects {
+                    println(objects)
+                    for object in objects {
+                        objectId = object.objectId as! String!
+                        println("ObjectId: \(objectId)")
+                    }
+                }
+                
+                var query2 = PFQuery(className: "points")
+                query2.getObjectInBackgroundWithId(objectId, block: { (points, error) -> Void in
+                    if let points = points {
+                        userPoints = points["points"] as! Int
+                        println("Points: \(userPoints)")
+                        updatedUserPoints = userPoints + 1
+                        println("Updated points: \(updatedUserPoints)")
+                        points["points"] = updatedUserPoints
+                        
+                        points.saveInBackground()
+                        
+                        println("Points Refunded")
+                    } else {
+                        println("Error in points save")
+                    }
                 })
             } else {
                 println("Error - User has no points class")
