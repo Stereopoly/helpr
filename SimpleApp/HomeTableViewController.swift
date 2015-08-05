@@ -109,9 +109,7 @@ class HomeTableViewController: PFQueryTableViewController {
                 })
             }
         }
-        
-        addSpinner("Loading", Animated: true)
-        
+
         var query = PFQuery(className: "_User")
         query.whereKey("username", equalTo: fbUsername)
         
@@ -128,19 +126,11 @@ class HomeTableViewController: PFQueryTableViewController {
                     }
                 } else {
                     //    SwiftSpinner.setTitleFont(UIFont(name: "System", size: 19))
-                    self.addSpinner("Error", Animated: false)
-                    self.delay(seconds: 1.0, completion: { () -> () in
-                        self.hideSpinner()
-                    })
+                    println("Error in query")
                 }
             }
         }
-        
-        self.delay(seconds: 1.0, completion: { () -> () in
-            self.hideSpinner()
-            self.endIgnore()
-            
-        })
+        self.endIgnore()
     }
     
     

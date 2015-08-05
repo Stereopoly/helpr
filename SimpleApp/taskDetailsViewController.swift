@@ -31,7 +31,7 @@ class taskDetailsViewController: UIViewController {
 
         addSpinner("Accepting...", Animated: true)
         
-        delay(seconds: 6.0) { () -> () in
+        delay(seconds: 10.0) { () -> () in
             if self.slow == true {
                 self.addSpinner("Taking longer than normal", Animated: true)
                 self.delay(seconds: 6.0, completion: { () -> () in
@@ -74,7 +74,7 @@ class taskDetailsViewController: UIViewController {
                     })
                     self.beginInteraction()
                 } else {
-                    self.sendPush()
+                    self.alreadyAccepted()
                 }
             } else {
                 // Log details of the failure
@@ -105,6 +105,42 @@ class taskDetailsViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func alreadyAccepted() {
+        
+        var query = PFQuery(className: "request")
+        query.whereKey("acceptedBy", equalTo: fbUsername)
+        
+        query.findObjectsInBackgroundWithBlock { (accepted, error) -> Void in
+            if error != nil {
+                println("Error")
+            } else {
+                if let accepted = accepted {
+                    println("Count of alreadyAccepted: \(accepted.count)")
+                    if accepted.count == 1 {
+                        self.slow = false
+                        self.addSpinner("You cannot accept more than 1 request", Animated: false)
+                        self.delay(seconds: 1.0, completion: { () -> () in
+                            self.hideSpinner()
+                            self.beginInteraction()
+                        })
+                        self.beginInteraction()
+                    }
+                    else if accepted.count == 0 {
+                        self.sendPush()
+                    } else {
+                        self.slow = false
+                        println("Error in count")
+                        self.addSpinner("Error", Animated: false)
+                        self.delay(seconds: 1.0, completion: { () -> () in
+                            self.hideSpinner()
+                            self.beginInteraction()
+                        })
+                    }
+                }
+            }
+        }
     }
     
     // MARK: - Push Notifications
