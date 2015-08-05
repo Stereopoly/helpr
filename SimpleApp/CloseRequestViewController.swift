@@ -265,7 +265,7 @@ class CloseRequestViewController: UIViewController {
                 if let objects = objects {
                     println(objects)
                     for object in objects {
-                        objectId = object.objectId as! String!
+                        objectId = object.objectId as String!
                         println("ObjectId: \(objectId)")
                     }
                 }
@@ -283,11 +283,54 @@ class CloseRequestViewController: UIViewController {
                             })
                         } else {
                             println("Success deleting chat connection")
+                            self.deleteChatMessages()
                         }
                     })
                 }
                 
             })
+        }
+    }
+    
+    func deleteChatMessages() {
+        var objectIds = [String]()
+        
+        println("Conversation: \(acceptedBy) + \(fbUsername)")
+        
+        var query = PFQuery(className: "Message")
+        query.whereKey("sender", equalTo: acceptedBy)
+        query.whereKey("receiver", equalTo: fbUsername)
+        
+        var query2 = PFQuery(className: "Message")
+        query2.whereKey("sender", equalTo: fbUsername)
+        query2.whereKey("receiver", equalTo: acceptedBy)
+        
+        var combinedQuery = PFQuery.orQueryWithSubqueries([query, query2])
+        combinedQuery.findObjectsInBackgroundWithBlock { (messages, error) -> Void in
+            if error != nil {
+                println("Error in messages query")
+            } else {
+                println("Messages: \(messages)")
+                if messages != nil {
+                    if let messages = messages  {
+                        for message in messages {
+                            objectIds.append(message.objectId as String!)
+                        }
+                        println("ObjectIds: \(objectIds)")
+                    }
+                    var deleteQuery = PFQuery(className: "Messages")
+                    
+                    for objectId in objectIds {
+                        println(objectId)
+                        var delete = PFQuery(className: "Message")
+                        delete.getObjectInBackgroundWithId(objectId, block: { (chatMessage, error) -> Void in
+                            
+                        })
+                    }
+                    
+                    
+                }
+            }
         }
     }
     

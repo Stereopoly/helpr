@@ -95,8 +95,8 @@ class viewHelpableTableViewController: PFQueryTableViewController {
     
     func cancelAlert() {
         let task = selectedText
-        let title = "Are you sure you want to delete \(task)"
-        let message = ""
+        let title = "Are you sure you want to delete \(task)?"
+        let message = "You will not be able to find others who want \(task) help."
         let cancelButtonTitle = "Cancel"
         let otherButtonTitle = "Yes"
         

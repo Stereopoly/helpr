@@ -340,6 +340,7 @@
                                                     </variation>
                                                 </label>
                                             </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="tKG-rk-qqD" firstAttribute="leading" secondItem="dM3-Gk-8au" secondAttribute="leadingMargin" constant="8" id="34u-AA-lkl"/>
                                                 <constraint firstItem="e9o-9i-EoX" firstAttribute="top" secondItem="tKG-rk-qqD" secondAttribute="bottom" id="4t6-hH-ucP"/>
@@ -349,7 +350,7 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="e9o-9i-EoX" secondAttribute="bottom" constant="-1" id="GLy-PX-0Bi"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.96999999999999997" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="messageCellText" destination="tKG-rk-qqD" id="QDh-5I-s7F"/>
                                             <outlet property="nameCellText" destination="e9o-9i-EoX" id="X28-hl-5O9"/>
@@ -383,7 +384,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.96999999999999997" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="jIQ-mB-HAb" firstAttribute="leading" secondItem="GdB-xv-KfT" secondAttribute="leading" id="4FH-gF-0zx"/>
                             <constraint firstItem="jIQ-mB-HAb" firstAttribute="top" secondItem="VLh-IK-7ts" secondAttribute="bottom" constant="-64" id="4Qe-je-ep0"/>
@@ -1304,7 +1305,7 @@
             </objects>
             <point key="canvasLocation" x="2612" y="1041"/>
         </scene>
-        <!--Can Help With-->
+        <!--I Can Help With-->
         <scene sceneID="Hv1-Cq-qh7">
             <objects>
                 <tableViewController id="hCd-d8-9Xw" customClass="viewHelpableTableViewController" customModule="helpr" customModuleProvider="target" sceneMemberID="viewController">
@@ -1325,7 +1326,7 @@
                             <outlet property="delegate" destination="hCd-d8-9Xw" id="m44-yw-NO1"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Can Help With" id="HXE-M1-uZd">
+                    <navigationItem key="navigationItem" title="I Can Help With" id="HXE-M1-uZd">
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="SoS-J5-LIj">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>

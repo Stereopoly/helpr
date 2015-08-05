@@ -253,7 +253,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
     /// Show an alert with an "Okay" and "Cancel" button.
     func recievedAlert() {
         let title = "Are you sure?"
-        let message = ""
+        let message = "No shame in doing so."
         let cancelButtonTitle = "Cancel"
         let otherButtonTitle = "Yes"
         
@@ -441,6 +441,8 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                                 let acceptedFiller = " - Accepted"
                                 self.taskLabel.text = (object["task"] as? String)! + acceptedFiller
                                 self.taskLabel.hidden = false
+                                
+                                self.taskPending = false
                             }
                         }
                     }
