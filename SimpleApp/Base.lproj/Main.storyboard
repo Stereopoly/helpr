@@ -17,21 +17,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="helpr" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NRD-nP-N3d">
-                                <rect key="frame" x="155" y="97" width="290" height="125"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launch" translatesAutoresizingMaskIntoConstraints="NO" id="e9M-8w-lPe">
+                                <rect key="frame" x="200" y="95" width="200" height="200"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="125" id="1ZK-HL-A01"/>
-                                    <constraint firstAttribute="width" constant="290" id="lmo-gq-g9E"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="PXG-U1-MYz"/>
+                                    <constraint firstAttribute="width" constant="200" id="g1c-UG-OKg"/>
+                                    <constraint firstAttribute="height" constant="200" id="ylU-8R-AgL"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="44"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="PXG-U1-MYz"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.17254901960784313" green="0.24313725490196078" blue="0.31372549019607843" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="NRD-nP-N3d" firstAttribute="top" secondItem="iqL-eS-cRh" secondAttribute="bottom" constant="77" id="BAA-BA-gnz"/>
-                            <constraint firstAttribute="centerX" secondItem="NRD-nP-N3d" secondAttribute="centerX" id="zd7-nH-t96"/>
+                            <constraint firstItem="e9M-8w-lPe" firstAttribute="centerX" secondItem="T73-2D-uoa" secondAttribute="centerX" id="NC2-bo-GCq"/>
+                            <constraint firstItem="e9M-8w-lPe" firstAttribute="top" secondItem="iqL-eS-cRh" secondAttribute="bottom" constant="75" id="nPW-oC-oow"/>
                         </constraints>
                     </view>
                     <connections>
@@ -1450,6 +1453,7 @@
         <image name="Chat" width="30" height="30"/>
         <image name="Handshake" width="30" height="30"/>
         <image name="Home" width="30" height="30"/>
+        <image name="Launch" width="300" height="300"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="rJU-rD-EcA"/>

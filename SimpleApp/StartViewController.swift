@@ -29,7 +29,7 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate {
         loginButton.readPermissions = ["public_profile"]
         let size = 240 as CGFloat
         let screenwidth = self.view.frame.size.width
-        loginButton.frame = CGRectMake(screenwidth/2 - size/2, 400, size, 50)
+        loginButton.frame = CGRectMake(screenwidth/2 - size/2, 450, size, 50)
         
         //loginButton.center = self.view.center
         loginButton.delegate = self
