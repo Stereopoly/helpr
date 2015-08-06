@@ -13,7 +13,7 @@ import SwiftSpinner
 
 class addHelpableViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
-    let pickerData = ["", "Math", "Science", "English", "History", "Writing", "Health"]
+    let pickerData = spinnerData
     var selectedRowData:String = ""
     
     @IBOutlet weak var pickerView: UIPickerView!

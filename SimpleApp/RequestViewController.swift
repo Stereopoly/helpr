@@ -13,11 +13,14 @@ import Bolts
 import SwiftSpinner
 import Mixpanel
 
+var spinnerData = ["", "ACT", "Algebra 1", "Algebra 2", "Arithimetic", "Biology", "Calculus", "Chemistry", "Computer Science", "English Literature", "European History", "French", "Grammar", "Health", "Latin", "Physics", "Pre-Algebra", "Pre-Calculus", "PSAT", "Reading Comprehension", "SAT", "Spanish", "Statistics", "Trigonometry", "U.S. History", "World History", "Writing"]
+
 class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
     
     // MARK: - Variables
     
-    let pickerData = ["", "Math", "Science", "English", "History", "Writing", "Health"]
+    let pickerData = spinnerData
+    
     var selectedRowData:String = ""
     
     // MARK: - Outlets

@@ -127,7 +127,7 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
             query2.whereKey("receiver", equalTo: fbUsername)
             
             let comboQuery = PFQuery.orQueryWithSubqueries([query, query2])
-            comboQuery.orderByDescending("createdAt")
+            comboQuery.orderByAscending("createdAt")
             
             comboQuery.findObjectsInBackgroundWithBlock {
                 (objects: [AnyObject]?, error: NSError?) -> Void in
