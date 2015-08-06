@@ -39,6 +39,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.whiteColor()], forState:.Selected)
         UITabBar.appearance().tintColor = UIColor.whiteColor()
         
+        // Page control
+        
+        var pageControl = UIPageControl.appearance()
+        pageControl.pageIndicatorTintColor = UIColor.lightGrayColor()
+        pageControl.currentPageIndicatorTintColor = UIColor.whiteColor()
+  //      pageControl.backgroundColor = UIColor.whiteColor()
+        
         // Push Notifs
         
         // Register for Push Notitications
@@ -95,14 +102,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             // 4
             // Otherwise set the LoginViewController to be the first
-            var storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let loginViewController = storyboard.instantiateViewControllerWithIdentifier("startPage") as! UIViewController
             println("startPage")
             startViewController = loginViewController
         }
         
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        self.window?.rootViewController = startViewController;
+        self.window?.rootViewController = startViewController
         self.window?.makeKeyAndVisible()
         
         
