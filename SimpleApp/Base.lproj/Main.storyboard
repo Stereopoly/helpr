@@ -385,18 +385,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lyq-aN-cHd">
-                                <rect key="frame" x="180" y="100" width="240" height="48"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="9Zd-Yg-YpJ"/>
-                                    <constraint firstAttribute="width" constant="240" id="WmF-Gq-7fZ"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Requested By:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dnX-aj-CjA">
-                                <rect key="frame" x="130" y="156" width="340" height="35"/>
+                                <rect key="frame" x="130" y="172" width="340" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="yTh-Wo-iaa"/>
                                     <constraint firstAttribute="width" constant="340" id="zrd-0Y-TmA"/>
@@ -421,12 +411,22 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vRj-3b-upE">
-                                <rect key="frame" x="130" y="187" width="340" height="35"/>
+                                <rect key="frame" x="130" y="207" width="340" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="340" id="btq-gP-11f"/>
                                     <constraint firstAttribute="height" constant="35" id="hyI-Bm-heE"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lyq-aN-cHd">
+                                <rect key="frame" x="150" y="100" width="300" height="79"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="79" id="9Zd-Yg-YpJ"/>
+                                    <constraint firstAttribute="width" constant="300" id="WmF-Gq-7fZ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -436,10 +436,10 @@
                             <constraint firstAttribute="centerX" secondItem="GD6-5m-mIt" secondAttribute="centerX" constant="-0.5" id="6r4-r3-zBZ"/>
                             <constraint firstAttribute="centerX" secondItem="dnX-aj-CjA" secondAttribute="centerX" id="9IV-fS-epB"/>
                             <constraint firstItem="lyq-aN-cHd" firstAttribute="top" secondItem="hjz-Nh-I7B" secondAttribute="bottom" constant="36" id="Cdz-eL-ZGQ"/>
-                            <constraint firstItem="GD6-5m-mIt" firstAttribute="top" secondItem="vRj-3b-upE" secondAttribute="bottom" constant="78" id="DgZ-Nz-AS5"/>
-                            <constraint firstItem="dnX-aj-CjA" firstAttribute="top" secondItem="lyq-aN-cHd" secondAttribute="bottom" constant="8" id="RVC-3n-ERX"/>
+                            <constraint firstItem="GD6-5m-mIt" firstAttribute="top" secondItem="vRj-3b-upE" secondAttribute="bottom" constant="58" id="DgZ-Nz-AS5"/>
+                            <constraint firstItem="dnX-aj-CjA" firstAttribute="top" secondItem="lyq-aN-cHd" secondAttribute="bottom" constant="-7" id="RVC-3n-ERX"/>
                             <constraint firstAttribute="centerX" secondItem="vRj-3b-upE" secondAttribute="centerX" id="U5A-3E-rbf"/>
-                            <constraint firstItem="vRj-3b-upE" firstAttribute="top" secondItem="lyq-aN-cHd" secondAttribute="bottom" constant="39" id="eHL-LF-TDW"/>
+                            <constraint firstItem="vRj-3b-upE" firstAttribute="top" secondItem="lyq-aN-cHd" secondAttribute="bottom" constant="28" id="eHL-LF-TDW"/>
                             <constraint firstAttribute="centerX" secondItem="lyq-aN-cHd" secondAttribute="centerX" id="vmP-5j-vmx"/>
                         </constraints>
                     </view>

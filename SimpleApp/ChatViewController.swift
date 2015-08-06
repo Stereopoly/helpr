@@ -65,6 +65,8 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
             (success: Bool, error: NSError?) -> Void in
             if (success) {
                 // The object has been saved, so get messages.
+                println("Message sent")
+                self.messages = []
                 self.getMessages()
             } else {
                 // There was a problem, check error.description
@@ -150,6 +152,7 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
                         }
                         println("Count: \(self.messages?.count)")
                         self.tableView.reloadData()
+                        self.tableViewScrollToBottom(true)
                     }
                 } else {
                     // Log details of the failure
@@ -162,6 +165,24 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
                 }
             }
         }
+    }
+    
+    func tableViewScrollToBottom(animated: Bool) {
+        
+        let delay = 0.1 * Double(NSEC_PER_SEC)
+        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+        
+        dispatch_after(time, dispatch_get_main_queue(), {
+            
+            let numberOfSections = self.tableView.numberOfSections()
+            let numberOfRows = self.tableView.numberOfRowsInSection(numberOfSections-1)
+            
+            if numberOfRows > 0 {
+                let indexPath = NSIndexPath(forRow: numberOfRows-1, inSection: (numberOfSections-1))
+                self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: animated)
+            }
+            
+        })
     }
     
     override func viewWillAppear(animated: Bool) {
