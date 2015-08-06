@@ -101,7 +101,7 @@ class HomeTableViewController: PFQueryTableViewController {
                 self.delay(seconds: 6.0, completion: { () -> () in
                     if slow == true {
                         self.addSpinner("Try again later", Animated: false)
-                        self.delay(seconds: 1.0, completion: { () -> () in
+                        self.delay(seconds: 1.5, completion: { () -> () in
                             self.hideSpinner()
                             self.beginIgnore()
                         })

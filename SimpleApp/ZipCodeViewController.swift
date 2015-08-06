@@ -26,7 +26,7 @@ class ZipCodeViewController: UIViewController {
         
         if zipcodeField.text == "" {
             addSpinner("Please enter your zipcode", Animated: false)
-            delay(seconds: 1.0, completion: { () -> () in
+            delay(seconds: 1.5, completion: { () -> () in
                 self.hideSpinner()
                 self.beginInteraction()
             })
@@ -42,7 +42,7 @@ class ZipCodeViewController: UIViewController {
                     self.addSpinner("Taking longer than normal", Animated: true)
                     self.delay(seconds: 6.0, completion: { () -> () in
                         self.addSpinner("Try again later", Animated: false)
-                        self.delay(seconds: 1.0, completion: { () -> () in
+                        self.delay(seconds: 1.5, completion: { () -> () in
                             self.hideSpinner()
                             self.beginInteraction()
                         })
@@ -54,14 +54,14 @@ class ZipCodeViewController: UIViewController {
                 if error != nil {
                     println("Error")
                     self.addSpinner("Please try again later", Animated: false)
-                    self.delay(seconds: 1.0, completion: { () -> () in
+                    self.delay(seconds: 1.5, completion: { () -> () in
                         self.hideSpinner()
                         self.beginInteraction()
                     })
                     
                 } else {
                     user.saveInBackgroundWithBlock({ (didWork, error) -> Void in
-                        self.delay(seconds: 1.0, completion: { () -> () in
+                        self.delay(seconds: 1.5, completion: { () -> () in
                             println(user["zipcode"])
                             tooSlow = false
                             println(tooSlow)
@@ -69,7 +69,7 @@ class ZipCodeViewController: UIViewController {
                                 // handle error
                                 println("Error")
                                 self.addSpinner("Please try again later", Animated: false)
-                                self.delay(seconds: 1.0, completion: { () -> () in
+                                self.delay(seconds: 1.5, completion: { () -> () in
                                     self.hideSpinner()
                                     self.beginInteraction()
                                     tooSlow = false
@@ -83,7 +83,7 @@ class ZipCodeViewController: UIViewController {
                                 points.save()
                                 
                                 self.addSpinner("Success", Animated: false)
-                                self.delay(seconds: 1.0, completion: { () -> () in
+                                self.delay(seconds: 1.5, completion: { () -> () in
                                     self.performSegueWithIdentifier("zipcodeToTabBar", sender: self)
                                     self.hideSpinner()
                                     self.beginInteraction()

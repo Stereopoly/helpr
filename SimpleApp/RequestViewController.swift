@@ -42,7 +42,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
         
         if selectedRowData.isEmpty == true {
             self.addSpinner("Select a task", Animated: false)
-            self.delay(seconds: 1.0, completion: { () -> () in
+            self.delay(seconds: 1.5, completion: { () -> () in
                 self.hideSpinner()
                 self.beginInteraction()
             })
@@ -77,7 +77,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                         if userPoints < 1 {
                             println("Not enough points")
                             self.addSpinner("You don't have enough points", Animated: false)
-                            self.delay(seconds: 1.0, completion: { () -> () in
+                            self.delay(seconds: 1.5, completion: { () -> () in
                                 self.hideSpinner()
                                 self.beginInteraction()
                             })
@@ -95,7 +95,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                             
                             println("Success")
                             self.addSpinner("Success", Animated: false)
-                            self.delay(seconds: 1.0, completion: { () -> () in
+                            self.delay(seconds: 1.5, completion: { () -> () in
                                 self.tabBarController?.selectedIndex = 0
                                 self.hideSpinner()
                                 self.beginInteraction()
@@ -109,7 +109,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
             } else {
                 println("Error - User has no points class")
                 self.addSpinner("Error in points", Animated: false)
-                self.delay(seconds: 1.0, completion: { () -> () in
+                self.delay(seconds: 1.5, completion: { () -> () in
                     self.hideSpinner()
                 })
             }
@@ -143,13 +143,13 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                         // Do something with the found objects
                         if objects!.count == 0 {
                             request.saveInBackgroundWithBlock({ (didWork, error) -> Void in
-                                self.delay(seconds: 1.0, completion: { () -> () in
+                                self.delay(seconds: 1.5, completion: { () -> () in
                                     println(request)
                                     if error != nil {
                                         // handle error
                                         println("Error")
                                         self.addSpinner("Please try again later", Animated: false)
-                                        self.delay(seconds: 1.0, completion: { () -> () in
+                                        self.delay(seconds: 1.5, completion: { () -> () in
                                             self.hideSpinner()
                                             self.beginInteraction()
                                         })
@@ -161,9 +161,9 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                             })
                         }
                         else {
-                            self.delay(seconds: 1.0, completion: { () -> () in
+                            self.delay(seconds: 1.5, completion: { () -> () in
                                 self.addSpinner("Already requested task", Animated: false)
-                                self.delay(seconds: 1.0, completion: { () -> () in
+                                self.delay(seconds: 1.5, completion: { () -> () in
                                     self.hideSpinner()
                                     self.beginInteraction()
                                 })
@@ -174,7 +174,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                         // Log details of the failure
                         println("Error: \(error!) \(error!.userInfo!)")
                         self.addSpinner("Please try again later", Animated: false)
-                        self.delay(seconds: 1.0, completion: { () -> () in
+                        self.delay(seconds: 1.5, completion: { () -> () in
                             self.hideSpinner()
                         })
                     }
@@ -195,7 +195,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                 } else {
                     SwiftSpinner.setTitleFont(UIFont(name: "System", size: 19))
                     self.addSpinner("You can only request 1 task at a time", Animated: false)
-                    self.delay(seconds: 1.0, completion: { () -> () in
+                    self.delay(seconds: 1.5, completion: { () -> () in
                         self.hideSpinner()
                         self.beginInteraction()
                     })
@@ -222,7 +222,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                 } else {
                     //    SwiftSpinner.setTitleFont(UIFont(name: "System", size: 19))
                     self.addSpinner("Error", Animated: false)
-                    self.delay(seconds: 1.0, completion: { () -> () in
+                    self.delay(seconds: 1.5, completion: { () -> () in
                         self.hideSpinner()
                         self.beginInteraction()
                     })

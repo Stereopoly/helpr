@@ -149,7 +149,7 @@ class viewHelpableTableViewController: PFQueryTableViewController {
                 if error != nil {
                     println("Error deleting")
                     self.addSpinner("Error withdrawing", Animated: false)
-                    self.delay(seconds: 1.0, completion: { () -> () in
+                    self.delay(seconds: 1.5, completion: { () -> () in
                         self.hideSpinner()
                         self.endIgnore()
                     })

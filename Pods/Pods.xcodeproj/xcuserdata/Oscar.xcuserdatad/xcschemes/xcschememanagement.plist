@@ -4,113 +4,105 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods-Wanna Help-Bolts.xcscheme</key>
+		<key>Pods-helpr-Bolts.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>2</integer>
 		</dict>
-		<key>Pods-Wanna Help-FBSDKCoreKit.xcscheme</key>
+		<key>Pods-helpr-FBSDKCoreKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>3</integer>
 		</dict>
-		<key>Pods-Wanna Help-FBSDKLoginKit.xcscheme</key>
+		<key>Pods-helpr-FBSDKLoginKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>4</integer>
 		</dict>
-		<key>Pods-Wanna Help-Mixpanel.xcscheme</key>
+		<key>Pods-helpr-Mixpanel.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>5</integer>
 		</dict>
-		<key>Pods-Wanna Help-Parse.xcscheme</key>
+		<key>Pods-helpr-Pages.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>6</integer>
 		</dict>
-		<key>Pods-Wanna Help-ParseFacebookUtilsV4.xcscheme</key>
+		<key>Pods-helpr-Parse.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>7</integer>
 		</dict>
-		<key>Pods-Wanna Help-ParseUI.xcscheme</key>
+		<key>Pods-helpr-ParseFacebookUtilsV4.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>8</integer>
 		</dict>
-		<key>Pods-Wanna Help-SwiftSpinner.xcscheme</key>
+		<key>Pods-helpr-ParseUI.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>9</integer>
 		</dict>
-		<key>Pods-Wanna Help.xcscheme</key>
+		<key>Pods-helpr-SwiftSpinner.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>1</integer>
+		</dict>
+		<key>Pods-helpr.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1B763CEBC5720C44AE81D6E4</key>
+		<key>022232AF5B189C6EDD1DF6FE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>48DA5BA2772F7BB3C17DDC9A</key>
+		<key>220CAF8D44538AB7C3157376</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4E8635BBE0CD385073D8C098</key>
+		<key>300C1508DC51444288FA1414</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>893C7F1041F971F2065A14C6</key>
+		<key>39BEA70080E9301518261905</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8F33E78E05B19D554C077659</key>
+		<key>50A992421B12EC792EC13850</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>901B805017A7400ED70097BE</key>
+		<key>7EC20654C3431223ABDBE2AF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A9232D832D3A22ED43D83C7E</key>
+		<key>AF1B6293C567DA6D401EA507</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DA0680EE31B0DCDD9B49D1C5</key>
+		<key>C938A2AB0296C683F0C170F0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>EA094502D1216581FAB64737</key>
+		<key>E2B42FB881D9E73C7B09300A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FA6C74FEFDF0368B081E02FE</key>
 		<dict>
 			<key>primary</key>
 			<true/>

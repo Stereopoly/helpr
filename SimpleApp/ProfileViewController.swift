@@ -74,7 +74,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                 self.addSpinner("Taking longer than normal", Animated: true)
                 self.delay(seconds: 6.0, completion: { () -> () in
                     self.addSpinner("Try again later", Animated: false)
-                    self.delay(seconds: 2.0, completion: { () -> () in
+                    self.delay(seconds: 1.5, completion: { () -> () in
                         self.hideSpinner()
                         self.endIgnore()
                     })
@@ -110,7 +110,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                 // Some error checking here
                 println("Error in user request")
                 self.addSpinner("Error", Animated: false)
-                self.delay(seconds: 2.0, completion: { () -> () in
+                self.delay(seconds: 1.5, completion: { () -> () in
                     self.hideSpinner()
                     self.endIgnore()
                 })
@@ -121,7 +121,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                 let username = userData["name"] as? String
                 fbUsername = username!
                 self.addSpinner("Done", Animated: false)
-                self.delay(seconds: 2.0, completion: { () -> () in
+                self.delay(seconds: 1.5, completion: { () -> () in
                     self.nameLabel.text = fbUsername
                     self.getTask()
                     self.getAccepted()
@@ -239,7 +239,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                             if error != nil {
                                 println("Error closing request")
                                 self.addSpinner("Error closing request", Animated: false)
-                                self.delay(seconds: 2.0, completion: { () -> () in
+                                self.delay(seconds: 1.5, completion: { () -> () in
                                     self.hideSpinner()
                                     self.endIgnore()
                                 })
@@ -290,7 +290,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                 if error != nil {
                     println("Error")
                     self.addSpinner("Error", Animated: false)
-                    self.delay(seconds: 2.0, completion: { () -> () in
+                    self.delay(seconds: 1.5, completion: { () -> () in
                         self.hideSpinner()
                     })
                 } else {
@@ -307,7 +307,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                             if error != nil {
                                 println("Error")
                                 self.addSpinner("Error", Animated: false)
-                                self.delay(seconds: 2.0, completion: { () -> () in
+                                self.delay(seconds: 1.5, completion: { () -> () in
                                     self.hideSpinner()
                                 })
                             } else {
@@ -367,14 +367,14 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                 if error != nil {
                     println("Error deleting")
                     self.addSpinner("Error withdrawing", Animated: false)
-                    self.delay(seconds: 2.0, completion: { () -> () in
+                    self.delay(seconds: 1.5, completion: { () -> () in
                         self.hideSpinner()
                         self.endIgnore()
                     })
                 } else {
                     println("Success deleting chat connection")
                     self.addSpinner("Done", Animated: false)
-                    self.delay(seconds: 2.0, completion: { () -> () in
+                    self.delay(seconds: 1.5, completion: { () -> () in
                         self.hideSpinner()
                         self.endIgnore()
                     })
@@ -410,7 +410,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                 if error != nil {
                     println("Error deleting")
                     self.addSpinner("Error withdrawing", Animated: false)
-                    self.delay(seconds: 2.0, completion: { () -> () in
+                    self.delay(seconds: 1.5, completion: { () -> () in
                         self.hideSpinner()
                         self.endIgnore()
                     })
@@ -440,13 +440,13 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
         if result.isCancelled {
             println("Facebook logout canceled")
             addSpinner("Logout canceled", Animated: false)
-            delay(seconds: 2.0, completion: { () -> () in
+            delay(seconds: 1.5, completion: { () -> () in
                 self.hideSpinner()
                 tooLong = false
             })
         } else {
             
-            delay(seconds: 2.0) { () -> () in
+            delay(seconds: 1.5) { () -> () in
                 
                 if error == nil {
                     println("Login complete.")
@@ -454,7 +454,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                 }
                 else {
                     self.addSpinner("Error in login", Animated: false)
-                    self.delay(seconds: 2.0, completion: { () -> () in
+                    self.delay(seconds: 1.5, completion: { () -> () in
                         println(error.localizedDescription)
                         self.hideSpinner()
                     })

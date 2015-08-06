@@ -19,11 +19,13 @@ var tooLong: Bool = true
 
 class StartViewController: UIViewController, FBSDKLoginButtonDelegate {
     
+    @IBOutlet weak var icon: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        
+        self.view.bringSubviewToFront(icon)
         
         var loginButton = FBSDKLoginButton()
         loginButton.readPermissions = ["public_profile"]
@@ -58,13 +60,13 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate {
         if result.isCancelled {
             println("Facebook login canceled")
             addSpinner("Login canceled", Animated: false)
-            delay(seconds: 1.0, completion: { () -> () in
+            delay(seconds: 1.5, completion: { () -> () in
                 self.hideSpinner()
                 tooLong = false
             })
         } else {
             
-            delay(seconds: 1.0) { () -> () in
+            delay(seconds: 1.5) { () -> () in
                 
                 if error == nil {
                     println("Login complete.")
@@ -78,7 +80,7 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate {
                             // Some error checking here
                             println("Error in user request")
                             self.addSpinner("Error", Animated: false)
-                            self.delay(seconds: 1.0, completion: { () -> () in
+                            self.delay(seconds: 1.5, completion: { () -> () in
                                 self.hideSpinner()
                                 self.endIgnore()
                             })
@@ -96,7 +98,7 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate {
                 }
                 else {
                     self.addSpinner("Error in login", Animated: false)
-                    self.delay(seconds: 1.0, completion: { () -> () in
+                    self.delay(seconds: 1.5, completion: { () -> () in
                         println(error.localizedDescription)
                         self.hideSpinner()
                     })
@@ -120,13 +122,13 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate {
             if error != nil {
                 println(error)
                 self.addSpinner("Try again later", Animated: false)
-                self.delay(seconds: 1.0, completion: { () -> () in
+                self.delay(seconds: 1.5, completion: { () -> () in
                     self.hideSpinner()
                 })
             } else {
                 if objects!.count == 0 {
                     self.addSpinner("Success", Animated: false)
-                    self.delay(seconds: 1.0, completion: { () -> () in
+                    self.delay(seconds: 1.5, completion: { () -> () in
                         self.navigationController?.popViewControllerAnimated(false)
                         self.performSegueWithIdentifier("toZipcode", sender: self)
                         self.hideSpinner()
@@ -151,7 +153,7 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate {
                     }
                     
                     self.addSpinner("Success", Animated: false)
-                    self.delay(seconds: 1.0, completion: { () -> () in
+                    self.delay(seconds: 1.5, completion: { () -> () in
                         self.navigationController?.popViewControllerAnimated(false)
                         self.performSegueWithIdentifier("toTabBarController", sender: self)
                         self.hideSpinner()

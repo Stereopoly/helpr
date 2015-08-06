@@ -10,7 +10,10 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launch" translatesAutoresizingMaskIntoConstraints="NO" id="171-MY-MtO">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background" translatesAutoresizingMaskIntoConstraints="NO" id="3Mf-gd-O1g">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon" translatesAutoresizingMaskIntoConstraints="NO" id="171-MY-MtO">
                     <rect key="frame" x="140" y="140" width="200" height="200"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="200" id="mW4-cV-BX8"/>
@@ -18,12 +21,15 @@
                     </constraints>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" red="0.17254901959999999" green="0.24313725489999999" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="171-MY-MtO" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="3wr-oi-q5c"/>
                 <constraint firstItem="171-MY-MtO" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="90" id="DSV-jS-vcR"/>
+                <constraint firstItem="3Mf-gd-O1g" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="aL9-cG-0hM"/>
+                <constraint firstItem="3Mf-gd-O1g" firstAttribute="centerY" secondItem="171-MY-MtO" secondAttribute="centerY" id="mdJ-b0-bzE"/>
                 <constraint firstItem="171-MY-MtO" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="nYq-gK-DQw"/>
                 <constraint firstItem="171-MY-MtO" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="90" id="onW-hs-72Q"/>
+                <constraint firstItem="3Mf-gd-O1g" firstAttribute="centerX" secondItem="171-MY-MtO" secondAttribute="centerX" id="uqF-ag-sxo"/>
+                <constraint firstItem="3Mf-gd-O1g" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="zc6-YE-H5K"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -37,6 +43,7 @@
         </view>
     </objects>
     <resources>
-        <image name="Launch" width="300" height="300"/>
+        <image name="Background" width="414" height="736"/>
+        <image name="Icon" width="300" height="300"/>
     </resources>
 </document>

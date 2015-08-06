@@ -155,7 +155,7 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
                     // Log details of the failure
                     println("Error: \(error!) \(error!.userInfo!)")
                     self.addSpinner("Error", Animated: false)
-                    self.delay(seconds: 1.0, completion: { () -> () in
+                    self.delay(seconds: 1.5, completion: { () -> () in
                         self.hideSpinner()
                         
                     })

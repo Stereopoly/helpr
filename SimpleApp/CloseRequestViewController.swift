@@ -133,7 +133,7 @@ class CloseRequestViewController: UIViewController {
                             if error != nil {
                                 println("Error closing request")
                                 self.addSpinner("Error closing request", Animated: false)
-                                self.delay(seconds: 1.0, completion: { () -> () in
+                                self.delay(seconds: 1.5, completion: { () -> () in
                                     self.hideSpinner()
                                     self.endIgnore()
                                 })
@@ -186,7 +186,7 @@ class CloseRequestViewController: UIViewController {
                                 if error != nil {
                                     println("Error closing request")
                                     self.addSpinner("Error closing request", Animated: false)
-                                    self.delay(seconds: 1.0, completion: { () -> () in
+                                    self.delay(seconds: 1.5, completion: { () -> () in
                                         self.hideSpinner()
                                         self.endIgnore()
                                     })
@@ -279,7 +279,7 @@ class CloseRequestViewController: UIViewController {
                         if error != nil {
                             println("Error deleting")
                             self.addSpinner("Error closing chat", Animated: false)
-                            self.delay(seconds: 1.0, completion: { () -> () in
+                            self.delay(seconds: 1.5, completion: { () -> () in
                                 self.hideSpinner()
                             })
                         } else {

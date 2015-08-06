@@ -37,7 +37,7 @@ class taskDetailsViewController: UIViewController {
                 self.delay(seconds: 6.0, completion: { () -> () in
                     if self.slow == true {
                         self.addSpinner("Try again later", Animated: false)
-                        self.delay(seconds: 1.0, completion: { () -> () in
+                        self.delay(seconds: 1.5, completion: { () -> () in
                             self.hideSpinner()
                             self.beginInteraction()
                         })
@@ -64,8 +64,8 @@ class taskDetailsViewController: UIViewController {
                 }
                 if self.accepted == "Yes" {
                     self.addSpinner("This task has been already accepted", Animated: false)
-                    self.delay(seconds: 1.0, completion: { () -> () in
-                        self.acceptButtonOutlet.backgroundColor = UIColor(red: 192/250, green: 57/250, blue: 43/250, alpha: 1.0)
+                    self.delay(seconds: 1.5, completion: { () -> () in
+                        self.acceptButtonOutlet.backgroundColor = UIColor(red: 192/250, green: 57/250, blue: 43/250, alpha: 1.5)
                         self.acceptButtonOutlet.enabled = false
                         self.acceptButtonOutlet.setTitle("Accepted", forState: UIControlState.Normal)
                         self.hideSpinner()
@@ -121,7 +121,7 @@ class taskDetailsViewController: UIViewController {
                     if accepted.count == 1 {
                         self.slow = false
                         self.addSpinner("You cannot accept more than 1 request", Animated: false)
-                        self.delay(seconds: 1.0, completion: { () -> () in
+                        self.delay(seconds: 1.5, completion: { () -> () in
                             self.hideSpinner()
                             self.beginInteraction()
                         })
@@ -133,7 +133,7 @@ class taskDetailsViewController: UIViewController {
                         self.slow = false
                         println("Error in count")
                         self.addSpinner("Error", Animated: false)
-                        self.delay(seconds: 1.0, completion: { () -> () in
+                        self.delay(seconds: 1.5, completion: { () -> () in
                             self.hideSpinner()
                             self.beginInteraction()
                         })
@@ -148,9 +148,9 @@ class taskDetailsViewController: UIViewController {
     func sendPush() {
         
         if self.nameLabel.text == "You" {
-            delay(seconds: 1.0, completion: { () -> () in
+            delay(seconds: 1.5, completion: { () -> () in
                 self.addSpinner("Error - You requested this task", Animated: false)
-                self.delay(seconds: 1.0, completion: { () -> () in
+                self.delay(seconds: 1.5, completion: { () -> () in
                     self.hideSpinner()
                     self.beginInteraction()
                     self.slow = false
@@ -187,7 +187,7 @@ class taskDetailsViewController: UIViewController {
                     // freak out
                     println("error: \(error)")
                     self.addSpinner("Error", Animated: false)
-                    self.delay(seconds: 1.0, completion: { () -> () in
+                    self.delay(seconds: 1.5, completion: { () -> () in
                         self.hideSpinner()
                         self.slow = false
                         self.beginInteraction()
@@ -204,7 +204,7 @@ class taskDetailsViewController: UIViewController {
                         if error != nil {
                             println("Error")
                             self.addSpinner("Error", Animated: false)
-                            self.delay(seconds: 1.0, completion: { () -> () in
+                            self.delay(seconds: 1.5, completion: { () -> () in
                                 self.hideSpinner()
                                 self.beginInteraction()
                                 self.slow = false
@@ -225,7 +225,7 @@ class taskDetailsViewController: UIViewController {
                                     if error != nil {
                                         println("Error")
                                         self.addSpinner("Error", Animated: false)
-                                        self.delay(seconds: 1.0, completion: { () -> () in
+                                        self.delay(seconds: 1.5, completion: { () -> () in
                                             self.hideSpinner()
                                             self.beginInteraction()
                                             self.slow = false
@@ -247,15 +247,15 @@ class taskDetailsViewController: UIViewController {
                                             if error != nil {
                                                 println("Error")
                                                 self.addSpinner("Error", Animated: false)
-                                                self.delay(seconds: 1.0, completion: { () -> () in
+                                                self.delay(seconds: 1.5, completion: { () -> () in
                                                     self.hideSpinner()
                                                     self.beginInteraction()
                                                     self.slow = false
                                                 })
                                             } else {
                                                 self.addSpinner("Success - The requester has been notified", Animated: false)
-                                                self.delay(seconds: 1.0, completion: { () -> () in
-                                                    self.acceptButtonOutlet.backgroundColor = UIColor(red: 192/250, green: 57/250, blue: 43/250, alpha: 1.0)
+                                                self.delay(seconds: 1.5, completion: { () -> () in
+                                                    self.acceptButtonOutlet.backgroundColor = UIColor(red: 192/250, green: 57/250, blue: 43/250, alpha: 1.5)
                                                     self.acceptButtonOutlet.enabled = false
                                                     self.acceptButtonOutlet.setTitle("Accepted", forState: UIControlState.Normal)
                                                     self.navigationController?.popViewControllerAnimated(false)

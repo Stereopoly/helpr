@@ -28,7 +28,7 @@ class addHelpableViewController: UIViewController, UIPickerViewDataSource, UIPic
         
         if selectedRowData.isEmpty == true {
             self.addSpinner("Select a task", Animated: false)
-            self.delay(seconds: 1.0, completion: { () -> () in
+            self.delay(seconds: 1.5, completion: { () -> () in
                 self.hideSpinner()
                 self.beginInteraction()
             })
@@ -51,20 +51,20 @@ class addHelpableViewController: UIViewController, UIPickerViewDataSource, UIPic
                     // Do something with the found objects
                     if objects!.count == 0 {
                         request.saveInBackgroundWithBlock({ (didWork, error) -> Void in
-                            self.delay(seconds: 1.0, completion: { () -> () in
+                            self.delay(seconds: 1.5, completion: { () -> () in
                                 println(request)
                                 if error != nil {
                                     // handle error
                                     println("Error")
                                     self.addSpinner("Please try again later", Animated: false)
-                                    self.delay(seconds: 1.0, completion: { () -> () in
+                                    self.delay(seconds: 1.5, completion: { () -> () in
                                         self.hideSpinner()
                                         self.beginInteraction()
                                     })
                                 } else {
                                     println("Success")
                                     self.addSpinner("Success", Animated: false)
-                                    self.delay(seconds: 1.0, completion: { () -> () in
+                                    self.delay(seconds: 1.5, completion: { () -> () in
                                         self.hideSpinner()
                                         self.beginInteraction()
                                     })
@@ -73,9 +73,9 @@ class addHelpableViewController: UIViewController, UIPickerViewDataSource, UIPic
                             
                         })
                     } else {
-                        self.delay(seconds: 1.0, completion: { () -> () in
+                        self.delay(seconds: 1.5, completion: { () -> () in
                             self.addSpinner("Already added", Animated: false)
-                            self.delay(seconds: 1.0, completion: { () -> () in
+                            self.delay(seconds: 1.5, completion: { () -> () in
                                 self.hideSpinner()
                                 self.beginInteraction()
                             })
@@ -86,7 +86,7 @@ class addHelpableViewController: UIViewController, UIPickerViewDataSource, UIPic
                     // Log details of the failure
                     println("Error: \(error!) \(error!.userInfo!)")
                     self.addSpinner("Please try again later", Animated: false)
-                    self.delay(seconds: 1.0, completion: { () -> () in
+                    self.delay(seconds: 1.5, completion: { () -> () in
                         self.hideSpinner()
                     })
                 }
