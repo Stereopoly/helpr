@@ -146,6 +146,9 @@ class CloseRequestViewController: UIViewController {
                                     println("Success closing request")
                                     self.deleteChatConnection()
                                     self.deleteChatMessages()
+                                    self.refundPoints()
+                                    
+                                    justVerified = true
                                     
                                     let mixpanel: Mixpanel = Mixpanel.sharedInstance()
                                     mixpanel.track("Request Closed", properties:["Points": false])
@@ -350,6 +353,48 @@ class CloseRequestViewController: UIViewController {
         justVerified = true
     }
     
+    func refundPoints() {
+        
+        var objectId = ""
+        var userPoints: Int = 0
+        var updatedUserPoints: Int?
+        
+        var query = PFQuery(className: "points")
+        query.whereKey("username", equalTo: fbUsername)
+        
+        query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+            if objects != nil {
+                if let objects = objects {
+                    println(objects)
+                    for object in objects {
+                        objectId = object.objectId as! String!
+                        println("ObjectId: \(objectId)")
+                    }
+                }
+                
+                var query2 = PFQuery(className: "points")
+                query2.getObjectInBackgroundWithId(objectId, block: { (points, error) -> Void in
+                    if let points = points {
+                        userPoints = points["points"] as! Int
+                        println("Points: \(userPoints)")
+                        updatedUserPoints = userPoints + 1
+                        println("Updated points: \(updatedUserPoints)")
+                        points["points"] = updatedUserPoints
+                        
+                        points.saveInBackground()
+                        
+                        println("Points Refunded")
+                    } else {
+                        println("Error in points save")
+                    }
+                })
+            } else {
+                println("Error - User has no points class")
+            }
+        }
+        
+    }
+
     
     // MARK: - Activity Indicator
     
