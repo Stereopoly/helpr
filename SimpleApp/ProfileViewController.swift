@@ -498,8 +498,9 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                             }
                             if object["accepted"] as? String == "Yes" {
                                 println("Not accepted")
-                                let acceptedFiller = " - Accepted"
-                                self.taskLabel.text = (object["task"] as? String)! + acceptedFiller
+                                let acceptedBy = object["acceptedBy"] as! String
+                                let acceptedFiller = " - Accepted by "
+                                self.taskLabel.text = (object["task"] as? String)! + acceptedFiller + acceptedBy
                                 self.taskLabel.hidden = false
                                 
                                 self.taskPending = false
