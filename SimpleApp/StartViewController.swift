@@ -32,8 +32,8 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageVie
         
         // Page view controller setup
         
-        self.pageTitles = NSArray(objects: "View your current status", "Find others to help", "Add what you can help with to get relevant requests",  "Make your own request for help", "Chat with them privately")
-        self.pageImages = NSArray(objects: "page1", "page3", "page2", "page5", "page4")
+        self.pageTitles = NSArray(objects: "View your current status", "Add what you can help with to get relevant requests", "View and accept requests for help made within your zipcode", "Make your own request for help", "Chat privately once matched")
+        self.pageImages = NSArray(objects: "page1", "page2", "page3", "page5", "page4")
         
         self.pageViewController = self.storyboard?.instantiateViewControllerWithIdentifier("PageViewController") as! UIPageViewController
         self.pageViewController.dataSource = self

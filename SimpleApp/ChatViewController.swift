@@ -43,6 +43,8 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
         
         self.tableView.registerClass(MessageViewCell.self, forCellReuseIdentifier: "cell")
         
+        self.navigationItem.title = selectedChat
+        
         getMessages()
         println("Hide spinner")
         reloadTimer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "onTimer", userInfo: nil, repeats: true)

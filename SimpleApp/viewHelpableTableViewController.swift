@@ -34,6 +34,7 @@ class viewHelpableTableViewController: PFQueryTableViewController {
         
         var query = PFQuery(className: "help")
         query.whereKey("helper", equalTo: fbUsername)
+        query.orderByDescending("createdAt")
         
         
         return query

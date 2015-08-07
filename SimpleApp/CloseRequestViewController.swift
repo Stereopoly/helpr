@@ -65,7 +65,7 @@ class CloseRequestViewController: UIViewController {
         
         let otherAction = DOAlertAction(title: otherButtonTitle, style: .Default) { action in
             NSLog("The \"Okay/Cancel\" alert's other action occured.")
-            self.closeRequest()
+            self.closeRequestWithoutPoints()
             
             justVerified = true
             self.navigationController?.popViewControllerAnimated(false)
@@ -109,53 +109,59 @@ class CloseRequestViewController: UIViewController {
         presentViewController(alertCotroller, animated: true, completion: nil)
     }
     
-    func closeRequest() {
+    func closeRequestWithoutPoints() {
         var objectId = ""
         
         var query = PFQuery(className: "request")
         query.whereKey("requester", equalTo: fbUsername)
         query.whereKey("task", equalTo: myRequestedTask)
+        query.whereKeyExists("acceptedBy")
         
         query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
             if objects != nil {
                 if let objects = objects {
-                    println(objects)
-                    for object in objects {
-                        objectId = object.objectId as! String!
-                        println("ObjectId: \(objectId)")
+                    println(objects.count)
+                    if objects.count == 0 {
+                        println("Not accepted - no help was given by anyone")
+                    } else {
+                        for object in objects {
+                            objectId = object.objectId as String!
+                            acceptedBy = object["acceptedBy"] as! String
+                            println("Accepted by: \(acceptedBy)")
+                            println("ObjectId: \(objectId)")
+                        }
+                        var query2 = PFQuery(className: "request")
+                        let task = query2.getObjectWithId(objectId)
+                        
+                        if let task = task {
+                            task.deleteInBackgroundWithBlock({ (delete, error) -> Void in
+                                if error != nil {
+                                    println("Error closing request")
+                                    self.addSpinner("Error closing request", Animated: false)
+                                    self.delay(seconds: 1.5, completion: { () -> () in
+                                        self.hideSpinner()
+                                        self.endIgnore()
+                                    })
+                                } else {
+                                    println("Success closing request")
+                                    self.deleteChatConnection()
+                                    self.deleteChatMessages()
+                                    
+                                    let mixpanel: Mixpanel = Mixpanel.sharedInstance()
+                                    mixpanel.track("Request Closed", properties:["Points": false])
+                                    
+                                }
+                            })
+                        }
+                        
                     }
                 }
-                
-                var query2 = PFQuery(className: "request")
-                query2.getObjectInBackgroundWithId(objectId, block: { (task, error) -> Void in
-                    if let task = task {
-                        task.deleteInBackgroundWithBlock({ (delete, error) -> Void in
-                            if error != nil {
-                                println("Error closing request")
-                                self.addSpinner("Error closing request", Animated: false)
-                                self.delay(seconds: 1.5, completion: { () -> () in
-                                    self.hideSpinner()
-                                    self.endIgnore()
-                                })
-                            } else {
-                                println("Success closing request")
-                                self.deleteChatMessages()
-                                let mixpanel: Mixpanel = Mixpanel.sharedInstance()
-                                mixpanel.track("Request Closed", properties:["Points": false])
-                            }
-                        })
-                    } else {
-                        println("Error in object retrival")
-                    }
-                })
             } else {
-                println("Error in object request")
+                println("Error in finding object")
             }
-            
         }
         
     }
-    
     
     func closeRequestWithPoints() {
         var objectId = ""
