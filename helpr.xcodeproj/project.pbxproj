@@ -570,7 +570,7 @@
 		};
 		556EB0291B38CC1E00784845 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 06C85159A6741407A60B176B /* Pods-Wanna Help.release.xcconfig */;
+			baseConfigurationReference = 557264611B73CD1E00721C8A /* Pods-helpr.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Anders Bjorkman (K8FUZZ3FQV)";

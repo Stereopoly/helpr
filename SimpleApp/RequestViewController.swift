@@ -15,7 +15,7 @@ import Mixpanel
 
 var spinnerData = ["", "ACT", "Algebra 1", "Algebra 2", "Arithimetic", "Biology", "Calculus", "Chemistry", "Chinese", "Computer Science", "English Literature", "European History", "French", "Grammar", "Health", "Latin", "Physics", "Pre-Algebra", "Pre-Calculus", "PSAT", "Reading Comprehension", "SAT", "Spanish", "Statistics", "Trigonometry", "U.S. History", "World History", "Writing"]
 
-class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
+class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UITextViewDelegate {
     
     // MARK: - Variables
     
@@ -32,6 +32,8 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
     @IBOutlet weak var pickerView: UIPickerView!
     
     @IBOutlet weak var requestButtonOutlet: UIButton!
+    
+    @IBOutlet weak var textViewOutlet: UITextView!
     
     // MARK: - Actions
     
@@ -241,10 +243,38 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
         // Do any additional setup after loading the view.
         
         pickerView.delegate = self
+        
+        textViewOutlet.text = "More details can be entered here..."
+        textViewOutlet.textColor = UIColor.lightGrayColor()
+        
+        textViewOutlet.delegate = self
     }
     
     override func viewWillAppear(animated: Bool) {
         requestButtonOutlet.layer.cornerRadius = 4
+    }
+    
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            textViewOutlet.resignFirstResponder()
+            return false
+        }
+        
+        return true
+    }
+    
+    func textViewDidBeginEditing(textView: UITextView) {
+        if textView.textColor == UIColor.lightGrayColor() {
+            textView.text = nil
+            textView.textColor = UIColor.blackColor()
+        }
+    }
+    
+    func textViewDidEndEditing(textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "More details can be entered here..."
+            textView.textColor = UIColor.lightGrayColor()
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -254,6 +284,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         self.view.endEditing(true)
+        self.textViewOutlet.endEditing(true)
     }
     
     // MARK: - Picker View
