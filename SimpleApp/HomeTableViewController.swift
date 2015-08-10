@@ -146,9 +146,7 @@ class HomeTableViewController: PFQueryTableViewController {
                     for object in objects {
                         
                         if let object = object as? PFObject {
-                            
                             helpable.append( object["helpable"] as! String )
-                            
                         }
                     }
                 }

@@ -23,6 +23,10 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
     
     var selectedRowData:String = ""
     
+    var textViewText: String = ""
+    
+    var placeHolderText: String = "More details can be entered here..."
+    
     // MARK: - Outlets
     
     //    @IBOutlet weak var requestTextField: UITextField!
@@ -39,8 +43,6 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
     
     @IBAction func requestButton(sender: AnyObject) {
         println("Pressed request button")
-        ignoreInteraction()
-        addSpinner("Requesting task", Animated: true)
         
         if selectedRowData.isEmpty == true {
             self.addSpinner("Select a task", Animated: false)
@@ -49,8 +51,47 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                 self.beginInteraction()
             })
         } else {
-            makeRequest()
+            if textViewOutlet.text.isEmpty == true {
+                println("Empty textView")
+                noDetailsAlert()
+            }
+            if textViewOutlet.text == placeHolderText {
+                textViewText = ""
+                println("Default placeholder text")
+                noDetailsAlert()
+            }
+            else {
+                textViewText = textViewOutlet.text
+                println("Textviewtext: \(textViewText)")
+                makeRequest()
+            }
         }
+    }
+    
+    func noDetailsAlert() {
+        let title = "Are you sure you don't want to give any details?"
+        let message = "Harder for other users to understand what you want."
+        let cancelButtonTitle = "Cancel"
+        let otherButtonTitle = "Yes"
+        
+        let alertCotroller = DOAlertController(title: title, message: message, preferredStyle: .Alert)
+        
+        // Create the actions.
+        let cancelAction = DOAlertAction(title: cancelButtonTitle, style: .Cancel) { action in
+            NSLog("The \"Okay/Cancel\" alert's cancel action occured.")
+        }
+        
+        let otherAction = DOAlertAction(title: otherButtonTitle, style: .Default) { action in
+            NSLog("The \"Okay/Cancel\" alert's other action occured.")
+            
+            self.makeRequest()
+        }
+        
+        // Add the actions.
+        alertCotroller.addAction(cancelAction)
+        alertCotroller.addAction(otherAction)
+        
+        presentViewController(alertCotroller, animated: true, completion: nil)
     }
     
     func subtractPoints() {
@@ -122,6 +163,9 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
     
     
     func makeRequest() {
+        self.ignoreInteraction()
+        self.addSpinner("Requesting task", Animated: true)
+        
         queryZipcode { () -> Void in
             
             self.checkForMultiple { () -> Void in
@@ -131,6 +175,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                 request["task"] = self.selectedRowData
                 request["zipcode"] = zipcode
                 request["accepted"] = "No"
+                request["details"] = self.textViewText
                 
                 var query = PFQuery(className: "request")
                 query.whereKey("task", equalTo: self.selectedRowData)
@@ -166,6 +211,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                             self.delay(seconds: 1.5, completion: { () -> () in
                                 self.addSpinner("Already requested task", Animated: false)
                                 self.delay(seconds: 1.5, completion: { () -> () in
+                                    self.tabBarController?.selectedIndex = 0
                                     self.hideSpinner()
                                     self.beginInteraction()
                                 })
@@ -198,6 +244,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                     SwiftSpinner.setTitleFont(UIFont(name: "System", size: 19))
                     self.addSpinner("You can only request 1 task at a time", Animated: false)
                     self.delay(seconds: 1.5, completion: { () -> () in
+                        self.tabBarController?.selectedIndex = 0
                         self.hideSpinner()
                         self.beginInteraction()
                     })
@@ -244,7 +291,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
         
         pickerView.delegate = self
         
-        textViewOutlet.text = "More details can be entered here..."
+        textViewOutlet.text = placeHolderText
         textViewOutlet.textColor = UIColor.lightGrayColor()
         
         textViewOutlet.delegate = self
@@ -252,6 +299,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
     
     override func viewWillAppear(animated: Bool) {
         requestButtonOutlet.layer.cornerRadius = 4
+        
     }
     
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
@@ -266,13 +314,13 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
     func textViewDidBeginEditing(textView: UITextView) {
         if textView.textColor == UIColor.lightGrayColor() {
             textView.text = nil
-            textView.textColor = UIColor.blackColor()
+            textView.textColor = UIColor.whiteColor()
         }
     }
     
     func textViewDidEndEditing(textView: UITextView) {
         if textView.text.isEmpty {
-            textView.text = "More details can be entered here..."
+            textView.text = placeHolderText
             textView.textColor = UIColor.lightGrayColor()
         }
     }

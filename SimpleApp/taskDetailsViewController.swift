@@ -24,6 +24,8 @@ class taskDetailsViewController: UIViewController {
     
     @IBOutlet weak var acceptButtonOutlet: UIButton!
     
+    @IBOutlet weak var textViewOutlet: UITextView!
+    
     @IBAction func acceptButton(sender: AnyObject) {
         ignoreInteraction()
         
@@ -90,6 +92,10 @@ class taskDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+        textViewOutlet.editable = false
+        
+        getDetails()
         
         println(selectedRowText)
         println(selectedRowDetail)
@@ -282,6 +288,25 @@ class taskDetailsViewController: UIViewController {
             }
         }
         beginInteraction()
+    }
+    
+    func getDetails() {
+        var query = PFQuery(className: "request")
+        query.whereKey("requester", equalTo: selectedRowDetail)
+        query.whereKey("task", equalTo: selectedRowText)
+        
+        query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+            if error != nil {
+                print("Error in details query")
+            } else {
+                if let objects = objects {
+                    for object in objects {
+                        println(object["details"] as! String)
+                        self.textViewOutlet.text = object["details"] as! String
+                    }
+                }
+            }
+        }
     }
     
     // MARK: - User interaction control
