@@ -49,6 +49,8 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     @IBOutlet weak var canHelpWithButton: UIButton!
     
+    @IBOutlet weak var imageViewOutlet: UIImageView!
+    
     @IBAction func closeRequestButtonPressed(sender: AnyObject) {
         if taskPending == true {
             closeRequestAlert()
@@ -119,6 +121,8 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                 
                 // Access user data
                 let username = userData["name"] as? String
+                let userId = userData["id"] as? String
+                println("UserId: \(userId)")
                 fbUsername = username!
                 self.addSpinner("Done", Animated: false)
                 self.delay(seconds: 1.5, completion: { () -> () in
@@ -129,6 +133,22 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                     self.tooSlow = false
                     self.hideSpinner()
                     self.endIgnore()
+                })
+                
+                let pictureURL = "https://graph.facebook.com/\(userId!)/picture?type=large&return_ssl_resources=1"
+
+                
+                var URLRequest = NSURL(string: pictureURL)
+                var URLRequestNeeded = NSURLRequest(URL: URLRequest!)
+                
+                NSURLConnection.sendAsynchronousRequest(URLRequestNeeded, queue: NSOperationQueue.mainQueue(), completionHandler: { (response, data, error) -> Void in
+                    if error == nil {
+                        var img = UIImage(data: data)
+                        self.imageViewOutlet.image = img
+                    }
+                    else {
+                        println("Error: \(error.localizedDescription)")
+                    }
                 })
             }
             

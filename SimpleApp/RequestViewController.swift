@@ -299,6 +299,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
         textViewOutlet.textColor = UIColor.lightGrayColor()
         
         textViewOutlet.delegate = self
+        textViewOutlet.layer.cornerRadius = 4.0
         
         movedUp = false
     }
@@ -390,7 +391,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
         if movedUp == false {
             if let userInfo = notification.userInfo {
                 if let keyboardSize =  (userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
-                    kbHeight = keyboardSize.height - 120
+                    kbHeight = keyboardSize.height - 95
                     movedUp = true
                     self.animateTextField(true)
                 }
