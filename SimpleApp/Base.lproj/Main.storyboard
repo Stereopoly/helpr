@@ -513,8 +513,24 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OWk-CI-hff">
+                                <rect key="frame" x="150" y="283" width="300" height="115"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="115" id="pvo-0m-81o"/>
+                                </constraints>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                            </textView>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bZ2-yH-jzz">
+                                <rect key="frame" x="0.0" y="148" width="600" height="162"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="600" id="cFl-6K-di4"/>
+                                    <constraint firstAttribute="height" constant="162" id="cpa-Gs-ykP"/>
+                                </constraints>
+                            </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SMc-fG-KvQ">
-                                <rect key="frame" x="238" y="455" width="125" height="40"/>
+                                <rect key="frame" x="238" y="425" width="125" height="40"/>
                                 <color key="backgroundColor" red="0.26666666666666666" green="0.70588235294117652" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="125" id="7e9-p5-0dk"/>
@@ -529,36 +545,20 @@
                                     <action selector="requestButton:" destination="ahG-z7-Thp" eventType="touchUpInside" id="Afz-xB-pYT"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OWk-CI-hff">
-                                <rect key="frame" x="150" y="283" width="300" height="128"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="128" id="pvo-0m-81o"/>
-                                </constraints>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
-                            </textView>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bZ2-yH-jzz">
-                                <rect key="frame" x="0.0" y="148" width="600" height="162"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="600" id="cFl-6K-di4"/>
-                                    <constraint firstAttribute="height" constant="162" id="cpa-Gs-ykP"/>
-                                </constraints>
-                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" red="0.17254901959999999" green="0.24313725489999999" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="SMc-fG-KvQ" firstAttribute="centerX" secondItem="hyT-EQ-qb7" secondAttribute="centerX" id="477-Ol-HAr"/>
                             <constraint firstItem="SMc-fG-KvQ" firstAttribute="top" secondItem="bZ2-yH-jzz" secondAttribute="bottom" constant="8" symbolic="YES" id="6c7-O3-qEs"/>
                             <constraint firstItem="bZ2-yH-jzz" firstAttribute="top" secondItem="2KV-Hb-X6d" secondAttribute="bottom" constant="-18" id="6da-wh-wsi"/>
+                            <constraint firstItem="OWk-CI-hff" firstAttribute="top" secondItem="bZ2-yH-jzz" secondAttribute="bottom" constant="-27" id="Hti-PS-tWJ"/>
                             <constraint firstItem="2KV-Hb-X6d" firstAttribute="top" secondItem="s9K-C5-RbR" secondAttribute="bottom" constant="22" id="Jlm-v5-ENk"/>
                             <constraint firstItem="OWk-CI-hff" firstAttribute="leading" secondItem="2KV-Hb-X6d" secondAttribute="leading" id="M5t-w2-zeQ"/>
                             <constraint firstAttribute="centerX" secondItem="2KV-Hb-X6d" secondAttribute="centerX" id="MuV-AS-TkY"/>
                             <constraint firstItem="OWk-CI-hff" firstAttribute="trailing" secondItem="2KV-Hb-X6d" secondAttribute="trailing" id="Odp-TI-Pvi"/>
-                            <constraint firstItem="SMc-fG-KvQ" firstAttribute="top" secondItem="OWk-CI-hff" secondAttribute="bottom" constant="44" id="Twa-ld-eIx"/>
                             <constraint firstAttribute="centerX" secondItem="bZ2-yH-jzz" secondAttribute="centerX" id="gqa-et-P62"/>
                             <constraint firstItem="bZ2-yH-jzz" firstAttribute="top" secondItem="2KV-Hb-X6d" secondAttribute="bottom" constant="-11" id="rXv-yX-FxO"/>
-                            <constraint firstItem="oAu-8C-H5p" firstAttribute="top" secondItem="SMc-fG-KvQ" secondAttribute="bottom" constant="56" id="tzE-vK-aSR"/>
+                            <constraint firstItem="oAu-8C-H5p" firstAttribute="top" secondItem="SMc-fG-KvQ" secondAttribute="bottom" constant="86" id="tzE-vK-aSR"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">

@@ -27,6 +27,10 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
     
     var placeHolderText: String = "More details can be entered here..."
     
+    var kbHeight: CGFloat!
+    
+    var movedUp: Bool = false
+    
     // MARK: - Outlets
     
     //    @IBOutlet weak var requestTextField: UITextField!
@@ -295,16 +299,26 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
         textViewOutlet.textColor = UIColor.lightGrayColor()
         
         textViewOutlet.delegate = self
+        
+        movedUp = false
     }
     
     override func viewWillAppear(animated: Bool) {
         requestButtonOutlet.layer.cornerRadius = 4
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+        
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
             textViewOutlet.resignFirstResponder()
+            movedUp = false
             return false
         }
         
@@ -333,6 +347,12 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         self.view.endEditing(true)
         self.textViewOutlet.endEditing(true)
+        
+        movedUp = false
+        
+        UIView.animateWithDuration(1.0, animations: {
+            
+        })
     }
     
     // MARK: - Picker View
@@ -358,6 +378,36 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
         let titleData = pickerData[row]
         var myTitle = NSAttributedString(string: titleData, attributes: [NSForegroundColorAttributeName:UIColor.whiteColor()])
         return myTitle
+    }
+    
+    // MARK: - Keyboard Animations
+    
+    func keyboardWillShow(notification: NSNotification) {
+        UIView.animateWithDuration(1.0, animations: {
+            
+        })
+        
+        if movedUp == false {
+            if let userInfo = notification.userInfo {
+                if let keyboardSize =  (userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+                    kbHeight = keyboardSize.height - 120
+                    movedUp = true
+                    self.animateTextField(true)
+                }
+            }
+        }
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        self.animateTextField(false)
+    }
+    
+    func animateTextField(up: Bool) {
+        var movement = (up ? -kbHeight : kbHeight)
+        
+        UIView.animateWithDuration(0.3, animations: {
+            self.view.frame = CGRectOffset(self.view.frame, 0, movement)
+        })
     }
     
     
