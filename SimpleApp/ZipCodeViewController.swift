@@ -20,7 +20,7 @@ class ZipCodeViewController: UIViewController {
         
         var tooSlow:Bool = true
         
-        zipcodeButtonOutlet.endEditing(true)
+        self.view.endEditing(true)
         
         ignoreInteraction()
         

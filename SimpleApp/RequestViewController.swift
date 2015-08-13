@@ -48,6 +48,8 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
     @IBAction func requestButton(sender: AnyObject) {
         println("Pressed request button")
         
+        self.view.endEditing(true)
+        
         if selectedRowData.isEmpty == true {
             self.addSpinner("Select a task", Animated: false)
             self.delay(seconds: 1.5, completion: { () -> () in
