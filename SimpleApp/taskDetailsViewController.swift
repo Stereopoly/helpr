@@ -9,6 +9,12 @@
 import UIKit
 import Parse
 import SwiftSpinner
+import FBSDKCoreKit
+import FBSDKLoginKit
+import ParseUI
+import ParseFacebookUtilsV4
+import SwiftSpinner
+import Mixpanel
 
 var acceptedTask: String = ""
 
@@ -25,6 +31,8 @@ class taskDetailsViewController: UIViewController {
     @IBOutlet weak var acceptButtonOutlet: UIButton!
     
     @IBOutlet weak var textViewOutlet: UITextView!
+    
+    @IBOutlet weak var imageViewOutlet: UIImageView!
     
     @IBAction func acceptButton(sender: AnyObject) {
         ignoreInteraction()
@@ -96,6 +104,7 @@ class taskDetailsViewController: UIViewController {
         textViewOutlet.editable = false
         
         getDetails()
+        getProfilePicture()
         
         println(selectedRowText)
         println(selectedRowDetail)
@@ -307,6 +316,41 @@ class taskDetailsViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    func getProfilePicture() {
+        var userQuery = PFUser.query()
+        userQuery?.whereKey("username", equalTo: selectedRowDetail)
+
+        userQuery?.findObjectsInBackgroundWithBlock({ (objects, error) -> Void in
+            if error != nil {
+                print("Error getting profile picture")
+                self.addSpinner("Error getting profile picture", Animated: false)
+                self.delay(seconds: 1.0, completion: { () -> () in
+                    self.hideSpinner()
+                    self.beginInteraction()
+                })
+            } else {
+                if let objects = objects {
+                    println(objects)
+                    for object in objects {
+                        let thumbNail = object["picture"] as! PFFile
+                        
+                        println(thumbNail)
+                        
+                        thumbNail.getDataInBackgroundWithBlock({
+                            (imageData, error) -> Void in
+                            if (error == nil) {
+                                let image = UIImage(data:imageData!)
+                                //image object implementation
+                                self.imageViewOutlet.image = image
+                            }
+                            
+                        })
+                    }
+                }
+            }
+        })
     }
     
     // MARK: - User interaction control

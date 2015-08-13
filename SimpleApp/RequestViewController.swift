@@ -111,7 +111,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                 if let objects = objects {
                     println(objects)
                     for object in objects {
-                        objectId = object.objectId as! String!
+                        objectId = object.objectId as String!
                         println("ObjectId: \(objectId)")
                     }
                 }
@@ -329,7 +329,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
     func textViewDidBeginEditing(textView: UITextView) {
         if textView.textColor == UIColor.lightGrayColor() {
             textView.text = nil
-            textView.textColor = UIColor.whiteColor()
+            textView.textColor = UIColor.blackColor()
         }
     }
     

@@ -14,9 +14,13 @@ class ZipCodeViewController: UIViewController {
     
     @IBOutlet weak var zipcodeField: UITextField!
     
+    @IBOutlet weak var zipcodeButtonOutlet: UIButton!
+    
     @IBAction func addZipcode(sender: AnyObject) {
         
         var tooSlow:Bool = true
+        
+        zipcodeButtonOutlet.endEditing(true)
         
         ignoreInteraction()
         
@@ -36,6 +40,7 @@ class ZipCodeViewController: UIViewController {
             user.username = fbUsername
             user.password = ""
             user["zipcode"] = zipcodeField.text.toInt()
+            user["picture"] = file
             
             delay(seconds: 6.0) { () -> () in
                 if tooSlow == true {
@@ -106,6 +111,8 @@ class ZipCodeViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         tooLong = false
+        
+        zipcodeButtonOutlet.layer.cornerRadius = 4.0
         
         zipcodeField.attributedPlaceholder = NSAttributedString(string: "Zipcode", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
         zipcodeField.tintColor = UIColor.whiteColor()

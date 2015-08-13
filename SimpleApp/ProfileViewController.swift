@@ -84,6 +84,16 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
             }
         }
         
+//        imageViewOutlet.layer.cornerRadius = self.imageViewOutlet.frame.size.height / 2
+//        imageViewOutlet.layer.masksToBounds = true
+        
+//        imageViewOutlet.layer.borderWidth = 1.0
+//        imageViewOutlet.layer.masksToBounds = false
+//        imageViewOutlet.layer.borderColor = UIColor.whiteColor().CGColor
+//        println(imageViewOutlet.frame.size.width)
+//        imageViewOutlet.layer.cornerRadius = imageViewOutlet.frame.size.height/2
+//        imageViewOutlet.clipsToBounds = true
+        
         acceptView.layer.cornerRadius = 4
         withdrawView.layer.cornerRadius = 4
         canHelpWithButton.layer.cornerRadius = 4
@@ -247,7 +257,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                 if let objects = objects {
                     println(objects)
                     for object in objects {
-                        objectId = object.objectId as! String!
+                        objectId = object.objectId as String!
                         println("ObjectId: \(objectId)")
                     }
                 }
@@ -318,7 +328,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                         if let objects = objects {
                             println(objects)
                             for object in objects {
-                                objectId = object.objectId as! String!
+                                objectId = object.objectId as String!
                                 println("ObjectId: \(objectId)")
                             }
                         }
@@ -373,7 +383,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
             if let objects = objects {
                 println(objects)
                 for object in objects {
-                    objectId = object.objectId as! String!
+                    objectId = object.objectId as String!
                     println("ObjectId: \(objectId)")
                 }
             }
@@ -416,7 +426,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
             if let objects = objects {
                 println(objects)
                 for object in objects {
-                    objectId = object.objectId as! String!
+                    objectId = object.objectId as String!
                     println("ObjectId: \(objectId)")
                 }
             }
@@ -589,7 +599,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                 if let objects = objects {
                     println(objects)
                     for object in objects {
-                        objectId = object.objectId as! String!
+                        objectId = object.objectId as String!
                         println("ObjectId: \(objectId)")
                     }
                 }
@@ -623,7 +633,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                 if let objects = objects {
                     println(objects)
                     for object in objects {
-                        objectId = object.objectId as! String!
+                        objectId = object.objectId as String!
                         println("ObjectId: \(objectId)")
                     }
                 }

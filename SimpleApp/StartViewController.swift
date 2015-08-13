@@ -16,6 +16,7 @@ import SwiftSpinner
 
 
 var tooLong: Bool = true
+var file: PFFile?
 
 class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageViewControllerDataSource {
     
@@ -117,8 +118,24 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageVie
                             
                             // Access user data
                             let username = userData["name"] as? String
+                            let id = userData["id"] as! String
                             fbUsername = username!
                             println(username)
+                            
+                            let pictureURL = "https://graph.facebook.com/\(id)/picture?type=large&return_ssl_resources=1"
+                            
+                            var URLRequest = NSURL(string: pictureURL)
+                            var URLRequestNeeded = NSURLRequest(URL: URLRequest!)
+                            
+                            NSURLConnection.sendAsynchronousRequest(URLRequestNeeded, queue: NSOperationQueue.mainQueue(), completionHandler: { (response, data, error) -> Void in
+                                if error == nil {
+                                    file = PFFile(name: "picture.png", data: data)
+                                }
+                                else {
+                                    println("Error: \(error.localizedDescription)")
+                                }
+                            })
+                            
                             self.checkUser()
                         }
                     }
