@@ -20,12 +20,29 @@ class ChangeZipcodeViewController: UIViewController {
 
     @IBOutlet weak var zipcodeOutlet: UILabel!
     
+    @IBOutlet weak var zipcodeTextField: UITextField!
+    
+    @IBOutlet weak var changeButtonOutlet: UIButton!
+    
+    @IBAction func changeZipcode(sender: AnyObject) {
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     
+        changeButtonOutlet.layer.cornerRadius = 4.0
+        zipcodeTextField.attributedPlaceholder = NSAttributedString(string: "Zipcode", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
+        zipcodeTextField.tintColor = UIColor.whiteColor()
+        
         getZipcode()
+    
+    }
+    
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        self.view.endEditing(true)
     }
 
     override func didReceiveMemoryWarning() {
