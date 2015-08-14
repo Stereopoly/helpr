@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="aea-Hc-XXF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="aea-Hc-XXF">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -1049,13 +1049,11 @@
             </objects>
             <point key="canvasLocation" x="1191" y="317"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Give-->
         <scene sceneID="RO1-Gd-mc6">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XeQ-0J-Fby" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="Handshake" id="5v8-j9-A7v">
-                        <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" title="Give" image="Handshake" id="5v8-j9-A7v"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Lxk-ei-31y">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1075,13 +1073,11 @@
             </objects>
             <point key="canvasLocation" x="1947" y="-371"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Get-->
         <scene sceneID="5i9-rZ-8aA">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="uVc-qV-5XT" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="?" id="F9Z-87-BLD">
-                        <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" title="Get" image="?" id="F9Z-87-BLD"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="kVi-H7-H8F">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1101,13 +1097,11 @@
             </objects>
             <point key="canvasLocation" x="1947" y="317"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Me-->
         <scene sceneID="2iP-fb-ynn">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="JdN-7q-oL3" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="Home" id="L4n-Aa-qdm">
-                        <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" title="Me" image="Home" id="L4n-Aa-qdm"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="uLW-v4-d82">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1240,12 +1234,12 @@
             </objects>
             <point key="canvasLocation" x="1191" y="1767"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Messages-->
         <scene sceneID="oTV-0H-AMA">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="skR-fT-8RR" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="Chat" id="atP-w9-r4W">
-                        <inset key="imageInsets" minX="0.0" minY="7" maxX="0.0" maxY="-6"/>
+                    <tabBarItem key="tabBarItem" title="Messages" image="Chat" id="atP-w9-r4W">
+                        <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-1"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="afH-vc-abY">
