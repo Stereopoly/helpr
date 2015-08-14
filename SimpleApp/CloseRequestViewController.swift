@@ -346,7 +346,6 @@ class CloseRequestViewController: UIViewController {
                         })
                     }
                     
-                    
                 }
             }
         }

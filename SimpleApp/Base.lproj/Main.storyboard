@@ -689,6 +689,109 @@
             </objects>
             <point key="canvasLocation" x="3277" y="323"/>
         </scene>
+        <!--Settings-->
+        <scene sceneID="mvJ-nP-UW2">
+            <objects>
+                <viewController id="WNu-D2-jRS" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ZFa-7h-lUN"/>
+                        <viewControllerLayoutGuide type="bottom" id="76M-8B-XFl"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fu1-BN-UWU">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XZ0-dx-DkO">
+                                <rect key="frame" x="0.0" y="72" width="600" height="50"/>
+                                <color key="backgroundColor" red="0.16078431369999999" green="0.50196078430000002" blue="0.72549019609999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="0yn-li-QLo"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="hJz-x1-LLK"/>
+                                </constraints>
+                                <state key="normal" title="My Zipcode">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="hJz-x1-LLK"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <segue destination="t5j-sO-O35" kind="show" id="0FB-7p-v8K"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.17254901959999999" green="0.24313725489999999" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="XZ0-dx-DkO" firstAttribute="leading" secondItem="fu1-BN-UWU" secondAttribute="leadingMargin" constant="-16" id="MSo-I8-k1z"/>
+                            <constraint firstItem="XZ0-dx-DkO" firstAttribute="leading" secondItem="fu1-BN-UWU" secondAttribute="leadingMargin" constant="-6" id="Sg7-Dd-tXu"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="XZ0-dx-DkO" secondAttribute="trailing" constant="-16" id="T8B-UL-Oey"/>
+                            <constraint firstItem="XZ0-dx-DkO" firstAttribute="top" secondItem="ZFa-7h-lUN" secondAttribute="bottom" constant="8" id="p08-I9-sW1"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="XZ0-dx-DkO" secondAttribute="trailing" constant="-6" id="qSC-YV-qdk"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Sg7-Dd-tXu"/>
+                                <exclude reference="qSC-YV-qdk"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" title="Settings" id="Luq-Vr-pla"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LRq-b4-EKo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4610" y="323"/>
+        </scene>
+        <!--Change Zipcode View Controller-->
+        <scene sceneID="rsN-jh-npg">
+            <objects>
+                <viewController id="t5j-sO-O35" customClass="ChangeZipcodeViewController" customModule="helpr" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="a9Y-cb-7Cj"/>
+                        <viewControllerLayoutGuide type="bottom" id="gde-lw-9dl"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Mw3-ym-Ljf">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Zipcode" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="6sG-IK-jvp">
+                                <rect key="frame" x="16" y="72" width="568" height="81"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="81" id="qwu-LQ-clZ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zipcode" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B4C-Nz-fDu">
+                                <rect key="frame" x="16" y="161" width="568" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="MB6-xn-9IX"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.17254901959999999" green="0.24313725489999999" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="B4C-Nz-fDu" firstAttribute="leading" secondItem="Mw3-ym-Ljf" secondAttribute="leadingMargin" id="Fhb-xx-esi"/>
+                            <constraint firstItem="6sG-IK-jvp" firstAttribute="top" secondItem="a9Y-cb-7Cj" secondAttribute="bottom" constant="8" id="II6-yf-AX8"/>
+                            <constraint firstItem="B4C-Nz-fDu" firstAttribute="top" secondItem="6sG-IK-jvp" secondAttribute="bottom" constant="8" id="MYL-t1-J65"/>
+                            <constraint firstItem="6sG-IK-jvp" firstAttribute="leading" secondItem="Mw3-ym-Ljf" secondAttribute="leadingMargin" id="O4U-8O-c9n"/>
+                            <constraint firstItem="B4C-Nz-fDu" firstAttribute="trailing" secondItem="Mw3-ym-Ljf" secondAttribute="trailingMargin" id="nW5-GQ-ODk"/>
+                            <constraint firstItem="6sG-IK-jvp" firstAttribute="trailing" secondItem="Mw3-ym-Ljf" secondAttribute="trailingMargin" id="zV7-FJ-UK9"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="zipcodeOutlet" destination="B4C-Nz-fDu" id="NGg-5B-4sH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JI0-7S-yhP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5295" y="323"/>
+        </scene>
         <!--Profile-->
         <scene sceneID="HzE-dX-Fla">
             <objects>
@@ -722,7 +825,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="HIN-aa-AyS">
-                                <rect key="frame" x="277" y="95" width="307" height="70"/>
+                                <rect key="frame" x="277" y="78" width="307" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="254" id="Tbu-yR-Qa4"/>
                                     <constraint firstAttribute="height" constant="70" id="iCo-5s-tGh"/>
@@ -874,7 +977,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Points" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sp6-ae-KqV">
-                                <rect key="frame" x="277" y="161" width="307" height="21"/>
+                                <rect key="frame" x="277" y="144" width="307" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="HLD-9A-vhU"/>
                                     <constraint firstAttribute="width" constant="150" id="Vdx-6y-dcU"/>
@@ -911,7 +1014,7 @@
                             <constraint firstItem="Sp6-ae-KqV" firstAttribute="centerX" secondItem="HIN-aa-AyS" secondAttribute="centerX" constant="-157" id="ii8-NV-gB1"/>
                             <constraint firstItem="Blb-M1-tYz" firstAttribute="top" secondItem="hBj-A6-S0A" secondAttribute="bottom" constant="23" id="kGo-Me-YOh"/>
                             <constraint firstItem="P4x-tA-1OS" firstAttribute="trailing" secondItem="NCW-iD-t7e" secondAttribute="trailing" id="mUc-Hy-9aQ"/>
-                            <constraint firstItem="HIN-aa-AyS" firstAttribute="top" secondItem="hBj-A6-S0A" secondAttribute="bottom" constant="31" id="nOJ-zH-M0H"/>
+                            <constraint firstItem="HIN-aa-AyS" firstAttribute="top" secondItem="hBj-A6-S0A" secondAttribute="bottom" constant="14" id="nOJ-zH-M0H"/>
                             <constraint firstItem="P4x-tA-1OS" firstAttribute="top" secondItem="eoy-CZ-5su" secondAttribute="bottom" constant="8" id="rt7-2F-qA5"/>
                             <constraint firstItem="scF-9c-kfX" firstAttribute="centerX" secondItem="NCW-iD-t7e" secondAttribute="centerX" id="skm-vT-EM1"/>
                             <constraint firstItem="s7P-30-puK" firstAttribute="top" secondItem="scF-9c-kfX" secondAttribute="bottom" constant="66" id="tGy-3w-u23"/>
@@ -931,7 +1034,14 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Me" id="5k3-FY-gnA"/>
+                    <navigationItem key="navigationItem" title="Me" id="5k3-FY-gnA">
+                        <barButtonItem key="rightBarButtonItem" image="Settings" style="plain" id="ni7-Zh-ekq">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <segue destination="jYo-Om-fb5" kind="show" id="fkT-Mu-3EF"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="acceptView" destination="P4x-tA-1OS" id="EFM-Xx-Sc2"/>
                         <outlet property="acceptedLabel" destination="Qsy-2o-BBh" id="wHM-kx-Tdl"/>
@@ -1260,12 +1370,36 @@
             </objects>
             <point key="canvasLocation" x="1191" y="1041"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="36v-N6-0st">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jYo-Om-fb5" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="D5r-9y-fPm">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.17254901959999999" green="0.24313725489999999" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="pTw-pG-0gO">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="WNu-D2-jRS" kind="relationship" relationship="rootViewController" id="Oex-Xa-fEk"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HdX-Sy-0f2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3942" y="323"/>
+        </scene>
     </scenes>
     <resources>
         <image name="?" width="30" height="30"/>
         <image name="Chat" width="30" height="30"/>
         <image name="Handshake" width="30" height="30"/>
         <image name="Home" width="30" height="30"/>
+        <image name="Settings" width="22" height="23"/>
         <image name="helpr" width="450" height="174"/>
     </resources>
     <inferredMetricsTieBreakers>
