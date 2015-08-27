@@ -25,7 +25,11 @@ class ChangeZipcodeViewController: UIViewController {
     @IBOutlet weak var changeButtonOutlet: UIButton!
     
     @IBAction func changeZipcode(sender: AnyObject) {
-        
+        if zipcodeTextField.text.isEmpty == true {
+            
+        } else {
+            changeZipcode()
+        }
     }
     
     override func viewDidLoad() {
@@ -72,6 +76,82 @@ class ChangeZipcodeViewController: UIViewController {
 
     }
     
+    func changeZipcode() {
+        var objectId = ""
+        self.view.endEditing(true)
+
+        var query = PFQuery(className: "_User")
+        query.whereKey("username", equalTo: fbUsername)
+        
+        query.findObjectsInBackgroundWithBlock({ (objects, error) -> Void in
+            if error != nil {
+                println("Error")
+                self.addSpinner("Error", Animated: false)
+                self.delay(seconds: 1.5, completion: { () -> () in
+                    self.hideSpinner()
+                })
+            } else {
+                if objects != nil {
+                    if let objects = objects {
+                        println(objects)
+                        for object in objects {
+                            objectId = object.objectId as String!
+                            println("ObjectId: \(objectId)")
+                        }
+                    }
+                    var query2 = PFQuery(className: "_User")
+                    
+                    query2.getObjectInBackgroundWithId(objectId, block: { (oldZipcode, error) -> Void in
+                        if error != nil {
+                            println("Error")
+                            self.addSpinner("Error", Animated: false)
+                            self.delay(seconds: 1.5, completion: { () -> () in
+                                self.hideSpinner()
+                            })
+                        } else if let oldZipcode = oldZipcode {
+                                println(oldZipcode)
+                                oldZipcode["zipcode"] = self.zipcodeTextField.text.toInt()!
+                                var newZipcode: AnyObject? = oldZipcode["zipcode"]
+                                print("New zipcode: \(newZipcode)")
+                                self.zipcodeTextField.text = ""
+                                oldZipcode.saveInBackground()
+                        }
+                    })
+                    
+                } else {
+                    println("No objects - Error should not occur")
+                }
+            }
+        })
+
+    }
+    
+    // MARK: - Activity Indicator
+    
+    func addSpinner(Error: String, Animated: Bool) {
+        SwiftSpinner.show(Error, animated: Animated)
+    }
+    
+    func hideSpinner() {
+        SwiftSpinner.hide()
+    }
+    
+    func delay(#seconds: Double, completion:()->()) {
+        let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64( Double(NSEC_PER_SEC) * seconds ))
+        
+        dispatch_after(popTime, dispatch_get_main_queue()) {
+            completion()
+        }
+    }
+    
+    func beginIgnore() {
+        UIApplication.sharedApplication().beginIgnoringInteractionEvents()
+    }
+    func endIgnore() {
+        UIApplication.sharedApplication().endIgnoringInteractionEvents()
+    }
+
+
 
     /*
     // MARK: - Navigation
