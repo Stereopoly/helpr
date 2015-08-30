@@ -99,6 +99,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             startViewController = storyboard.instantiateViewControllerWithIdentifier("TabBarController") as! UITabBarController
             println("TabBarController")
+            println("Current user: \(PFUser.currentUser()?.username)")
         } else {
             // 4
             // Otherwise set the LoginViewController to be the first

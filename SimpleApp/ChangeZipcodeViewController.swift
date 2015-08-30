@@ -25,8 +25,13 @@ class ChangeZipcodeViewController: UIViewController {
     @IBOutlet weak var changeButtonOutlet: UIButton!
     
     @IBAction func changeZipcode(sender: AnyObject) {
+        self.beginIgnore()
         if zipcodeTextField.text.isEmpty == true {
-            
+            self.addSpinner("Enter a zipcode", Animated: false)
+            self.delay(seconds: 1.5, completion: { () -> () in
+                self.hideSpinner()
+                self.endIgnore()
+            })
         } else {
             changeZipcode()
         }
@@ -89,6 +94,7 @@ class ChangeZipcodeViewController: UIViewController {
                 self.addSpinner("Error", Animated: false)
                 self.delay(seconds: 1.5, completion: { () -> () in
                     self.hideSpinner()
+                    self.endIgnore()
                 })
             } else {
                 if objects != nil {
@@ -101,6 +107,8 @@ class ChangeZipcodeViewController: UIViewController {
                     }
                     var query2 = PFQuery(className: "_User")
                     
+                    println("Current user:\(PFUser.currentUser()?.username)")
+                    
                     query2.getObjectInBackgroundWithId(objectId, block: { (oldZipcode, error) -> Void in
                         if error != nil {
                             println("Error")
@@ -109,17 +117,19 @@ class ChangeZipcodeViewController: UIViewController {
                                 self.hideSpinner()
                             })
                         } else if let oldZipcode = oldZipcode {
-                                println(oldZipcode)
-                                oldZipcode["zipcode"] = self.zipcodeTextField.text.toInt()!
-                                var newZipcode: AnyObject? = oldZipcode["zipcode"]
-                                print("New zipcode: \(newZipcode)")
-                                self.zipcodeTextField.text = ""
-                                oldZipcode.saveInBackground()
+                            println("User: \(oldZipcode)")
+                            var newZipcode: AnyObject? = oldZipcode["zipcode"]
+                            oldZipcode["zipcode"] = newZipcode
+                            print("New zipcode: \(newZipcode)")
+                            self.zipcodeTextField.text = ""
+                            oldZipcode.saveInBackground()
+                            self.endIgnore()
                         }
                     })
                     
                 } else {
                     println("No objects - Error should not occur")
+                    self.endIgnore()
                 }
             }
         })
