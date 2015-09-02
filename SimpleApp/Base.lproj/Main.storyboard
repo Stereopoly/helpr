@@ -1095,14 +1095,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Me" id="5k3-FY-gnA">
-                        <barButtonItem key="rightBarButtonItem" image="Settings" style="plain" id="ni7-Zh-ekq">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <segue destination="jYo-Om-fb5" kind="show" id="fkT-Mu-3EF"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Me" id="5k3-FY-gnA"/>
                     <connections>
                         <outlet property="acceptView" destination="P4x-tA-1OS" id="EFM-Xx-Sc2"/>
                         <outlet property="acceptedLabel" destination="Qsy-2o-BBh" id="wHM-kx-Tdl"/>
@@ -1460,11 +1453,10 @@
         <image name="Chat" width="30" height="30"/>
         <image name="Handshake" width="30" height="30"/>
         <image name="Home" width="30" height="30"/>
-        <image name="Settings" width="22" height="23"/>
         <image name="helpr" width="450" height="174"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="A9u-F2-sNF"/>
-        <segue reference="OKq-df-Zzw"/>
+        <segue reference="rJU-rD-EcA"/>
     </inferredMetricsTieBreakers>
 </document>
