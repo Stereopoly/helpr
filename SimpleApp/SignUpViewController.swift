@@ -92,7 +92,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                 var user = PFUser()
                 user.username = usernameField.text
                 user.password = passwordField.text
-                user["City"] = cityField.text.capitalizedString
+                user.setObject(cityField.text.capitalizedString, forKey: "City")
+         //       user["City"] = cityField.text.capitalizedString
                 
                 println(usernameField.text)
                 println(passwordField.text)

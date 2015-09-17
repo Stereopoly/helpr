@@ -73,7 +73,8 @@ class HomeTableViewController: PFQueryTableViewController {
         println(fbUsername)
         
         let installation = PFInstallation.currentInstallation()
-        installation["user"] = fbUsername
+        installation.setObject(fbUsername, forKey: "user")
+    //    installation["user"] = fbUsername
         installation.saveInBackground()
         
     }
@@ -146,7 +147,7 @@ class HomeTableViewController: PFQueryTableViewController {
                     for object in objects {
                         
                         if let object = object as? PFObject {
-                            helpable.append( object["helpable"] as! String )
+                            helpable.append(object.objectForKey("helpable") as! String)
                         }
                     }
                 }
@@ -186,12 +187,12 @@ class HomeTableViewController: PFQueryTableViewController {
             cell = PFTableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "cell")
         }
         
-        cell?.textLabel?.text = object?["task"] as? String
+        cell?.textLabel?.text = object?.objectForKey("task") as? String
         
-        if object?["requester"] as? String == fbUsername {
+        if object?.objectForKey("requester") as? String == fbUsername {
             cell?.detailTextLabel?.text = "You"
         } else {
-            cell?.detailTextLabel?.text = object?["requester"] as? String
+            cell?.detailTextLabel?.text = object?.objectForKey("requester") as? String
         }
         
         cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator

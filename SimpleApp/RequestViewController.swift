@@ -121,7 +121,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                 var query2 = PFQuery(className: "points")
                 query2.getObjectInBackgroundWithId(objectId, block: { (points, error) -> Void in
                     if let points = points {
-                        userPoints = points["points"] as! Int
+                        userPoints = points.objectForKey("points") as! Int
                         println("Points: \(userPoints)")
                         if userPoints < 1 {
                             println("Not enough points")
@@ -134,7 +134,8 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                             println("Enough points to request")
                             updatedUserPoints = userPoints - 1
                             println("Updated points: \(updatedUserPoints)")
-                            points["points"] = updatedUserPoints
+                            points.setObject(updatedUserPoints!, forKey: "points")
+                    //        points.objectForKey("points") = updatedUserPoints
                             
                             points.saveInBackground()
                             println("Points subtracted")
@@ -177,11 +178,11 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
             self.checkForMultiple { () -> Void in
                 
                 var request = PFObject(className: "request")
-                request["requester"] = fbUsername
-                request["task"] = self.selectedRowData
-                request["zipcode"] = zipcode
-                request["accepted"] = "No"
-                request["details"] = self.textViewText
+                request.setObject(fbUsername, forKey: "requester")
+                request.setObject(self.selectedRowData, forKey: "task")
+                request.setObject(zipcode!, forKey: "zipcode")
+                request.setObject("No", forKey: "accepted")
+                request.setObject(self.textViewText, forKey: "details")
                 
                 var query = PFQuery(className: "request")
                 query.whereKey("task", equalTo: self.selectedRowData)

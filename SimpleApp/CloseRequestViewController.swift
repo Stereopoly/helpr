@@ -243,11 +243,12 @@ class CloseRequestViewController: UIViewController {
                 var query2 = PFQuery(className: "points")
                 query2.getObjectInBackgroundWithId(objectId, block: { (points, error) -> Void in
                     if let points = points {
-                        userPoints = points["points"] as! Int
+                        userPoints = points.objectForKey("points") as! Int
                         println("Points: \(userPoints)")
                         updatedUserPoints = userPoints + 1
                         println("Updated points: \(updatedUserPoints)")
-                        points["points"] = updatedUserPoints
+                        points.setObject(updatedUserPoints!, forKey: "points")
+                     //   points["points"] = updatedUserPoints
                         
                         points.saveInBackground()
                         
@@ -374,11 +375,12 @@ class CloseRequestViewController: UIViewController {
                 var query2 = PFQuery(className: "points")
                 query2.getObjectInBackgroundWithId(objectId, block: { (points, error) -> Void in
                     if let points = points {
-                        userPoints = points["points"] as! Int
+                        userPoints = points.objectForKey("points") as! Int
                         println("Points: \(userPoints)")
                         updatedUserPoints = userPoints + 1
                         println("Updated points: \(updatedUserPoints)")
-                        points["points"] = updatedUserPoints
+                        points.setObject(updatedUserPoints!, forKey: "points")
+                //        points.objectForKey["points"] = updatedUserPoints
                         
                         points.saveInBackground()
                         

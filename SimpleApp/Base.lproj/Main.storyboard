@@ -337,6 +337,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="flagButtonOutlet" destination="3nZ-K5-C8Z" id="oSg-JH-WGC"/>
                         <outlet property="messageText" destination="O0c-nk-wuR" id="R78-fb-rEq"/>
                         <outlet property="sendButtonOutlet" destination="I5v-iS-XAi" id="0lZ-Q8-MQp"/>
                         <outlet property="tableView" destination="jIQ-mB-HAb" id="Vml-7J-B1j"/>

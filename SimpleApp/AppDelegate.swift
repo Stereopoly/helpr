@@ -131,7 +131,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let username = userData["name"] as? String
                 fbUsername = username!
                 println(fbUsername)
-                installation["user"] = fbUsername
+          //      installation["user"] = fbUsername
+                installation.setObject(fbUsername, forKey: "user")
                 installation.saveInBackground()
                 println("Push notifs registered")
             }

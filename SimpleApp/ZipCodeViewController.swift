@@ -39,8 +39,10 @@ class ZipCodeViewController: UIViewController {
             var user = PFUser()
             user.username = fbUsername
             user.password = ""
-            user["zipcode"] = zipcodeField.text.toInt()
-            user["picture"] = file
+            user.setObject(zipcodeField.text.toInt()!, forKey: "zipcode")
+            user.setObject(file!, forKey: "picture")
+        //    user["zipcode"] = zipcodeField.text.toInt()
+        //    user["picture"] = file
             
             delay(seconds: 6.0) { () -> () in
                 if tooSlow == true {
@@ -67,7 +69,7 @@ class ZipCodeViewController: UIViewController {
                 } else {
                     user.saveInBackgroundWithBlock({ (didWork, error) -> Void in
                         self.delay(seconds: 1.5, completion: { () -> () in
-                            println(user["zipcode"])
+                            println(user.objectForKey("zipcode"))
                             tooSlow = false
                             println(tooSlow)
                             if error != nil {
@@ -82,8 +84,10 @@ class ZipCodeViewController: UIViewController {
                             } else {
                                 println("Success")
                                 var points = PFObject(className: "points")
-                                points["username"] = fbUsername
-                                points["points"] = 3
+                                points.setObject(fbUsername, forKey: "username")
+                                points.setObject(3, forKey: "points")
+                     //           points["username"] = fbUsername
+                     //           points["points"] = 3
                                 
                                 points.save()
                                 

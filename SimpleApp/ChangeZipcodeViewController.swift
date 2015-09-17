@@ -118,8 +118,9 @@ class ChangeZipcodeViewController: UIViewController {
                             })
                         } else if let oldZipcode = oldZipcode {
                             println("User: \(oldZipcode)")
-                            var newZipcode: AnyObject? = oldZipcode["zipcode"]
-                            oldZipcode["zipcode"] = newZipcode
+                            var newZipcode: AnyObject? = oldZipcode.objectForKey("zipcode")
+                            oldZipcode.setObject(newZipcode!, forKey: "zipcode")
+                         //   oldZipcode["zipcode"] = newZipcode
                             print("New zipcode: \(newZipcode)")
                             self.zipcodeTextField.text = ""
                             oldZipcode.saveInBackground()

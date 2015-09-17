@@ -68,7 +68,7 @@ class taskDetailsViewController: UIViewController {
                 // Do something with the found objects
                 if let objects = objects as? [PFObject] {
                     for object in objects {
-                        self.accepted = object["accepted"] as! String
+                        self.accepted = object.objectForKey("accepted") as! String
                         println("Self.accepted: " + self.accepted)
                     }
                 }
@@ -249,14 +249,18 @@ class taskDetailsViewController: UIViewController {
                                         // Saved
                                         println(object)
                                         
-                                        object["accepted"] = "Yes"
-                                        object["acceptedBy"] = fbUsername
+                                        object.setObject("Yes", forKey: "accepted")
+                                        object.setObject(fbUsername, forKey: "acceptedBy")
+                                  //      object["accepted"] = "Yes"
+                                  //      object["acceptedBy"] = fbUsername
                                         
                                         object.saveInBackground()
                                         
                                         var chatSave = PFObject(className: "chat")
-                                        chatSave["sender1"] = fbUsername
-                                        chatSave["sender2"] = selectedRowDetail
+                                        chatSave.setObject(fbUsername, forKey: "sender1")
+                                        chatSave.setObject(selectedRowDetail, forKey: "sender2")
+                                  //      chatSave["sender1"] = fbUsername
+                                  //      chatSave["sender2"] = selectedRowDetail
                                         
                                         chatSave.saveInBackgroundWithBlock({ (didWork, error) -> Void in
                                             if error != nil {

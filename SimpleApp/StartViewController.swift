@@ -194,8 +194,10 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageVie
                     }
                     if objects?.count == 0 {
                         var points = PFObject(className: "points")
-                        points["username"] = fbUsername
-                        points["points"] = 3
+                        points.setObject(fbUsername, forKey: "username")
+                       // points["username"] = fbUsername
+                        points.setObject(3, forKey: "points")
+                    //    points["points"] = 3
                         
                         points.save()
                     } else {

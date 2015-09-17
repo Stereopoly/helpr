@@ -77,7 +77,7 @@ class viewHelpableTableViewController: PFQueryTableViewController {
             cell = PFTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "cell")
         }
         
-        cell?.textLabel?.text = object?["helpable"] as? String
+        cell?.textLabel?.text = object?.objectForKey("helpable") as? String
         
         println(cell?.textLabel?.text)
         

@@ -84,10 +84,10 @@ class ChatConnectionsTableViewController: PFQueryTableViewController {
         if cell == nil {
             cell = PFTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "cell")
         }
-        if object?["sender1"] as? String == fbUsername {
-            cell?.textLabel?.text = object?["sender2"] as? String
+        if object?.objectForKey("sender1") as? String == fbUsername {
+            cell?.textLabel?.text = object?.objectForKey("sender2") as? String
         } else {
-            cell?.textLabel?.text = object?["sender1"] as? String
+            cell?.textLabel?.text = object?.objectForKey("sender1") as? String
         }
         
         cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator

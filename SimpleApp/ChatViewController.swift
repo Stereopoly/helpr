@@ -11,6 +11,8 @@ import Parse
 import ParseUI
 import SwiftSpinner
 
+var didFlag = false
+
 class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate {
     
     var kbHeight: CGFloat!
@@ -21,6 +23,8 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var messageText: UITextField!
+    
+    @IBOutlet weak var flagButtonOutlet: UIBarButtonItem!
     
     @IBAction func flagButton(sender: AnyObject) {
         let title = "Are you sure you want to flag \(selectedChat)?"
@@ -85,14 +89,24 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
     func flagUser() {
         var flag = PFObject(className:"flag")
         
-        flag["username"] = selectedChat
+        flag.setObject(selectedChat, forKey: "username")
+      //  flag["username"] = selectedChat
         
         flag.saveInBackgroundWithBlock {
             (success: Bool, error: NSError?) -> Void in
             if (success) {
                 println("User flagged successfully")
+                self.navigationItem.rightBarButtonItem = nil
+                didFlag = true
+                
             } else {
                 println("Error in flagging")
+                self.ignoreInteraction()
+                self.addSpinner("Error flagging", Animated: false)
+                self.delay(seconds: 1.5, completion: { () -> () in
+                    self.hideSpinner()
+                    self.beginInteraction()
+                })
             }
         }
 
@@ -101,9 +115,12 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
     func submitMessage() {
         var message = PFObject(className:"Message")
         
-        message["text"] = messageText.text
-        message["sender"] =  fbUsername
-        message["receiver"] = selectedChat
+    //    message["text"] = messageText.text
+        message.setObject(messageText.text, forKey: "text")
+        message.setObject(fbUsername, forKey: "sender")
+        message.setObject(selectedChat, forKey: "receiver")
+    //    message["sender"] =  fbUsername
+    //    message["receiver"] = selectedChat
         messageText.text = ""
         
         message.saveInBackgroundWithBlock {
@@ -140,13 +157,13 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
         var messageText = messages![indexPath.row]
         //     cell.messageCellText.text = messageText["text"] as? String
         
-        if fbUsername == messageText["sender"] as! String {
+        if fbUsername == messageText.objectForKey("sender") as! String {
             cell.nameCellText.text = "You"
         } else {
-            cell.nameCellText?.text = messageText["sender"] as? String
+            cell.nameCellText?.text = messageText.objectForKey("sender") as? String
         }
         
-        cell.messageCellText?.text = messageText["text"] as? String
+        cell.messageCellText?.text = messageText.objectForKey("text") as? String
         
         
         return cell
@@ -187,7 +204,7 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
                             
                             var indexpath = NSIndexPath(forRow: self.messages!.count, inSection: 1)
                             
-                            if object["sender"] as! String != fbUsername {
+                            if object.objectForKey("sender") as! String != fbUsername {
                                 
                                 self.messages?.append(object)
                             } else {
@@ -235,6 +252,10 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
         
         println("Viewwillappear - Chat")
+        
+        if didFlag == true {
+            self.navigationItem.rightBarButtonItem = nil
+        }
         
     }
     

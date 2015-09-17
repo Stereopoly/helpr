@@ -342,8 +342,10 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                                 })
                             } else {
                                 if let acceptedTask = acceptedTask {
-                                    acceptedTask["accepted"] = "No"
-                                    acceptedTask["acceptedBy"] = NSNull()
+                                    acceptedTask.setObject("No", forKey: "accepted")
+                                    // acceptedTask["accepted"] = "No"
+                                    acceptedTask.setObject(NSNull(), forKey: "acceptedBy")
+                              //      acceptedTask["acceptedBy"] = NSNull()
                                     acceptedTask.saveInBackground()
                                 }
                                 self.acceptedLabel.text = "None."
@@ -607,7 +609,8 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                 var query2 = PFQuery(className: "points")
                 query2.getObjectInBackgroundWithId(objectId, block: { (points, error) -> Void in
                     if let points = points {
-                        self.currentUserPoints = points["points"] as! Int
+                     //   points.setObject(self.currentUserPoints, forKey: "points")
+                        self.currentUserPoints = points.objectForKey("points") as! Int
                         println("Points: \(userPoints)")
                     }
                     self.pointsLabel.text = "Points: \(self.currentUserPoints)"   // set label
@@ -641,11 +644,12 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                 var query2 = PFQuery(className: "points")
                 query2.getObjectInBackgroundWithId(objectId, block: { (points, error) -> Void in
                     if let points = points {
-                        userPoints = points["points"] as! Int
+                        userPoints = points.objectForKey("points") as! Int
                         println("Points: \(userPoints)")
                         updatedUserPoints = userPoints + 1
                         println("Updated points: \(updatedUserPoints)")
-                        points["points"] = updatedUserPoints
+                        points.setObject(updatedUserPoints!, forKey: "points")
+               //         points.objectForKey("points") = updatedUserPoints
                         
                         points.saveInBackground()
                         
