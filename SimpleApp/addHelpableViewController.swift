@@ -35,8 +35,10 @@ class addHelpableViewController: UIViewController, UIPickerViewDataSource, UIPic
         } else {
             
             var request = PFObject(className: "help")
-            request["helper"] = fbUsername
-            request["helpable"] = selectedRowData
+            request.setObject(fbUsername, forKey: "helpr")
+         //   request["helper"] = fbUsername
+            request.setObject(selectedRowData, forKey: "helpable")
+         //   request["helpable"] = selectedRowData
             
             var query = PFQuery(className: "help")
             query.whereKey("helpable", equalTo: selectedRowData)
@@ -177,3 +179,4 @@ class addHelpableViewController: UIViewController, UIPickerViewDataSource, UIPic
     */
     
 }
+

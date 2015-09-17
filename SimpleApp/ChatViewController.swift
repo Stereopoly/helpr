@@ -22,6 +22,33 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
     
     @IBOutlet weak var messageText: UITextField!
     
+    @IBAction func flagButton(sender: AnyObject) {
+        let title = "Are you sure you want to flag \(selectedChat)?"
+        let message = ""
+        let cancelButtonTitle = "Cancel"
+        let otherButtonTitle = "Yes"
+        
+        let alertCotroller = DOAlertController(title: title, message: message, preferredStyle: .Alert)
+        
+        // Create the actions.
+        let cancelAction = DOAlertAction(title: cancelButtonTitle, style: .Cancel) { action in
+            NSLog("The \"Okay/Cancel\" alert's cancel action occured.")
+        }
+        
+        let otherAction = DOAlertAction(title: otherButtonTitle, style: .Default) { action in
+            NSLog("The \"Okay/Cancel\" alert's other action occured.")
+            
+            self.flagUser()
+        }
+        
+        // Add the actions.
+        alertCotroller.addAction(cancelAction)
+        alertCotroller.addAction(otherAction)
+        
+        presentViewController(alertCotroller, animated: true, completion: nil)
+    
+    }
+    
     @IBAction func sendButton(sender: AnyObject) {
         if messageText.text.isEmpty {
             println("Empty")
@@ -53,6 +80,22 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
     
     override func viewDidDisappear(animated: Bool) {
         reloadTimer?.invalidate()
+    }
+    
+    func flagUser() {
+        var flag = PFObject(className:"flag")
+        
+        flag["username"] = selectedChat
+        
+        flag.saveInBackgroundWithBlock {
+            (success: Bool, error: NSError?) -> Void in
+            if (success) {
+                println("User flagged successfully")
+            } else {
+                println("Error in flagging")
+            }
+        }
+
     }
     
     func submitMessage() {

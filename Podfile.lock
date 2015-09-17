@@ -1,34 +1,35 @@
 PODS:
-  - Bolts (1.2.0):
-    - Bolts/AppLinks (= 1.2.0)
-    - Bolts/Tasks (= 1.2.0)
-  - Bolts/AppLinks (1.2.0):
+  - Bolts (1.2.2):
+    - Bolts/AppLinks (= 1.2.2)
+    - Bolts/Tasks (= 1.2.2)
+  - Bolts/AppLinks (1.2.2):
     - Bolts/Tasks
-  - Bolts/Tasks (1.2.0)
-  - FBSDKCoreKit (4.4.0):
+  - Bolts/Tasks (1.2.2)
+  - FBSDKCoreKit (4.6.0):
     - Bolts (~> 1.1)
-    - FBSDKCoreKit/arc (= 4.4.0)
-    - FBSDKCoreKit/no-arc (= 4.4.0)
-  - FBSDKCoreKit/arc (4.4.0):
+    - FBSDKCoreKit/arc (= 4.6.0)
+    - FBSDKCoreKit/no-arc (= 4.6.0)
+  - FBSDKCoreKit/arc (4.6.0):
     - Bolts (~> 1.1)
-  - FBSDKCoreKit/no-arc (4.4.0):
+  - FBSDKCoreKit/no-arc (4.6.0):
     - Bolts (~> 1.1)
     - FBSDKCoreKit/arc
-  - FBSDKLoginKit (4.4.0):
+  - FBSDKLoginKit (4.6.0):
     - FBSDKCoreKit
-  - Mixpanel (2.8.2):
-    - Mixpanel/Mixpanel (= 2.8.2)
-  - Mixpanel/Mixpanel (2.8.2)
+  - Mixpanel (2.8.3):
+    - Mixpanel/Mixpanel (= 2.8.3)
+  - Mixpanel/Mixpanel (2.8.3)
   - Pages (0.6.1)
-  - Parse (1.7.5.3):
-    - Bolts/Tasks (>= 1.2.0)
-  - ParseFacebookUtilsV4 (1.7.5.3):
-    - Bolts/Tasks (>= 1.2.0)
+  - Parse (1.8.4):
+    - Bolts/Tasks (>= 1.2.2)
+  - ParseFacebookUtilsV4 (1.8.4):
+    - Bolts/Tasks (>= 1.2.2)
     - FBSDKCoreKit (~> 4.0)
     - FBSDKLoginKit (~> 4.0)
-    - Parse (~> 1.7.5.3)
-  - ParseUI (1.1.4):
-    - Parse (~> 1.7)
+    - Parse (~> 1.8.4)
+  - ParseUI (1.1.6):
+    - Bolts/Tasks (~> 1.2)
+    - Parse (~> 1.8)
   - SwiftSpinner (0.7.0)
 
 DEPENDENCIES:
@@ -38,18 +39,18 @@ DEPENDENCIES:
   - Pages
   - Parse (~> 1.7)
   - ParseFacebookUtilsV4
-  - ParseUI (~> 1.1)
+  - ParseUI
   - SwiftSpinner (~> 0.7)
 
 SPEC CHECKSUMS:
-  Bolts: d176cb1e0012175589e389a9db49b85e27787576
-  FBSDKCoreKit: 75bdd75c980e811db218488d99dd93b7740f4474
-  FBSDKLoginKit: 02a9254a4c132412fa03577b0d53e936d068a7fb
-  Mixpanel: f4d71ac2a306e7cda6ad03d4a2be249a0fd7a967
+  Bolts: 20a2bd788273360cb1e31530dc19b8544eef2544
+  FBSDKCoreKit: 9954492d90c5fd65ae831395697a1660360d61f1
+  FBSDKLoginKit: 3d07febbfa884b9878cacba54f705bb41f07d4b6
+  Mixpanel: fd52e097ae0d27295d0595b2261c60b94d191fda
   Pages: 515a8ec7396cfb7cdacc28c0beceb2ce39c065cb
-  Parse: 373adbb1ad2e34d383542c3b28f678c49ebe4881
-  ParseFacebookUtilsV4: ea5db22e87b91cbf99b9d156642e2b97a4db7d51
-  ParseUI: d1228541b02a36a7354c8f47747f5f7a89cf1ff0
+  Parse: c09d6efe4b2eea752765bc6f365a55516d909079
+  ParseFacebookUtilsV4: 888a71305d28e883d4e60cc367544f7bae13223a
+  ParseUI: 8a22e448c03f825203d8c379c80523517f68baa3
   SwiftSpinner: 034bb8b00675b3e4f4c97531fa9af3f550462192
 
 COCOAPODS: 0.37.2

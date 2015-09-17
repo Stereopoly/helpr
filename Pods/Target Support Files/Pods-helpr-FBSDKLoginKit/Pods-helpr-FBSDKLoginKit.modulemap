@@ -1,0 +1,6 @@
+framework module FBSDKLoginKit {
+  umbrella header "Pods-helpr-FBSDKLoginKit-umbrella.h"
+
+  export *
+  module * { export * }
+}

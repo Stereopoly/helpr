@@ -328,7 +328,14 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="E61-WA-1KK"/>
+                    <navigationItem key="navigationItem" id="E61-WA-1KK">
+                        <barButtonItem key="rightBarButtonItem" title="Flag" style="plain" id="3nZ-K5-C8Z">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="flagButton:" destination="6BJ-by-hY3" id="LmU-mH-e34"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="messageText" destination="O0c-nk-wuR" id="R78-fb-rEq"/>
                         <outlet property="sendButtonOutlet" destination="I5v-iS-XAi" id="0lZ-Q8-MQp"/>
