@@ -55,7 +55,7 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
     
     @IBAction func sendButton(sender: AnyObject) {
         if messageText.text.isEmpty {
-            println("Empty")
+            print("Empty")
         } else {
             self.view.endEditing(true)
             submitMessage()
@@ -77,7 +77,7 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
         self.navigationItem.title = selectedChat
         
         getMessages()
-        println("Hide spinner")
+        print("Hide spinner")
         reloadTimer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "onTimer", userInfo: nil, repeats: true)
         
     }
@@ -95,12 +95,12 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
         flag.saveInBackgroundWithBlock {
             (success: Bool, error: NSError?) -> Void in
             if (success) {
-                println("User flagged successfully")
+                print("User flagged successfully")
                 self.navigationItem.rightBarButtonItem = nil
                 didFlag = true
                 
             } else {
-                println("Error in flagging")
+                print("Error in flagging")
                 self.ignoreInteraction()
                 self.addSpinner("Error flagging", Animated: false)
                 self.delay(seconds: 1.5, completion: { () -> () in
@@ -127,13 +127,13 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
             (success: Bool, error: NSError?) -> Void in
             if (success) {
                 // The object has been saved, so get messages.
-                println("Message sent")
+                print("Message sent")
                 self.messages = []
                 self.getMessages()
             } else {
                 // There was a problem, check error.description
-                println("could not save the message")
-                println(error)
+                print("could not save the message")
+                print(error)
             }
         }
     }
@@ -180,7 +180,7 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
     func getMessages() {
         if loaded == 1 {
             self.messages = []
-            println("Selected Chat: \(selectedChat)")
+            print("Selected Chat: \(selectedChat)")
             
             var query = PFQuery(className:"Message")
             query.whereKey("sender", equalTo: fbUsername)
@@ -195,7 +195,7 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
             
             comboQuery.findObjectsInBackgroundWithBlock {
                 (objects: [AnyObject]?, error: NSError?) -> Void in
-                println("Messages found: \(objects?.count)")
+                print("Messages found: \(objects?.count)")
                 if error == nil {
                     // The find succeeded.
                     // Do something with the found objects
@@ -212,13 +212,13 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
                                 self.messages?.append(object)
                             }
                         }
-                        println("Count: \(self.messages?.count)")
+                        print("Count: \(self.messages?.count)")
                         self.tableView.reloadData()
                         self.tableViewScrollToBottom(true)
                     }
                 } else {
                     // Log details of the failure
-                    println("Error: \(error!) \(error!.userInfo!)")
+                    print("Error: \(error!) \(error!.userInfo!)")
                     self.addSpinner("Error", Animated: false)
                     self.delay(seconds: 1.5, completion: { () -> () in
                         self.hideSpinner()
@@ -236,7 +236,7 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
         
         dispatch_after(time, dispatch_get_main_queue(), {
             
-            let numberOfSections = self.tableView.numberOfSections()
+            let numberOfSections = self.tableView.numberOfSections
             let numberOfRows = self.tableView.numberOfRowsInSection(numberOfSections-1)
             
             if numberOfRows > 0 {
@@ -251,7 +251,7 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
         
-        println("Viewwillappear - Chat")
+        print("Viewwillappear - Chat")
         
         if didFlag == true {
             self.navigationItem.rightBarButtonItem = nil
@@ -270,7 +270,7 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
         // Dispose of any resources that can be recreated.
     }
     
-    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
     }
     

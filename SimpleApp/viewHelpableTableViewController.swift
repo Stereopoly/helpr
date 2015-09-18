@@ -18,7 +18,7 @@ class viewHelpableTableViewController: PFQueryTableViewController {
     
     var selectedText = ""
     
-    required init!(coder aDecoder: NSCoder!) {
+    required init!(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
         self.parseClassName = "help"
@@ -30,9 +30,9 @@ class viewHelpableTableViewController: PFQueryTableViewController {
     
     override func queryForTable() -> PFQuery {
         
-        println("queryForTableHelpable")
+        print("queryForTableHelpable")
         
-        var query = PFQuery(className: "help")
+        let query = PFQuery(className: "help")
         query.whereKey("helper", equalTo: fbUsername)
         query.orderByDescending("createdAt")
         
@@ -71,7 +71,7 @@ class viewHelpableTableViewController: PFQueryTableViewController {
         
         //   cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         
-        println(object)
+        print(object)
         
         if cell == nil {
             cell = PFTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "cell")
@@ -79,14 +79,14 @@ class viewHelpableTableViewController: PFQueryTableViewController {
         
         cell?.textLabel?.text = object?.objectForKey("helpable") as? String
         
-        println(cell?.textLabel?.text)
+        print(cell?.textLabel?.text)
         
         return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        println(tableView.cellForRowAtIndexPath(indexPath)?.textLabel?.text)
+        print(tableView.cellForRowAtIndexPath(indexPath)?.textLabel?.text)
         selectedText = tableView.cellForRowAtIndexPath(indexPath)!.textLabel!.text!
         cancelAlert()
         
@@ -125,7 +125,7 @@ class viewHelpableTableViewController: PFQueryTableViewController {
     func deleteHelpable() {
         var objectId = ""
         
-        println("Cell text: \(selectedText)")
+        print("Cell text: \(selectedText)")
         
         var query = PFQuery(className: "help")
         query.whereKey("helper", equalTo: fbUsername)
@@ -134,10 +134,10 @@ class viewHelpableTableViewController: PFQueryTableViewController {
         let objects = query.findObjects()
         if objects != nil {
             if let objects = objects {
-                println(objects)
+                print(objects)
                 for object in objects {
                     objectId = object.objectId as! String!
-                    println("ObjectId: \(objectId)")
+                    print("ObjectId: \(objectId)")
                 }
             }
         }
@@ -148,14 +148,14 @@ class viewHelpableTableViewController: PFQueryTableViewController {
         if let help = help {
             help.deleteInBackgroundWithBlock({ (delete, error) -> Void in
                 if error != nil {
-                    println("Error deleting")
+                    print("Error deleting")
                     self.addSpinner("Error withdrawing", Animated: false)
                     self.delay(seconds: 1.5, completion: { () -> () in
                         self.hideSpinner()
                         self.endIgnore()
                     })
                 } else {
-                    println("Success deleting chat connection")
+                    print("Success deleting chat connection")
                 }
             })
         }
@@ -206,7 +206,7 @@ class viewHelpableTableViewController: PFQueryTableViewController {
         SwiftSpinner.hide()
     }
     
-    func delay(#seconds: Double, completion:()->()) {
+    func delay(seconds seconds: Double, completion:()->()) {
         let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64( Double(NSEC_PER_SEC) * seconds ))
         
         dispatch_after(popTime, dispatch_get_main_queue()) {

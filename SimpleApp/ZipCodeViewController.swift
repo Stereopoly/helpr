@@ -26,7 +26,7 @@ class ZipCodeViewController: UIViewController {
         
         addSpinner("Hold on", Animated: true)
         
-        println(zipcodeField.text)
+        print(zipcodeField.text)
         
         if zipcodeField.text == "" {
             addSpinner("Please enter your zipcode", Animated: false)
@@ -39,7 +39,7 @@ class ZipCodeViewController: UIViewController {
             var user = PFUser()
             user.username = fbUsername
             user.password = ""
-            user.setObject(zipcodeField.text.toInt()!, forKey: "zipcode")
+            user.setObject(Int(zipcodeField.text)!, forKey: "zipcode")
             user.setObject(file!, forKey: "picture")
         //    user["zipcode"] = zipcodeField.text.toInt()
         //    user["picture"] = file
@@ -59,7 +59,7 @@ class ZipCodeViewController: UIViewController {
             
             user.signUpInBackgroundWithBlock { (didWork, error) -> Void in
                 if error != nil {
-                    println("Error")
+                    print("Error")
                     self.addSpinner("Please try again later", Animated: false)
                     self.delay(seconds: 1.5, completion: { () -> () in
                         self.hideSpinner()
@@ -69,12 +69,12 @@ class ZipCodeViewController: UIViewController {
                 } else {
                     user.saveInBackgroundWithBlock({ (didWork, error) -> Void in
                         self.delay(seconds: 1.5, completion: { () -> () in
-                            println(user.objectForKey("zipcode"))
+                            print(user.objectForKey("zipcode"))
                             tooSlow = false
-                            println(tooSlow)
+                            print(tooSlow)
                             if error != nil {
                                 // handle error
-                                println("Error")
+                                print("Error")
                                 self.addSpinner("Please try again later", Animated: false)
                                 self.delay(seconds: 1.5, completion: { () -> () in
                                     self.hideSpinner()
@@ -82,7 +82,7 @@ class ZipCodeViewController: UIViewController {
                                     tooSlow = false
                                 })
                             } else {
-                                println("Success")
+                                print("Success")
                                 var points = PFObject(className: "points")
                                 points.setObject(fbUsername, forKey: "username")
                                 points.setObject(3, forKey: "points")
@@ -122,7 +122,7 @@ class ZipCodeViewController: UIViewController {
         zipcodeField.tintColor = UIColor.whiteColor()
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
     }
     
@@ -151,7 +151,7 @@ class ZipCodeViewController: UIViewController {
         SwiftSpinner.hide()
     }
     
-    func delay(#seconds: Double, completion:()->()) {
+    func delay(seconds seconds: Double, completion:()->()) {
         let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64( Double(NSEC_PER_SEC) * seconds ))
         
         dispatch_after(popTime, dispatch_get_main_queue()) {

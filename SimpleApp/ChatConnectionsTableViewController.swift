@@ -15,7 +15,7 @@ var selectedChat = ""
 
 class ChatConnectionsTableViewController: PFQueryTableViewController {
     
-    required init!(coder aDecoder: NSCoder!) {
+    required init!(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
         self.parseClassName = "chat"
@@ -27,15 +27,15 @@ class ChatConnectionsTableViewController: PFQueryTableViewController {
     
     override func queryForTable() -> PFQuery {
         
-        println("queryForChatTable")
+        print("queryForChatTable")
         
-        var query = PFQuery(className: "chat")
+        let query = PFQuery(className: "chat")
         query.whereKey("sender1", equalTo: fbUsername)
         
-        var query2 = PFQuery(className: "chat")
+        let query2 = PFQuery(className: "chat")
         query2.whereKey("sender2", equalTo: fbUsername)
         
-        var combinedQuery = PFQuery.orQueryWithSubqueries([query, query2])
+        let combinedQuery = PFQuery.orQueryWithSubqueries([query, query2])
         
         return combinedQuery
     }
@@ -61,13 +61,13 @@ class ChatConnectionsTableViewController: PFQueryTableViewController {
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let indexPath = tableView.indexPathForSelectedRow();
+        let indexPath = tableView.indexPathForSelectedRow;
         
-        println(tableView.cellForRowAtIndexPath(indexPath!)?.textLabel?.text)
+        print(tableView.cellForRowAtIndexPath(indexPath!)?.textLabel?.text)
         
         selectedChat = tableView.cellForRowAtIndexPath(indexPath!)!.textLabel!.text!
         
-        println("Selected chat: \(selectedChat)")
+        print("Selected chat: \(selectedChat)")
         
         performSegueWithIdentifier("toChat", sender: self)
         
@@ -79,7 +79,7 @@ class ChatConnectionsTableViewController: PFQueryTableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
         var cell = tableView.dequeueReusableCellWithIdentifier("cell") as? PFTableViewCell
         
-        println(object)
+        print(object)
         
         if cell == nil {
             cell = PFTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "cell")
@@ -112,7 +112,7 @@ class ChatConnectionsTableViewController: PFQueryTableViewController {
         SwiftSpinner.hide()
     }
     
-    func delay(#seconds: Double, completion:()->()) {
+    func delay(seconds seconds: Double, completion:()->()) {
         let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64( Double(NSEC_PER_SEC) * seconds ))
         
         dispatch_after(popTime, dispatch_get_main_queue()) {

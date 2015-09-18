@@ -60,12 +60,6 @@
 #define COCOAPODS_VERSION_MINOR_Mixpanel_Mixpanel 8
 #define COCOAPODS_VERSION_PATCH_Mixpanel_Mixpanel 3
 
-// Pages
-#define COCOAPODS_POD_AVAILABLE_Pages
-#define COCOAPODS_VERSION_MAJOR_Pages 0
-#define COCOAPODS_VERSION_MINOR_Pages 6
-#define COCOAPODS_VERSION_PATCH_Pages 1
-
 // Parse
 #define COCOAPODS_POD_AVAILABLE_Parse
 #define COCOAPODS_VERSION_MAJOR_Parse 1

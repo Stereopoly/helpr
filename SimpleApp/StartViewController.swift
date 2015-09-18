@@ -91,7 +91,7 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageVie
         }
         
         if result.isCancelled {
-            println("Facebook login canceled")
+            print("Facebook login canceled")
             addSpinner("Login canceled", Animated: false)
             delay(seconds: 1.5, completion: { () -> () in
                 self.hideSpinner()
@@ -102,7 +102,7 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageVie
             delay(seconds: 1.5) { () -> () in
                 
                 if error == nil {
-                    println("Login complete.")
+                    print("Login complete.")
                     let request = FBSDKGraphRequest(graphPath: "me", parameters: nil)
                     
                     request.startWithCompletionHandler {
@@ -111,7 +111,7 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageVie
                         
                         if error != nil {
                             // Some error checking here
-                            println("Error in user request")
+                            print("Error in user request")
                             self.addSpinner("Error", Animated: false)
                             self.delay(seconds: 1.5, completion: { () -> () in
                                 self.hideSpinner()
@@ -124,7 +124,7 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageVie
                             let username = userData["name"] as? String
                             let id = userData["id"] as! String
                             fbUsername = username!
-                            println(username)
+                            print(username)
                             
                             let pictureURL = "https://graph.facebook.com/\(id)/picture?type=large&return_ssl_resources=1"
                             
@@ -136,7 +136,7 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageVie
                                     file = PFFile(name: "picture.png", data: data)
                                 }
                                 else {
-                                    println("Error: \(error.localizedDescription)")
+                                    print("Error: \(error.localizedDescription)")
                                 }
                             })
                             
@@ -148,7 +148,7 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageVie
                 else {
                     self.addSpinner("Error in login", Animated: false)
                     self.delay(seconds: 1.5, completion: { () -> () in
-                        println(error.localizedDescription)
+                        print(error.localizedDescription)
                         self.hideSpinner()
                     })
                     
@@ -158,7 +158,7 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageVie
     }
     
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
-        println("User logged out...")
+        print("User logged out...")
     }
     
     func checkUser() {
@@ -169,7 +169,7 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageVie
         query?.findObjectsInBackgroundWithBlock({ (objects: [AnyObject]?, error) -> Void in
             tooLong = false
             if error != nil {
-                println(error)
+                print(error)
                 self.addSpinner("Try again later", Animated: false)
                 self.delay(seconds: 1.5, completion: { () -> () in
                     self.hideSpinner()
@@ -190,7 +190,7 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageVie
                     let objects = query.findObjects()
                     
                     if objects?.count == 1 {
-                        println("Already have points row - no problem")
+                        print("Already have points row - no problem")
                     }
                     if objects?.count == 0 {
                         var points = PFObject(className: "points")
@@ -201,7 +201,7 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageVie
                         
                         points.save()
                     } else {
-                        println("Error in points class")
+                        print("Error in points class")
                     }
                     
                     self.addSpinner("Success", Animated: false)

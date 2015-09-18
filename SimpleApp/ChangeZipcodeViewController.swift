@@ -50,7 +50,7 @@ class ChangeZipcodeViewController: UIViewController {
     
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
     }
 
@@ -60,21 +60,21 @@ class ChangeZipcodeViewController: UIViewController {
     }
     
     func getZipcode() {
-        var query = PFQuery(className: "_User")
+        let query = PFQuery(className: "_User")
         query.whereKey("username", equalTo: fbUsername)
         
         query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
             if error == nil {
-                println("User count: \(objects?.count)")
+                print("User count: \(objects?.count)")
                 if objects!.count == 1 {
                     if let zip: AnyObject = objects?[0] {
                         zipcode = zip["zipcode"] as? Int
                         
                         self.zipcodeOutlet.text = String(stringInterpolationSegment: zipcode!)
-                        println("Zipcode \(self.zipcodeOutlet.text)")
+                        print("Zipcode \(self.zipcodeOutlet.text)")
                     }
                 } else {
-                    println("Error in query")
+                    print("Error in query")
                 }
             }
         }
@@ -85,12 +85,12 @@ class ChangeZipcodeViewController: UIViewController {
         var objectId = ""
         self.view.endEditing(true)
 
-        var query = PFQuery(className: "_User")
+        let query = PFQuery(className: "_User")
         query.whereKey("username", equalTo: fbUsername)
         
         query.findObjectsInBackgroundWithBlock({ (objects, error) -> Void in
             if error != nil {
-                println("Error")
+                print("Error")
                 self.addSpinner("Error", Animated: false)
                 self.delay(seconds: 1.5, completion: { () -> () in
                     self.hideSpinner()
@@ -99,29 +99,29 @@ class ChangeZipcodeViewController: UIViewController {
             } else {
                 if objects != nil {
                     if let objects = objects {
-                        println(objects)
+                        print(objects)
                         for object in objects {
                             objectId = object.objectId as String!
-                            println("ObjectId: \(objectId)")
+                            print("ObjectId: \(objectId)")
                         }
                     }
-                    var query2 = PFQuery(className: "_User")
+                    let query2 = PFQuery(className: "_User")
                     
-                    println("Current user:\(PFUser.currentUser()?.username)")
+                    print("Current user:\(PFUser.currentUser()?.username)")
                     
                     query2.getObjectInBackgroundWithId(objectId, block: { (oldZipcode, error) -> Void in
                         if error != nil {
-                            println("Error")
+                            print("Error")
                             self.addSpinner("Error", Animated: false)
                             self.delay(seconds: 1.5, completion: { () -> () in
                                 self.hideSpinner()
                             })
                         } else if let oldZipcode = oldZipcode {
-                            println("User: \(oldZipcode)")
-                            var newZipcode: AnyObject? = oldZipcode.objectForKey("zipcode")
+                            print("User: \(oldZipcode)")
+                            let newZipcode: AnyObject? = oldZipcode.objectForKey("zipcode")
                             oldZipcode.setObject(newZipcode!, forKey: "zipcode")
                          //   oldZipcode["zipcode"] = newZipcode
-                            print("New zipcode: \(newZipcode)")
+                            print("New zipcode: \(newZipcode)", terminator: "")
                             self.zipcodeTextField.text = ""
                             oldZipcode.saveInBackground()
                             self.endIgnore()
@@ -129,7 +129,7 @@ class ChangeZipcodeViewController: UIViewController {
                     })
                     
                 } else {
-                    println("No objects - Error should not occur")
+                    print("No objects - Error should not occur")
                     self.endIgnore()
                 }
             }
@@ -147,7 +147,7 @@ class ChangeZipcodeViewController: UIViewController {
         SwiftSpinner.hide()
     }
     
-    func delay(#seconds: Double, completion:()->()) {
+    func delay(seconds seconds: Double, completion:()->()) {
         let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64( Double(NSEC_PER_SEC) * seconds ))
         
         dispatch_after(popTime, dispatch_get_main_queue()) {

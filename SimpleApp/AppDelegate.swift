@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Page control
         
-        var pageControl = UIPageControl.appearance()
+        let pageControl = UIPageControl.appearance()
         pageControl.pageIndicatorTintColor = UIColor.lightGrayColor()
         pageControl.currentPageIndicatorTintColor = UIColor.whiteColor()
   //      pageControl.backgroundColor = UIColor.whiteColor()
@@ -65,12 +65,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         if application.respondsToSelector("registerUserNotificationSettings:") {
-            let userNotificationTypes = UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound
+            let userNotificationTypes: UIUserNotificationType = [UIUserNotificationType.Alert, UIUserNotificationType.Badge, UIUserNotificationType.Sound]
             let settings = UIUserNotificationSettings(forTypes: userNotificationTypes, categories: nil)
             application.registerUserNotificationSettings(settings)
             application.registerForRemoteNotifications()
         } else {
-            let userNotificationTypes = (UIUserNotificationType.Alert |  UIUserNotificationType.Badge |  UIUserNotificationType.Sound);
+            let userNotificationTypes: UIUserNotificationType = ([UIUserNotificationType.Alert, UIUserNotificationType.Badge, UIUserNotificationType.Sound]);
         }
         
         // Bar tint color setup
@@ -87,7 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // check if we have logged in user
         let user = FBSDKAccessToken.currentAccessToken()
         
-        println(user)
+        print(user)
         
         let startViewController: UIViewController;
         
@@ -98,14 +98,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // if we have a user, set the TabBarController to be the initial View Controller
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             startViewController = storyboard.instantiateViewControllerWithIdentifier("TabBarController") as! UITabBarController
-            println("TabBarController")
-            println("Current user: \(PFUser.currentUser()?.username)")
+            print("TabBarController")
+            print("Current user: \(PFUser.currentUser()?.username)")
         } else {
             // 4
             // Otherwise set the LoginViewController to be the first
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let loginViewController = storyboard.instantiateViewControllerWithIdentifier("startPage") as! UIViewController
-            println("startPage")
+            let loginViewController = storyboard.instantiateViewControllerWithIdentifier("startPage") 
+            print("startPage")
             startViewController = loginViewController
         }
         
@@ -126,15 +126,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let request = FBSDKGraphRequest(graphPath: "me", parameters: nil)
         request.startWithCompletionHandler { (connection, result, error) -> Void in
             if error != nil {
-                println("Error")
+                print("Error")
             } else if let userData = result as? [String:AnyObject] {
                 let username = userData["name"] as? String
                 fbUsername = username!
-                println(fbUsername)
+                print(fbUsername)
           //      installation["user"] = fbUsername
                 installation.setObject(fbUsername, forKey: "user")
                 installation.saveInBackground()
-                println("Push notifs registered")
+                print("Push notifs registered")
             }
         }
         
@@ -143,9 +143,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
         if error.code == 3010 {
-            println("Push notifications are not supported in the iOS Simulator.")
+            print("Push notifications are not supported in the iOS Simulator.")
         } else {
-            println("application:didFailToRegisterForRemoteNotificationsWithError: %@", error)
+            print("application:didFailToRegisterForRemoteNotificationsWithError: %@", error)
         }
     }
     
@@ -164,7 +164,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FBSDKAppEvents.activateApp()
     }
     
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
         return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
     }
 

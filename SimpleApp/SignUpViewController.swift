@@ -95,9 +95,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                 user.setObject(cityField.text.capitalizedString, forKey: "City")
          //       user["City"] = cityField.text.capitalizedString
                 
-                println(usernameField.text)
-                println(passwordField.text)
-                println(cityField.text.capitalizedString)
+                print(usernameField.text)
+                print(passwordField.text)
+                print(cityField.text.capitalizedString)
                 
                 user.signUpInBackgroundWithBlock({ (success, error) -> Void in
                     
@@ -108,7 +108,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                         
                         // Signup successful
                         
-                        println("Signup successful")
+                        print("Signup successful")
                         
                         self.addSpinner("Success! You may now login", Animated: false)
                         self.delay(seconds: 1.0, completion: { () -> () in
@@ -118,10 +118,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                     }
                     else {
                         
-                        if let errorString = error!.userInfo?["error"] as? String {
+                        if let errorString = error!.userInfo["error"] as? String {
                             
                             var signupMessage:String = errorString
-                            println(signupMessage)
+                            print(signupMessage)
                             
                         }
                         
@@ -130,7 +130,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                             self.hideSpinner()
                         })
                         
-                        println("Error in signup")
+                        print("Error in signup")
                         
                     }
                     
@@ -184,7 +184,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {      // resign keyboard
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {      // resign keyboard
         self.view.endEditing(true)
         
         movedUp = false
@@ -274,7 +274,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     }
     
     func animateTextField(up: Bool) {
-        var movement = (up ? -kbHeight : kbHeight)
+        let movement = (up ? -kbHeight : kbHeight)
         
         UIView.animateWithDuration(0.3, animations: {
             self.view.frame = CGRectOffset(self.view.frame, 0, movement)
@@ -285,7 +285,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     func displayAlertWithSegue(title: String, error: String, segue: String) {
         
-        var alert = UIAlertController(title: title, message: error, preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: title, message: error, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { action in
             
                 self.performSegueWithIdentifier(segue, sender: self)
@@ -297,7 +297,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     func displayAlertNoSegue(title: String, error: String) {
         
-        var alert = UIAlertController(title: title, message: error, preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: title, message: error, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { action in
             
 
@@ -334,7 +334,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         SwiftSpinner.hide()
     }
     
-    func delay(#seconds: Double, completion:()->()) {
+    func delay(seconds seconds: Double, completion:()->()) {
         let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64( Double(NSEC_PER_SEC) * seconds ))
         
         dispatch_after(popTime, dispatch_get_main_queue()) {
@@ -352,8 +352,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         passwordLabel.backgroundColor = UIColor.whiteColor()
         confirmPasswordLabel.backgroundColor = UIColor.whiteColor()
         
-        if count(password) < 6 {
-            println("less than 6 in password")
+        if password.characters.count < 6 {
+            print("less than 6 in password")
             passwordLabel.backgroundColor = UIColor(red: 217/250, green: 30/250, blue: 24/250, alpha: 1.0)   // red color
             errorMessage = "Password must be at least 6 characters"
             check = false
@@ -361,7 +361,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             signupLabel.alpha = 1.0
         }
         else if cpassword != password {
-            println("passwords different")
+            print("passwords different")
             passwordLabel.backgroundColor = UIColor(red: 217/250, green: 30/250, blue: 24/250, alpha: 1.0)
             confirmPasswordLabel.backgroundColor = UIColor(red: 217/250, green: 30/250, blue: 24/250, alpha: 1.0)
             errorMessage = "Your passwords do not match"

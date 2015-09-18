@@ -46,7 +46,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
     // MARK: - Actions
     
     @IBAction func requestButton(sender: AnyObject) {
-        println("Pressed request button")
+        print("Pressed request button")
         
         self.view.endEditing(true)
         
@@ -58,17 +58,17 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
             })
         } else {
             if textViewOutlet.text.isEmpty == true {
-                println("Empty textView")
+                print("Empty textView")
                 noDetailsAlert()
             }
             if textViewOutlet.text == placeHolderText {
                 textViewText = ""
-                println("Default placeholder text")
+                print("Default placeholder text")
                 noDetailsAlert()
             }
             else {
                 textViewText = textViewOutlet.text
-                println("Textviewtext: \(textViewText)")
+                print("Textviewtext: \(textViewText)")
                 makeRequest()
             }
         }
@@ -111,10 +111,10 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
         query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
             if objects != nil {
                 if let objects = objects {
-                    println(objects)
+                    print(objects)
                     for object in objects {
                         objectId = object.objectId as String!
-                        println("ObjectId: \(objectId)")
+                        print("ObjectId: \(objectId)")
                     }
                 }
                 
@@ -122,28 +122,28 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                 query2.getObjectInBackgroundWithId(objectId, block: { (points, error) -> Void in
                     if let points = points {
                         userPoints = points.objectForKey("points") as! Int
-                        println("Points: \(userPoints)")
+                        print("Points: \(userPoints)")
                         if userPoints < 1 {
-                            println("Not enough points")
+                            print("Not enough points")
                             self.addSpinner("You don't have enough points", Animated: false)
                             self.delay(seconds: 1.5, completion: { () -> () in
                                 self.hideSpinner()
                                 self.beginInteraction()
                             })
                         } else {
-                            println("Enough points to request")
+                            print("Enough points to request")
                             updatedUserPoints = userPoints - 1
-                            println("Updated points: \(updatedUserPoints)")
+                            print("Updated points: \(updatedUserPoints)")
                             points.setObject(updatedUserPoints!, forKey: "points")
                     //        points.objectForKey("points") = updatedUserPoints
                             
                             points.saveInBackground()
-                            println("Points subtracted")
+                            print("Points subtracted")
                             
                             let mixpanel: Mixpanel = Mixpanel.sharedInstance()
                             mixpanel.track("Request Made Successfully")
                             
-                            println("Success")
+                            print("Success")
                             self.addSpinner("Success", Animated: false)
                             self.delay(seconds: 1.5, completion: { () -> () in
                                 self.tabBarController?.selectedIndex = 0
@@ -153,11 +153,11 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                         }
                         
                     } else {
-                        println("Error in points save")
+                        print("Error in points save")
                     }
                 })
             } else {
-                println("Error - User has no points class")
+                print("Error - User has no points class")
                 self.addSpinner("Error in points", Animated: false)
                 self.delay(seconds: 1.5, completion: { () -> () in
                     self.hideSpinner()
@@ -193,15 +193,15 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                     
                     if error == nil {
                         // The find succeeded.
-                        println("Successfully retrieved \(objects!.count) tasks.")
+                        print("Successfully retrieved \(objects!.count) tasks.")
                         // Do something with the found objects
                         if objects!.count == 0 {
                             request.saveInBackgroundWithBlock({ (didWork, error) -> Void in
                                 self.delay(seconds: 1.5, completion: { () -> () in
-                                    println(request)
+                                    print(request)
                                     if error != nil {
                                         // handle error
-                                        println("Error")
+                                        print("Error")
                                         self.addSpinner("Please try again later", Animated: false)
                                         self.delay(seconds: 1.5, completion: { () -> () in
                                             self.hideSpinner()
@@ -227,7 +227,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                         }
                     } else {
                         // Log details of the failure
-                        println("Error: \(error!) \(error!.userInfo!)")
+                        print("Error: \(error!) \(error!.userInfo!)")
                         self.addSpinner("Please try again later", Animated: false)
                         self.delay(seconds: 1.5, completion: { () -> () in
                             self.hideSpinner()
@@ -244,7 +244,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
         
         query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
             if error == nil {
-                println(objects!.count)
+                print(objects!.count)
                 if objects!.count == 0 {
                     completion()
                 } else {
@@ -268,11 +268,11 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
         
         query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
             if error == nil {
-                println(objects!.count)
+                print(objects!.count)
                 if objects!.count == 1 {
                     if let zip = objects?[0] {
                         zipcode = zip["zipcode"] as? Int
-                        println(zipcode)
+                        print(zipcode)
                         completion()
                     }
                 } else {
@@ -348,7 +348,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
         // Dispose of any resources that can be recreated.
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
         self.textViewOutlet.endEditing(true)
         
@@ -375,7 +375,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedRowData = pickerData[row]
-        println(pickerData[row])
+        print(pickerData[row])
     }
     
     func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {

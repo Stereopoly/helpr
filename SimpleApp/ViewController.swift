@@ -72,7 +72,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     
                     // Logged in
                     
-                    println("Logged in")
+                    print("Logged in")
                     
                     PFUser.currentUser()!.fetch()
                     
@@ -146,7 +146,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {      // resign keyboard
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {      // resign keyboard
         self.view.endEditing(true)
         
         movedUp = false
@@ -213,7 +213,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func animateTextField(up: Bool) {
-        var movement = (up ? -kbHeight : kbHeight)
+        let movement = (up ? -kbHeight : kbHeight)
         
         UIView.animateWithDuration(0.3, animations: {
             self.view.frame = CGRectOffset(self.view.frame, 0, movement)
@@ -224,7 +224,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     func displayAlertWithSegue(title: String, error: String, segue: String) {
         
-        var alert = UIAlertController(title: title, message: error, preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: title, message: error, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { action in
             
             self.performSegueWithIdentifier(segue, sender: self)
@@ -236,7 +236,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     func displayAlertNoSegue(title: String, error: String) {
         
-        var alert = UIAlertController(title: title, message: error, preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: title, message: error, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { action in
             
             
@@ -274,7 +274,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         SwiftSpinner.hide()
     }
     
-    func delay(#seconds: Double, completion:()->()) {
+    func delay(seconds seconds: Double, completion:()->()) {
         let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64( Double(NSEC_PER_SEC) * seconds ))
         
         dispatch_after(popTime, dispatch_get_main_queue()) {

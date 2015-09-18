@@ -64,12 +64,12 @@ class taskDetailsViewController: UIViewController {
             
             if error == nil {
                 // The find succeeded.
-                println("Successfully retrieved \(objects!.count) objects.")
+                print("Successfully retrieved \(objects!.count) objects.")
                 // Do something with the found objects
                 if let objects = objects as? [PFObject] {
                     for object in objects {
                         self.accepted = object.objectForKey("accepted") as! String
-                        println("Self.accepted: " + self.accepted)
+                        print("Self.accepted: " + self.accepted)
                     }
                 }
                 if self.accepted == "Yes" {
@@ -88,7 +88,7 @@ class taskDetailsViewController: UIViewController {
                 }
             } else {
                 // Log details of the failure
-                println("Error: \(error!) \(error!.userInfo!)")
+                print("Error: \(error!) \(error!.userInfo!)")
                 self.slow = false
             }
         }
@@ -106,8 +106,8 @@ class taskDetailsViewController: UIViewController {
         getDetails()
         getProfilePicture()
         
-        println(selectedRowText)
-        println(selectedRowDetail)
+        print(selectedRowText)
+        print(selectedRowDetail)
         
         taskNameLabel.text = selectedRowText
         
@@ -129,10 +129,10 @@ class taskDetailsViewController: UIViewController {
         
         query.findObjectsInBackgroundWithBlock { (accepted, error) -> Void in
             if error != nil {
-                println("Error")
+                print("Error")
             } else {
                 if let accepted = accepted {
-                    println("Count of alreadyAccepted: \(accepted.count)")
+                    print("Count of alreadyAccepted: \(accepted.count)")
                     if accepted.count == 1 {
                         self.slow = false
                         self.addSpinner("You cannot accept more than 1 request", Animated: false)
@@ -146,7 +146,7 @@ class taskDetailsViewController: UIViewController {
                         self.sendPush()
                     } else {
                         self.slow = false
-                        println("Error in count")
+                        print("Error in count")
                         self.addSpinner("Error", Animated: false)
                         self.delay(seconds: 1.5, completion: { () -> () in
                             self.hideSpinner()
@@ -194,13 +194,13 @@ class taskDetailsViewController: UIViewController {
             // compiles message
             let fullMessage = currUsername + hasFiller + content + taskName + helpFiller + talkFiller
             
-            println("Fullmessage: " + fullMessage)
+            print("Fullmessage: " + fullMessage)
             
             // sends push notification
             PFPush.sendPushMessageToQueryInBackground(baseQuery, withMessage: fullMessage) { (didSend, error) -> Void in
                 if error != nil {
                     // freak out
-                    println("error: \(error)")
+                    print("error: \(error)")
                     self.addSpinner("Error", Animated: false)
                     self.delay(seconds: 1.5, completion: { () -> () in
                         self.hideSpinner()
@@ -209,7 +209,7 @@ class taskDetailsViewController: UIViewController {
                     })
                 } else {
                     // celebrate
-                    println("success! didsend: \(didSend)")
+                    print("success! didsend: \(didSend)")
                     
                     var query = PFQuery(className: "request")
                     query.whereKey("requester", equalTo: selectedRowDetail)
@@ -217,7 +217,7 @@ class taskDetailsViewController: UIViewController {
                     query.findObjectsInBackgroundWithBlock {
                         (objects: [AnyObject]?, error: NSError?) -> Void in
                         if error != nil {
-                            println("Error")
+                            print("Error")
                             self.addSpinner("Error", Animated: false)
                             self.delay(seconds: 1.5, completion: { () -> () in
                                 self.hideSpinner()
@@ -229,7 +229,7 @@ class taskDetailsViewController: UIViewController {
                                 if let objects = objects as? [PFObject] {
                                     for object in objects {
                                         self.userId = object.objectId!
-                                        println(self.userId)
+                                        print(self.userId)
                                     }
                                 }
                                 
@@ -238,7 +238,7 @@ class taskDetailsViewController: UIViewController {
                                 save.getObjectInBackgroundWithId(self.userId) {
                                     (object: PFObject?, error: NSError?) -> Void in
                                     if error != nil {
-                                        println("Error")
+                                        print("Error")
                                         self.addSpinner("Error", Animated: false)
                                         self.delay(seconds: 1.5, completion: { () -> () in
                                             self.hideSpinner()
@@ -247,7 +247,7 @@ class taskDetailsViewController: UIViewController {
                                         })
                                     } else if let object = object {
                                         // Saved
-                                        println(object)
+                                        print(object)
                                         
                                         object.setObject("Yes", forKey: "accepted")
                                         object.setObject(fbUsername, forKey: "acceptedBy")
@@ -264,7 +264,7 @@ class taskDetailsViewController: UIViewController {
                                         
                                         chatSave.saveInBackgroundWithBlock({ (didWork, error) -> Void in
                                             if error != nil {
-                                                println("Error")
+                                                print("Error")
                                                 self.addSpinner("Error", Animated: false)
                                                 self.delay(seconds: 1.5, completion: { () -> () in
                                                     self.hideSpinner()
@@ -290,7 +290,7 @@ class taskDetailsViewController: UIViewController {
                                 }
                                 
                             } else {
-                                println("Error")
+                                print("Error")
                                 self.slow = false
                                 self.beginInteraction()
                             }
@@ -310,11 +310,11 @@ class taskDetailsViewController: UIViewController {
         
         query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
             if error != nil {
-                print("Error in details query")
+                print("Error in details query", terminator: "")
             } else {
                 if let objects = objects {
                     for object in objects {
-                        println(object["details"] as! String)
+                        print(object["details"] as! String)
                         self.textViewOutlet.text = object["details"] as! String
                     }
                 }
@@ -328,7 +328,7 @@ class taskDetailsViewController: UIViewController {
 
         userQuery?.findObjectsInBackgroundWithBlock({ (objects, error) -> Void in
             if error != nil {
-                print("Error getting profile picture")
+                print("Error getting profile picture", terminator: "")
                 self.addSpinner("Error getting profile picture", Animated: false)
                 self.delay(seconds: 1.0, completion: { () -> () in
                     self.hideSpinner()
@@ -336,11 +336,11 @@ class taskDetailsViewController: UIViewController {
                 })
             } else {
                 if let objects = objects {
-                    println(objects)
+                    print(objects)
                     for object in objects {
                         let thumbNail = object["picture"] as! PFFile
                         
-                        println(thumbNail)
+                        print(thumbNail)
                         
                         thumbNail.getDataInBackgroundWithBlock({
                             (imageData, error) -> Void in

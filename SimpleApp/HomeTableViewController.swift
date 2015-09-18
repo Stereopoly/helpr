@@ -29,7 +29,7 @@ class HomeTableViewController: PFQueryTableViewController {
     
     var viewed:Int = 1
     
-    required init!(coder aDecoder: NSCoder!) {
+    required init!(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
         self.parseClassName = "request"
@@ -41,14 +41,14 @@ class HomeTableViewController: PFQueryTableViewController {
     
     override func queryForTable() -> PFQuery {
         
-        println("queryForTable")
+        print("queryForTable")
         
-        var query = PFQuery(className: "request")
+        let query = PFQuery(className: "request")
         query.whereKey("requester", notEqualTo: fbUsername)
         query.whereKey("accepted", notEqualTo: "Yes")
         if zipcode != nil {
             query.whereKey("zipcode", equalTo: zipcode!)
-            println("zipcode")
+            print("zipcode")
         }
         if helpable.isEmpty == false {
             query.whereKey("task", containedIn: helpable)
@@ -70,7 +70,7 @@ class HomeTableViewController: PFQueryTableViewController {
         
         getUsername()
         
-        println(fbUsername)
+        print(fbUsername)
         
         let installation = PFInstallation.currentInstallation()
         installation.setObject(fbUsername, forKey: "user")
@@ -111,23 +111,23 @@ class HomeTableViewController: PFQueryTableViewController {
             }
         }
 
-        var query = PFQuery(className: "_User")
+        let query = PFQuery(className: "_User")
         query.whereKey("username", equalTo: fbUsername)
         
         query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
             slow = false
             if error == nil {
-                println("User count: \(objects?.count)")
+                print("User count: \(objects?.count)")
                 if objects!.count == 1 {
                     if let zip = objects?[0] {
                         zipcode = zip["zipcode"] as? Int
-                        println(objects?[0])
+                        print(objects?[0])
                         self.getHelpable()
                         //      self.loadObjects()
                     }
                 } else {
                     //    SwiftSpinner.setTitleFont(UIFont(name: "System", size: 19))
-                    println("Error in query")
+                    print("Error in query")
                 }
             }
         }
@@ -136,14 +136,14 @@ class HomeTableViewController: PFQueryTableViewController {
     
     
     func getHelpable() {
-        var query = PFQuery(className: "help")
+        let query = PFQuery(className: "help")
         query.whereKey("helper", equalTo: fbUsername)
         
         query.findObjectsInBackgroundWithBlock {
             (objects, error) -> Void in
             if error == nil {
                 if let objects = objects {
-                    println("Objects: \(objects)")
+                    print("Objects: \(objects)")
                     for object in objects {
                         
                         if let object = object as? PFObject {
@@ -151,10 +151,10 @@ class HomeTableViewController: PFQueryTableViewController {
                         }
                     }
                 }
-                println("Array: \(helpable)")
+                print("Array: \(helpable)")
                 self.loadObjects()
             } else {
-                println("Error: \(error)")
+                print("Error: \(error)")
             }
         }
         
@@ -162,9 +162,9 @@ class HomeTableViewController: PFQueryTableViewController {
     
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let indexPath = tableView.indexPathForSelectedRow();
+        let indexPath = tableView.indexPathForSelectedRow;
         
-        println(tableView.cellForRowAtIndexPath(indexPath!))
+        print(tableView.cellForRowAtIndexPath(indexPath!))
         
         selectedRowText = tableView.cellForRowAtIndexPath(indexPath!)!.textLabel!.text!
         
@@ -181,7 +181,7 @@ class HomeTableViewController: PFQueryTableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
         var cell = tableView.dequeueReusableCellWithIdentifier("cell") as? PFTableViewCell
         
-        println(object)
+        print(object)
         
         if cell == nil {
             cell = PFTableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "cell")
@@ -217,7 +217,7 @@ class HomeTableViewController: PFQueryTableViewController {
         SwiftSpinner.hide()
     }
     
-    func delay(#seconds: Double, completion:()->()) {
+    func delay(seconds seconds: Double, completion:()->()) {
         let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64( Double(NSEC_PER_SEC) * seconds ))
         
         dispatch_after(popTime, dispatch_get_main_queue()) {

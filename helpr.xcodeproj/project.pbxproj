@@ -301,6 +301,8 @@
 		556EB0001B38CC1E00784845 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Oscar Bjorkman";
 				TargetAttributes = {
@@ -563,7 +565,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = SimpleApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = helpr;
 				PROVISIONING_PROFILE = "";
@@ -584,7 +586,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = SimpleApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = helpr;
 				PROVISIONING_PROFILE = "";

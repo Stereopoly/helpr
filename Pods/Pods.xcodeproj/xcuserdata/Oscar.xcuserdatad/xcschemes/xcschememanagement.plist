@@ -8,121 +8,91 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>3</integer>
 		</dict>
 		<key>Pods-helpr-FBSDKCoreKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>4</integer>
 		</dict>
 		<key>Pods-helpr-FBSDKLoginKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>5</integer>
 		</dict>
 		<key>Pods-helpr-Mixpanel.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>6</integer>
-		</dict>
-		<key>Pods-helpr-Pages.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-			<key>orderHint</key>
-			<integer>7</integer>
 		</dict>
 		<key>Pods-helpr-Parse.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>8</integer>
 		</dict>
 		<key>Pods-helpr-ParseFacebookUtilsV4.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>9</integer>
 		</dict>
 		<key>Pods-helpr-ParseUI.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>10</integer>
 		</dict>
 		<key>Pods-helpr-SwiftSpinner.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>11</integer>
 		</dict>
 		<key>Pods-helpr.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>2</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>08D5F2BC7E2BA143936DA92F</key>
+		<key>0EABD83884A4C8236F6CB41C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3F431E5D8891DA4109F3AAE9</key>
+		<key>3F455E2BE953F29F165296B5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5A115D236F91A8B7EEE43ED5</key>
+		<key>4F0420AF36E16D4540A319E9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6EA7A283065AEE616D7F1093</key>
+		<key>B1D6512AFB663FF7EA41963B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>78CD290D07FB2571B313EEF8</key>
+		<key>D46F395EC3F1AFBF21764D46</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9ED14FE84AE11BBDCFA0BE4B</key>
+		<key>D8D1FACE1AB1FF1BEAA51950</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A1C431A1B6A35DEFD26DA19D</key>
+		<key>E9E2DFCA6C1A0CCC6709759C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A384998E79D31CE42BA9883A</key>
+		<key>F536B67C474B388D7812EA19</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AF03C1C1F812E17CABA4D77D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>B4733184668CC44D897E1569</key>
+		<key>F9CD5D37268EA0D8558E30EB</key>
 		<dict>
 			<key>primary</key>
 			<true/>

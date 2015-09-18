@@ -21,7 +21,7 @@ class addHelpableViewController: UIViewController, UIPickerViewDataSource, UIPic
     @IBOutlet weak var addButtonLabel: UIButton!
     
     @IBAction func addButton(sender: AnyObject) {
-        println("Pressed request button")
+        print("Pressed request button")
         
         ignoreInteraction()
         addSpinner("Adding", Animated: true)
@@ -49,22 +49,22 @@ class addHelpableViewController: UIViewController, UIPickerViewDataSource, UIPic
                 
                 if error == nil {
                     // The find succeeded.
-                    println("Successfully retrieved \(objects!.count) tasks.")
+                    print("Successfully retrieved \(objects!.count) tasks.")
                     // Do something with the found objects
                     if objects!.count == 0 {
                         request.saveInBackgroundWithBlock({ (didWork, error) -> Void in
                             self.delay(seconds: 1.5, completion: { () -> () in
-                                println(request)
+                                print(request)
                                 if error != nil {
                                     // handle error
-                                    println("Error")
+                                    print("Error")
                                     self.addSpinner("Please try again later", Animated: false)
                                     self.delay(seconds: 1.5, completion: { () -> () in
                                         self.hideSpinner()
                                         self.beginInteraction()
                                     })
                                 } else {
-                                    println("Success")
+                                    print("Success")
                                     self.addSpinner("Success", Animated: false)
                                     self.delay(seconds: 1.5, completion: { () -> () in
                                         self.hideSpinner()
@@ -86,7 +86,7 @@ class addHelpableViewController: UIViewController, UIPickerViewDataSource, UIPic
                     }
                 } else {
                     // Log details of the failure
-                    println("Error: \(error!) \(error!.userInfo!)")
+                    print("Error: \(error!) \(error!.userInfo!)")
                     self.addSpinner("Please try again later", Animated: false)
                     self.delay(seconds: 1.5, completion: { () -> () in
                         self.hideSpinner()
@@ -130,7 +130,7 @@ class addHelpableViewController: UIViewController, UIPickerViewDataSource, UIPic
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedRowData = pickerData[row]
-        println(pickerData[row])
+        print(pickerData[row])
     }
     
     func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {

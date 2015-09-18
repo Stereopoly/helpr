@@ -30,10 +30,10 @@ class NoHelpViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         
-        println("Viewwillappear - No Help")
+        print("Viewwillappear - No Help")
         
         if checkForChat() {
-            println("Now is in chat group")
+            print("Now is in chat group")
             
             self.navigationController?.popViewControllerAnimated(false)
             
@@ -42,7 +42,7 @@ class NoHelpViewController: UIViewController {
 //                
 //            })
         } else {
-            println("Still isn't in chat group. Stay here.")
+            print("Still isn't in chat group. Stay here.")
         }
     }
     
@@ -57,30 +57,30 @@ class NoHelpViewController: UIViewController {
         
         let mergedQueries = PFQuery.orQueryWithSubqueries([query, query2])
         
-        println("fbusername: " + fbUsername)
+        print("fbusername: " + fbUsername)
         
         let objects = mergedQueries.findObjects()
         
-        println(objects)
-        if objects?.count == 1 {
-            println("Found chat relationship")
+        print(objects)
+        if objects.count == 1 {
+            print("Found chat relationship")
             check = true
             if let objects = objects {
                 for objects in objects {
                     sender1 = objects["sender1"] as! String
                     sender2 = objects["sender2"] as! String
-                    println("sender1: " + sender1)
-                    println("sender2: " + sender2)
+                    print("sender1: " + sender1)
+                    print("sender2: " + sender2)
                 }
             }
-            println(sender1)
+            print(sender1)
         
         } else {
-            println("Not in any chat group")
+            print("Not in any chat group")
             check = false
         }
         
-        println(check)
+        print(check)
         return check
     }
 
