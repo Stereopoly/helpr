@@ -26,7 +26,7 @@ class ChangeZipcodeViewController: UIViewController {
     
     @IBAction func changeZipcode(sender: AnyObject) {
         self.beginIgnore()
-        if zipcodeTextField.text.isEmpty == true {
+        if zipcodeTextField.text!.isEmpty == true {
             self.addSpinner("Enter a zipcode", Animated: false)
             self.delay(seconds: 1.5, completion: { () -> () in
                 self.hideSpinner()

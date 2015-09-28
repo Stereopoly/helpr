@@ -64,13 +64,13 @@
 #define COCOAPODS_POD_AVAILABLE_Parse
 #define COCOAPODS_VERSION_MAJOR_Parse 1
 #define COCOAPODS_VERSION_MINOR_Parse 8
-#define COCOAPODS_VERSION_PATCH_Parse 4
+#define COCOAPODS_VERSION_PATCH_Parse 5
 
 // ParseFacebookUtilsV4
 #define COCOAPODS_POD_AVAILABLE_ParseFacebookUtilsV4
 #define COCOAPODS_VERSION_MAJOR_ParseFacebookUtilsV4 1
 #define COCOAPODS_VERSION_MINOR_ParseFacebookUtilsV4 8
-#define COCOAPODS_VERSION_PATCH_ParseFacebookUtilsV4 4
+#define COCOAPODS_VERSION_PATCH_ParseFacebookUtilsV4 5
 
 // ParseUI
 #define COCOAPODS_POD_AVAILABLE_ParseUI
@@ -81,6 +81,6 @@
 // SwiftSpinner
 #define COCOAPODS_POD_AVAILABLE_SwiftSpinner
 #define COCOAPODS_VERSION_MAJOR_SwiftSpinner 0
-#define COCOAPODS_VERSION_MINOR_SwiftSpinner 7
+#define COCOAPODS_VERSION_MINOR_SwiftSpinner 8
 #define COCOAPODS_VERSION_PATCH_SwiftSpinner 0
 

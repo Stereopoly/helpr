@@ -92,7 +92,7 @@ class DOAlertAnimation : NSObject, UIViewControllerAnimatedTransitioning {
         } else {
             alertController.alertView.transform = CGAffineTransformMakeTranslation(0, alertController.alertView.frame.height)
         }
-        containerView.addSubview(alertController.view)
+        containerView!.addSubview(alertController.view)
         
         UIView.animateWithDuration(0.25,
             animations: {
@@ -637,7 +637,7 @@ class DOAlertController : UIViewController, UITextFieldDelegate, UIViewControlle
     func createImageFromUIColor(color: UIColor) -> UIImage {
         let rect = CGRectMake(0, 0, 1, 1)
         UIGraphicsBeginImageContext(rect.size)
-        let contextRef: CGContextRef = UIGraphicsGetCurrentContext()
+        let contextRef: CGContextRef = UIGraphicsGetCurrentContext()!
         CGContextSetFillColorWithColor(contextRef, color.CGColor)
         CGContextFillRect(contextRef, rect)
         let img: UIImage = UIGraphicsGetImageFromCurrentImageContext()
@@ -687,7 +687,7 @@ class DOAlertController : UIViewController, UITextFieldDelegate, UIViewControlle
         if (action.style == DOAlertActionStyle.Cancel) {
             for ac in actions as! [DOAlertAction] {
                 if (ac.style == DOAlertActionStyle.Cancel) {
-                    let error: NSError?
+                    var error:NSError?
                     NSException.raise("NSInternalInconsistencyException", format:"DOAlertController can only have one action with a style of DOAlertActionStyleCancel", arguments:getVaList([error ?? "nil"]))
                     return
                 }
@@ -713,7 +713,7 @@ class DOAlertController : UIViewController, UITextFieldDelegate, UIViewControlle
         
         // You can add a text field only if the preferredStyle property is set to DOAlertControllerStyle.Alert.
         if (!isAlert()) {
-            let error: NSError?
+            var error: NSError?
             NSException.raise("NSInternalInconsistencyException", format: "Text fields can only be added to an alert controller of style DOAlertControllerStyleAlert", arguments:getVaList([error ?? "nil"]))
             return
         }

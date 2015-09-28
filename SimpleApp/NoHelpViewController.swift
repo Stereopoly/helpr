@@ -13,16 +13,16 @@ var sender1: String = ""
 var sender2: String = ""
 
 class NoHelpViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         
         self.navigationItem.setHidesBackButton(true, animated: false)
     }
     
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -37,10 +37,10 @@ class NoHelpViewController: UIViewController {
             
             self.navigationController?.popViewControllerAnimated(false)
             
-//            self.dismissViewControllerAnimated(true, completion: { () -> Void in
-//                println("Dismissed")
-//                
-//            })
+            //            self.dismissViewControllerAnimated(true, completion: { () -> Void in
+            //                println("Dismissed")
+            //
+            //            })
         } else {
             print("Still isn't in chat group. Stay here.")
         }
@@ -49,32 +49,39 @@ class NoHelpViewController: UIViewController {
     func checkForChat() -> Bool {       // function to check if in a chat group
         var check: Bool = false
         
-        var query = PFQuery(className: "chat")
+        let query = PFQuery(className: "chat")
         query.whereKey("sender1", equalTo: fbUsername)
         
-        var query2 = PFQuery(className: "chat")
+        let query2 = PFQuery(className: "chat")
         query2.whereKey("sender2", equalTo: fbUsername)
         
         let mergedQueries = PFQuery.orQueryWithSubqueries([query, query2])
         
         print("fbusername: " + fbUsername)
         
-        let objects = mergedQueries.findObjects()
+        var objects = [PFObject]()
+        do {
+            objects = try mergedQueries.findObjects()
+        } catch {
+            
+        }
         
         print(objects)
         if objects.count == 1 {
             print("Found chat relationship")
             check = true
-            if let objects = objects {
-                for objects in objects {
-                    sender1 = objects["sender1"] as! String
-                    sender2 = objects["sender2"] as! String
-                    print("sender1: " + sender1)
-                    print("sender2: " + sender2)
-                }
+            
+            for object in objects {
+                object.setObject(sender1, forKey: "sender1")
+                object.setObject(sender2, forKey: "sender2")
+           //     sender1 = objects["sender1"] as! String
+           //     sender2 = objects["sender2"] as! String
+                print("sender1: " + sender1)
+                print("sender2: " + sender2)
             }
+            
             print(sender1)
-        
+            
         } else {
             print("Not in any chat group")
             check = false
@@ -83,15 +90,15 @@ class NoHelpViewController: UIViewController {
         print(check)
         return check
     }
-
+    
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }

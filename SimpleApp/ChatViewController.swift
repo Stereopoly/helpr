@@ -54,7 +54,7 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
     }
     
     @IBAction func sendButton(sender: AnyObject) {
-        if messageText.text.isEmpty {
+        if messageText.text!.isEmpty {
             print("Empty")
         } else {
             self.view.endEditing(true)
@@ -116,7 +116,7 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
         var message = PFObject(className:"Message")
         
     //    message["text"] = messageText.text
-        message.setObject(messageText.text, forKey: "text")
+        message.setObject(messageText.text!, forKey: "text")
         message.setObject(fbUsername, forKey: "sender")
         message.setObject(selectedChat, forKey: "receiver")
     //    message["sender"] =  fbUsername
@@ -194,12 +194,12 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
             comboQuery.orderByAscending("createdAt")
             
             comboQuery.findObjectsInBackgroundWithBlock {
-                (objects: [AnyObject]?, error: NSError?) -> Void in
+                (objects: [PFObject]?, error: NSError?) -> Void in
                 print("Messages found: \(objects?.count)")
                 if error == nil {
                     // The find succeeded.
                     // Do something with the found objects
-                    if let objects = objects as? [PFObject] {
+                    if let objects = objects as [PFObject]! {
                         for object in objects {
                             
                             var indexpath = NSIndexPath(forRow: self.messages!.count, inSection: 1)
@@ -218,7 +218,7 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
                     }
                 } else {
                     // Log details of the failure
-                    print("Error: \(error!) \(error!.userInfo!)")
+                    print("Error: \(error!) \(error!.userInfo)")
                     self.addSpinner("Error", Animated: false)
                     self.delay(seconds: 1.5, completion: { () -> () in
                         self.hideSpinner()
@@ -321,7 +321,7 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewData
         SwiftSpinner.hide()
     }
     
-    func delay(#seconds: Double, completion:()->()) {
+    func delay(seconds seconds: Double, completion:()->()) {
         let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64( Double(NSEC_PER_SEC) * seconds ))
         
         dispatch_after(popTime, dispatch_get_main_queue()) {

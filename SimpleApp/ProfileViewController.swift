@@ -84,15 +84,15 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
             }
         }
         
-//        imageViewOutlet.layer.cornerRadius = self.imageViewOutlet.frame.size.height / 2
-//        imageViewOutlet.layer.masksToBounds = true
+        //        imageViewOutlet.layer.cornerRadius = self.imageViewOutlet.frame.size.height / 2
+        //        imageViewOutlet.layer.masksToBounds = true
         
-//        imageViewOutlet.layer.borderWidth = 1.0
-//        imageViewOutlet.layer.masksToBounds = false
-//        imageViewOutlet.layer.borderColor = UIColor.whiteColor().CGColor
-//        println(imageViewOutlet.frame.size.width)
-//        imageViewOutlet.layer.cornerRadius = imageViewOutlet.frame.size.height/2
-//        imageViewOutlet.clipsToBounds = true
+        //        imageViewOutlet.layer.borderWidth = 1.0
+        //        imageViewOutlet.layer.masksToBounds = false
+        //        imageViewOutlet.layer.borderColor = UIColor.whiteColor().CGColor
+        //        println(imageViewOutlet.frame.size.width)
+        //        imageViewOutlet.layer.cornerRadius = imageViewOutlet.frame.size.height/2
+        //        imageViewOutlet.clipsToBounds = true
         
         acceptView.layer.cornerRadius = 4
         withdrawView.layer.cornerRadius = 4
@@ -146,18 +146,18 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                 })
                 
                 let pictureURL = "https://graph.facebook.com/\(userId!)/picture?type=large&return_ssl_resources=1"
-
+                
                 
                 var URLRequest = NSURL(string: pictureURL)
                 var URLRequestNeeded = NSURLRequest(URL: URLRequest!)
                 
                 NSURLConnection.sendAsynchronousRequest(URLRequestNeeded, queue: NSOperationQueue.mainQueue(), completionHandler: { (response, data, error) -> Void in
                     if error == nil {
-                        var img = UIImage(data: data)
+                        var img = UIImage(data: data!)
                         self.imageViewOutlet.image = img
                     }
                     else {
-                        print("Error: \(error.localizedDescription)")
+                        print("Error: \(error!.localizedDescription)")
                     }
                 })
             }
@@ -177,8 +177,8 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
         
         withdrawButton.layer.cornerRadius = 4
         closeRequestButton.layer.cornerRadius = 4
-       // reloadTimer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "onTimer", userInfo: nil, repeats: true)
-
+        // reloadTimer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "onTimer", userInfo: nil, repeats: true)
+        
         if justVerified == true {
             justVerified = false
             
@@ -252,7 +252,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
         query.whereKey("requester", equalTo: fbUsername)
         query.whereKey("task", equalTo: myRequestedTask)
         
-        query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+        query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error) -> Void in
             if objects != nil {
                 if let objects = objects {
                     print(objects)
@@ -316,7 +316,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
             var query = PFQuery(className: "request")
             query.whereKey("requester", equalTo: name)
             
-            query.findObjectsInBackgroundWithBlock({ (objects, error) -> Void in
+            query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error) -> Void in
                 if error != nil {
                     print("Error")
                     self.addSpinner("Error", Animated: false)
@@ -345,7 +345,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                                     acceptedTask.setObject("No", forKey: "accepted")
                                     // acceptedTask["accepted"] = "No"
                                     acceptedTask.setObject(NSNull(), forKey: "acceptedBy")
-                              //      acceptedTask["acceptedBy"] = NSNull()
+                                    //      acceptedTask["acceptedBy"] = NSNull()
                                     acceptedTask.saveInBackground()
                                 }
                                 self.acceptedLabel.text = "None."
@@ -380,40 +380,46 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
         query.whereKey("sender1", equalTo: fbUsername)
         query.whereKey("sender2", equalTo: name)
         
-        let objects = query.findObjects()
-        if objects != nil {
-            if let objects = objects {
-                print(objects)
-                for object in objects {
-                    objectId = object.objectId as String!
-                    print("ObjectId: \(objectId)")
-                }
-            }
+        var objects = [PFObject]()
+        do {
+            objects = try query.findObjects()
+        } catch {
+            
         }
+        
+        print(objects)
+        for object in objects {
+            objectId = object.objectId as String!
+            print("ObjectId: \(objectId)")
+        }
+        
+        
         
         var query2 = PFQuery(className: "chat")
-        let chat = query2.getObjectWithId(objectId)
-        
-        if let chat = chat {
-            chat.deleteInBackgroundWithBlock({ (delete, error) -> Void in
-                if error != nil {
-                    print("Error deleting")
-                    self.addSpinner("Error withdrawing", Animated: false)
-                    self.delay(seconds: 1.5, completion: { () -> () in
-                        self.hideSpinner()
-                        self.endIgnore()
-                    })
-                } else {
-                    print("Success deleting chat connection")
-                    self.addSpinner("Done", Animated: false)
-                    self.delay(seconds: 1.5, completion: { () -> () in
-                        self.hideSpinner()
-                        self.endIgnore()
-                    })
-                }
-            })
+        var chat = PFObject()
+        do {
+            chat = try query2.getObjectWithId(objectId)
+        } catch {
+            
         }
-
+        
+        chat.deleteInBackgroundWithBlock({ (delete, error) -> Void in
+            if error != nil {
+                print("Error deleting")
+                self.addSpinner("Error withdrawing", Animated: false)
+                self.delay(seconds: 1.5, completion: { () -> () in
+                    self.hideSpinner()
+                    self.endIgnore()
+                })
+            } else {
+                print("Success deleting chat connection")
+                self.addSpinner("Done", Animated: false)
+                self.delay(seconds: 1.5, completion: { () -> () in
+                    self.hideSpinner()
+                    self.endIgnore()
+                })
+            }
+        })
     }
     
     func deleteChatConnectionNoSpinner() {
@@ -423,37 +429,43 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
         query.whereKey("sender1", equalTo: fbUsername)
         query.whereKey("sender2", equalTo: name)
         
-        let objects = query.findObjects()
-        if objects != nil {
-            if let objects = objects {
-                print(objects)
-                for object in objects {
-                    objectId = object.objectId as String!
-                    print("ObjectId: \(objectId)")
-                }
-            }
+        var objects = [PFObject]()
+        do {
+            objects = try query.findObjects()
+        } catch {
+            
         }
+        print(objects)
+        for object in objects {
+            objectId = object.objectId as String!
+            print("ObjectId: \(objectId)")
+        }
+        
+        
         
         var query2 = PFQuery(className: "chat")
-        let chat = query2.getObjectWithId(objectId)
-        
-        if let chat = chat {
-            chat.deleteInBackgroundWithBlock({ (delete, error) -> Void in
-                if error != nil {
-                    print("Error deleting")
-                    self.addSpinner("Error withdrawing", Animated: false)
-                    self.delay(seconds: 1.5, completion: { () -> () in
-                        self.hideSpinner()
-                        self.endIgnore()
-                    })
-                } else {
-                    print("Success deleting chat connection")
-                    self.endIgnore()
-                }
-            })
+        var chat = PFObject()
+        do {
+            chat = try query2.getObjectWithId(objectId)
+        } catch {
+            
         }
-        
+        chat.deleteInBackgroundWithBlock({ (delete, error) -> Void in
+            if error != nil {
+                print("Error deleting")
+                self.addSpinner("Error withdrawing", Animated: false)
+                self.delay(seconds: 1.5, completion: { () -> () in
+                    self.hideSpinner()
+                    self.endIgnore()
+                })
+            } else {
+                print("Success deleting chat connection")
+                self.endIgnore()
+            }
+        })
     }
+    
+    
     
     // MARK: - Facebook Login
     
@@ -508,7 +520,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
         query.whereKey("requester", equalTo: fbUsername)
         
         query.findObjectsInBackgroundWithBlock {
-            (objects: [AnyObject]?, error: NSError?) -> Void in
+            (objects: [PFObject]?, error: NSError?) -> Void in
             if error != nil {
                 print("Error")
             } else {
@@ -554,7 +566,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
         query.whereKey("acceptedBy", equalTo: fbUsername)
         
         query.findObjectsInBackgroundWithBlock {
-            (objects: [AnyObject]?, error: NSError?) -> Void in
+            (objects: [PFObject]?, error: NSError?) -> Void in
             if error != nil {
                 print("Error")
             } else {
@@ -596,7 +608,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
         var query = PFQuery(className: "points")
         query.whereKey("username", equalTo: fbUsername)
         
-        query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+        query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error) -> Void in
             if objects != nil {
                 if let objects = objects {
                     print(objects)
@@ -609,7 +621,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                 var query2 = PFQuery(className: "points")
                 query2.getObjectInBackgroundWithId(objectId, block: { (points, error) -> Void in
                     if let points = points {
-                     //   points.setObject(self.currentUserPoints, forKey: "points")
+                        //   points.setObject(self.currentUserPoints, forKey: "points")
                         self.currentUserPoints = points.objectForKey("points") as! Int
                         print("Points: \(userPoints)")
                     }
@@ -631,7 +643,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
         var query = PFQuery(className: "points")
         query.whereKey("username", equalTo: fbUsername)
         
-        query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+        query.findObjectsInBackgroundWithBlock { (objects:[PFObject]?, error) -> Void in
             if objects != nil {
                 if let objects = objects {
                     print(objects)
@@ -649,7 +661,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
                         updatedUserPoints = userPoints + 1
                         print("Updated points: \(updatedUserPoints)")
                         points.setObject(updatedUserPoints!, forKey: "points")
-               //         points.objectForKey("points") = updatedUserPoints
+                        //         points.objectForKey("points") = updatedUserPoints
                         
                         points.saveInBackground()
                         
@@ -675,7 +687,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
         SwiftSpinner.hide()
     }
     
-    func delay(#seconds: Double, completion:()->()) {
+    func delay(seconds seconds: Double, completion:()->()) {
         let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64( Double(NSEC_PER_SEC) * seconds ))
         
         dispatch_after(popTime, dispatch_get_main_queue()) {

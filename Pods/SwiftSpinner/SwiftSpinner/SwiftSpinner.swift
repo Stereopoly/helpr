@@ -82,19 +82,25 @@ public class SwiftSpinner: UIView {
         innerCircle.strokeEnd = 1.0
         
         vibrancyView.contentView.addSubview(innerCircleView)
+        
+        userInteractionEnabled = true
+    }
+    
+    public override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
+        return self
     }
     
     // MARK: - Public interface
     
     public lazy var titleLabel = UILabel()
     public var subtitleLabel: UILabel?
-
+    
     //
     // Show the spinner activity on screen, if visible only update the title
     //
     public class func show(title: String, animated: Bool = true) -> SwiftSpinner {
         
-        let window = UIApplication.sharedApplication().windows.first as! UIWindow
+        let window = UIApplication.sharedApplication().windows.first!
         let spinner = SwiftSpinner.sharedInstance
         
         spinner.showWithDelayBlock = nil
@@ -126,7 +132,7 @@ public class SwiftSpinner: UIView {
     }
     
     //
-    // Show the spinner activity on screen, after delay. If new call to show, 
+    // Show the spinner activity on screen, after delay. If new call to show,
     // showWithDelay or hide is maked before execution this call is discarded
     //
     public class func showWithDelay(delay: Double, title: String, animated: Bool = true) -> SwiftSpinner {
@@ -151,7 +157,7 @@ public class SwiftSpinner: UIView {
     public class func hide(completion: (() -> Void)? = nil) {
         
         let spinner = SwiftSpinner.sharedInstance
-
+        
         NSNotificationCenter.defaultCenter().removeObserver(spinner)
         
         dispatch_async(dispatch_get_main_queue(), {
@@ -182,7 +188,7 @@ public class SwiftSpinner: UIView {
     //
     public class func setTitleFont(font: UIFont?) {
         let spinner = SwiftSpinner.sharedInstance
-
+        
         if let font = font {
             spinner.titleLabel.font = font
         } else {
@@ -266,10 +272,9 @@ public class SwiftSpinner: UIView {
     public func addTapHandler(tap: (()->()), subtitle subtitleText: String? = nil) {
         clearTapHandler()
         
-        userInteractionEnabled = true
-        vibrancyView.contentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: Selector("didTapSpinner")))
+        //vibrancyView.contentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: Selector("didTapSpinner")))
         tapHandler = tap
-
+        
         if subtitleText != nil {
             subtitleLabel = UILabel()
             if let subtitle = subtitleLabel {
@@ -283,6 +288,15 @@ public class SwiftSpinner: UIView {
                 subtitle.center = CGPoint(x: CGRectGetMidX(bounds), y: CGRectGetMaxY(bounds) - CGRectGetMidY(subtitle.bounds) - subtitle.font.pointSize)
                 vibrancyView.contentView.addSubview(subtitle)
             }
+        }
+    }
+    
+    public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        super.touchesBegan(touches, withEvent: event)
+        
+        if tapHandler != nil {
+            tapHandler?()
+            tapHandler = nil
         }
     }
     
@@ -363,7 +377,7 @@ public class SwiftSpinner: UIView {
     }
     
     public func updateFrame() {
-        let window = UIApplication.sharedApplication().windows.first as! UIWindow
+        let window = UIApplication.sharedApplication().windows.first!
         SwiftSpinner.sharedInstance.frame = window.frame
     }
     

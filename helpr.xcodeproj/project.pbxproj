@@ -36,8 +36,6 @@
 		55C82BEB1B4D892C00220E17 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55C82BEA1B4D892C00220E17 /* QuartzCore.framework */; };
 		55C82BED1B4D893200220E17 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55C82BEC1B4D893200220E17 /* Security.framework */; };
 		55C82BF11B4D893F00220E17 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55C82BF01B4D893F00220E17 /* SystemConfiguration.framework */; };
-		55C82BF31B4D895000220E17 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 55C82BF21B4D895000220E17 /* libz.dylib */; };
-		55C82BF51B4D895B00220E17 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 55C82BF41B4D895B00220E17 /* libsqlite3.dylib */; };
 		55C82BFC1B4DA04000220E17 /* CustomButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C82BFB1B4DA04000220E17 /* CustomButtons.swift */; };
 		55C82BFE1B4DA31400220E17 /* RequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C82BFD1B4DA31400220E17 /* RequestViewController.swift */; };
 		55C82C001B4DA43B00220E17 /* CustomField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C82BFF1B4DA43B00220E17 /* CustomField.swift */; };
@@ -94,8 +92,6 @@
 		55C82BEA1B4D892C00220E17 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		55C82BEC1B4D893200220E17 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		55C82BF01B4D893F00220E17 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		55C82BF21B4D895000220E17 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		55C82BF41B4D895B00220E17 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		55C82BFB1B4DA04000220E17 /* CustomButtons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButtons.swift; sourceTree = "<group>"; };
 		55C82BFD1B4DA31400220E17 /* RequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestViewController.swift; sourceTree = "<group>"; };
 		55C82BFF1B4DA43B00220E17 /* CustomField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomField.swift; sourceTree = "<group>"; };
@@ -113,8 +109,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				55583E341B604BE600204898 /* MediaPlayer.framework in Frameworks */,
-				55C82BF51B4D895B00220E17 /* libsqlite3.dylib in Frameworks */,
-				55C82BF31B4D895000220E17 /* libz.dylib in Frameworks */,
 				55C82BF11B4D893F00220E17 /* SystemConfiguration.framework in Frameworks */,
 				55C82BED1B4D893200220E17 /* Security.framework in Frameworks */,
 				55C82BEB1B4D892C00220E17 /* QuartzCore.framework in Frameworks */,
@@ -153,8 +147,6 @@
 			isa = PBXGroup;
 			children = (
 				5572645F1B73CAA200721C8A /* Settings.bundle */,
-				55C82BF41B4D895B00220E17 /* libsqlite3.dylib */,
-				55C82BF21B4D895000220E17 /* libz.dylib */,
 				55C82BF01B4D893F00220E17 /* SystemConfiguration.framework */,
 				55C82BEC1B4D893200220E17 /* Security.framework */,
 				55C82BEA1B4D892C00220E17 /* QuartzCore.framework */,

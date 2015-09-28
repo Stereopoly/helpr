@@ -91,7 +91,7 @@ class viewHelpableTableViewController: PFQueryTableViewController {
         cancelAlert()
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-
+        
     }
     
     func cancelAlert() {
@@ -131,34 +131,41 @@ class viewHelpableTableViewController: PFQueryTableViewController {
         query.whereKey("helper", equalTo: fbUsername)
         query.whereKey("helpable", equalTo: selectedText)
         
-        let objects = query.findObjects()
-        if objects != nil {
-            if let objects = objects {
-                print(objects)
-                for object in objects {
-                    objectId = object.objectId as! String!
-                    print("ObjectId: \(objectId)")
-                }
-            }
+        var objects = [PFObject]()
+        do {
+            objects = try query.findObjects()
+        } catch {
+            
         }
         
+        print(objects)
+        for object in objects {
+            objectId = (object.objectId as? String!)!
+            print("ObjectId: \(objectId)")
+        }
+    
         var query2 = PFQuery(className: "help")
-        let help = query2.getObjectWithId(objectId)
-        
-        if let help = help {
-            help.deleteInBackgroundWithBlock({ (delete, error) -> Void in
-                if error != nil {
-                    print("Error deleting")
-                    self.addSpinner("Error withdrawing", Animated: false)
-                    self.delay(seconds: 1.5, completion: { () -> () in
-                        self.hideSpinner()
-                        self.endIgnore()
-                    })
-                } else {
-                    print("Success deleting chat connection")
-                }
-            })
+        var help = PFObject()
+        do {
+            help = try query2.getObjectWithId(objectId)
+        } catch {
+            
         }
+        
+        
+        help.deleteInBackgroundWithBlock({ (delete, error) -> Void in
+            if error != nil {
+                print("Error deleting")
+                self.addSpinner("Error withdrawing", Animated: false)
+                self.delay(seconds: 1.5, completion: { () -> () in
+                    self.hideSpinner()
+                    self.endIgnore()
+                })
+            } else {
+                print("Success deleting chat connection")
+            }
+        })
+        
         
         self.loadObjects()
         
@@ -184,15 +191,15 @@ class viewHelpableTableViewController: PFQueryTableViewController {
     /*
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            
-            
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-            
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }
+    if editingStyle == .Delete {
+    // Delete the row from the data source
+    
+    
+    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+    
+    } else if editingStyle == .Insert {
+    // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }
     }
     */
     

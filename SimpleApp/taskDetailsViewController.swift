@@ -60,13 +60,13 @@ class taskDetailsViewController: UIViewController {
         query.whereKey("requester", equalTo: selectedRowDetail)
         
         query.findObjectsInBackgroundWithBlock {
-            (objects: [AnyObject]?, error: NSError?) -> Void in
+            (objects: [PFObject]?, error: NSError?) -> Void in
             
             if error == nil {
                 // The find succeeded.
                 print("Successfully retrieved \(objects!.count) objects.")
                 // Do something with the found objects
-                if let objects = objects as? [PFObject] {
+                if let objects = objects as [PFObject]! {
                     for object in objects {
                         self.accepted = object.objectForKey("accepted") as! String
                         print("Self.accepted: " + self.accepted)
@@ -88,7 +88,7 @@ class taskDetailsViewController: UIViewController {
                 }
             } else {
                 // Log details of the failure
-                print("Error: \(error!) \(error!.userInfo!)")
+                print("Error: \(error!) \(error!.userInfo)")
                 self.slow = false
             }
         }
@@ -127,7 +127,7 @@ class taskDetailsViewController: UIViewController {
         var query = PFQuery(className: "request")
         query.whereKey("acceptedBy", equalTo: fbUsername)
         
-        query.findObjectsInBackgroundWithBlock { (accepted, error) -> Void in
+        query.findObjectsInBackgroundWithBlock { (accepted:[PFObject]?, error) -> Void in
             if error != nil {
                 print("Error")
             } else {
@@ -215,7 +215,7 @@ class taskDetailsViewController: UIViewController {
                     query.whereKey("requester", equalTo: selectedRowDetail)
                     
                     query.findObjectsInBackgroundWithBlock {
-                        (objects: [AnyObject]?, error: NSError?) -> Void in
+                        (objects: [PFObject]?, error: NSError?) -> Void in
                         if error != nil {
                             print("Error")
                             self.addSpinner("Error", Animated: false)
@@ -226,7 +226,7 @@ class taskDetailsViewController: UIViewController {
                             })
                         } else {
                             if objects?.count == 1 {
-                                if let objects = objects as? [PFObject] {
+                                if let objects = objects as [PFObject]! {
                                     for object in objects {
                                         self.userId = object.objectId!
                                         print(self.userId)
@@ -308,7 +308,7 @@ class taskDetailsViewController: UIViewController {
         query.whereKey("requester", equalTo: selectedRowDetail)
         query.whereKey("task", equalTo: selectedRowText)
         
-        query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+        query.findObjectsInBackgroundWithBlock { (objects:[PFObject]?, error) -> Void in
             if error != nil {
                 print("Error in details query", terminator: "")
             } else {
@@ -326,7 +326,7 @@ class taskDetailsViewController: UIViewController {
         var userQuery = PFUser.query()
         userQuery?.whereKey("username", equalTo: selectedRowDetail)
 
-        userQuery?.findObjectsInBackgroundWithBlock({ (objects, error) -> Void in
+        userQuery?.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error) -> Void in
             if error != nil {
                 print("Error getting profile picture", terminator: "")
                 self.addSpinner("Error getting profile picture", Animated: false)
@@ -377,7 +377,7 @@ class taskDetailsViewController: UIViewController {
         SwiftSpinner.hide()
     }
     
-    func delay(#seconds: Double, completion:()->()) {
+    func delay(seconds seconds: Double, completion:()->()) {
         let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64( Double(NSEC_PER_SEC) * seconds ))
         
         dispatch_after(popTime, dispatch_get_main_queue()) {

@@ -879,26 +879,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="scF-9c-kfX">
-                                <rect key="frame" x="10" y="435" width="580" height="50"/>
-                                <color key="backgroundColor" red="0.16078431372549018" green="0.50196078431372548" blue="0.72549019607843135" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="8uK-hY-l4n"/>
-                                    <constraint firstAttribute="height" constant="50" id="Rvh-mX-QvG"/>
-                                </constraints>
-                                <state key="normal" title="I Can Help With">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="8uK-hY-l4n"/>
-                                    </mask>
-                                </variation>
-                                <connections>
-                                    <segue destination="XLY-jJ-Aro" kind="show" id="iU1-Yt-Gl4"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="HIN-aa-AyS">
                                 <rect key="frame" x="277" y="78" width="307" height="70"/>
                                 <constraints>
@@ -1066,6 +1046,26 @@
                                     </mask>
                                 </variation>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="scF-9c-kfX">
+                                <rect key="frame" x="10" y="433" width="580" height="50"/>
+                                <color key="backgroundColor" red="0.16078431372549018" green="0.50196078431372548" blue="0.72549019607843135" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="8uK-hY-l4n"/>
+                                    <constraint firstAttribute="height" constant="50" id="Rvh-mX-QvG"/>
+                                </constraints>
+                                <state key="normal" title="I Can Help With">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="8uK-hY-l4n"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <segue destination="hCd-d8-9Xw" kind="show" id="J8E-X1-OFY"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.17254901959999999" green="0.24313725489999999" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -1333,7 +1333,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aj4-A4-OAM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5278" y="1723"/>
+            <point key="canvasLocation" x="3942" y="1777"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="c7G-aQ-2ed">
@@ -1357,29 +1357,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Eu8-cH-4sV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3942" y="1041"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="w90-ZM-scG">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XLY-jJ-Aro" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Xlk-dt-IRS">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.17254901959999999" green="0.24313725489999999" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </textAttributes>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="hCd-d8-9Xw" kind="relationship" relationship="rootViewController" id="eB5-z8-wQp"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ktL-9x-9ug" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4610" y="1723"/>
         </scene>
         <!--Messages-->
         <scene sceneID="TPx-xi-6GH">
@@ -1474,7 +1451,7 @@
         <image name="helpr" width="450" height="174"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="A9u-F2-sNF"/>
         <segue reference="rJU-rD-EcA"/>
+        <segue reference="A9u-F2-sNF"/>
     </inferredMetricsTieBreakers>
 </document>

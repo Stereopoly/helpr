@@ -45,7 +45,7 @@ class addHelpableViewController: UIViewController, UIPickerViewDataSource, UIPic
             query.whereKey("helper", equalTo: fbUsername)
             
             query.findObjectsInBackgroundWithBlock {
-                (objects: [AnyObject]?, error: NSError?) -> Void in
+                (objects: [PFObject]?, error: NSError?) -> Void in
                 
                 if error == nil {
                     // The find succeeded.
@@ -86,7 +86,7 @@ class addHelpableViewController: UIViewController, UIPickerViewDataSource, UIPic
                     }
                 } else {
                     // Log details of the failure
-                    print("Error: \(error!) \(error!.userInfo!)")
+                    print("Error: \(error!) \(error!.userInfo)")
                     self.addSpinner("Please try again later", Animated: false)
                     self.delay(seconds: 1.5, completion: { () -> () in
                         self.hideSpinner()
@@ -159,7 +159,7 @@ class addHelpableViewController: UIViewController, UIPickerViewDataSource, UIPic
         SwiftSpinner.hide()
     }
     
-    func delay(#seconds: Double, completion:()->()) {
+    func delay(seconds seconds: Double, completion:()->()) {
         let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64( Double(NSEC_PER_SEC) * seconds ))
         
         dispatch_after(popTime, dispatch_get_main_queue()) {

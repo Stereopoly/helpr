@@ -36,13 +36,13 @@ class ZipCodeViewController: UIViewController {
             })
         } else {
             
-            var user = PFUser()
+            let user = PFUser()
             user.username = fbUsername
             user.password = ""
-            user.setObject(Int(zipcodeField.text)!, forKey: "zipcode")
+            user.setObject(Int(zipcodeField.text!)!, forKey: "zipcode")
             user.setObject(file!, forKey: "picture")
-        //    user["zipcode"] = zipcodeField.text.toInt()
-        //    user["picture"] = file
+            //    user["zipcode"] = zipcodeField.text.toInt()
+            //    user["picture"] = file
             
             delay(seconds: 6.0) { () -> () in
                 if tooSlow == true {
@@ -68,37 +68,35 @@ class ZipCodeViewController: UIViewController {
                     
                 } else {
                     user.saveInBackgroundWithBlock({ (didWork, error) -> Void in
-                        self.delay(seconds: 1.5, completion: { () -> () in
-                            print(user.objectForKey("zipcode"))
-                            tooSlow = false
-                            print(tooSlow)
-                            if error != nil {
-                                // handle error
-                                print("Error")
-                                self.addSpinner("Please try again later", Animated: false)
-                                self.delay(seconds: 1.5, completion: { () -> () in
-                                    self.hideSpinner()
-                                    self.beginInteraction()
-                                    tooSlow = false
-                                })
-                            } else {
-                                print("Success")
-                                var points = PFObject(className: "points")
-                                points.setObject(fbUsername, forKey: "username")
-                                points.setObject(3, forKey: "points")
-                     //           points["username"] = fbUsername
-                     //           points["points"] = 3
-                                
-                                points.save()
-                                
-                                self.addSpinner("Success", Animated: false)
-                                self.delay(seconds: 1.5, completion: { () -> () in
-                                    self.performSegueWithIdentifier("zipcodeToTabBar", sender: self)
-                                    self.hideSpinner()
-                                    self.beginInteraction()
-                                })
-                            }
-                        })
+                        print(user.objectForKey("zipcode"))
+                        tooSlow = false
+                        print(tooSlow)
+                        if error != nil {
+                            // handle error
+                            print("Error")
+                            self.addSpinner("Please try again later", Animated: false)
+                            self.delay(seconds: 1.5, completion: { () -> () in
+                                self.hideSpinner()
+                                self.beginInteraction()
+                                tooSlow = false
+                            })
+                        } else {
+                            print("Success")
+                            var points = PFObject(className: "points")
+                            points.setObject(fbUsername, forKey: "username")
+                            points.setObject(3, forKey: "points")
+                            //           points["username"] = fbUsername
+                            //           points["points"] = 3
+                            
+                            try points.save()
+                            
+                            self.addSpinner("Success", Animated: false)
+                            self.delay(seconds: 1.5, completion: { () -> () in
+                                self.performSegueWithIdentifier("zipcodeToTabBar", sender: self)
+                                self.hideSpinner()
+                                self.beginInteraction()
+                            })
+                        }
                     })
                     
                 }
@@ -106,7 +104,6 @@ class ZipCodeViewController: UIViewController {
         }
         
     }
-    
     
     
     override func viewDidLoad() {

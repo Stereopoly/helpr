@@ -42,14 +42,14 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageVie
         var startVC = self.viewControllerAtIndex(0) as ContentViewController
         var viewControllers = NSArray(object: startVC)
         
-        self.pageViewController.setViewControllers(viewControllers as [AnyObject], direction: .Forward, animated: true, completion: nil)
+        self.pageViewController.setViewControllers(viewControllers as! [UIViewController], direction: .Forward, animated: true, completion: nil)
         
         self.pageViewController.view.frame = CGRectMake(0, 30, self.view.frame.width, self.view.frame.size.height - 120)
         
         self.addChildViewController(self.pageViewController)
         self.view.addSubview(self.pageViewController.view)
         self.pageViewController.didMoveToParentViewController(self)
-
+        
         // Other setup
         
         self.view.bringSubviewToFront(icon)
@@ -133,10 +133,10 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageVie
                             
                             NSURLConnection.sendAsynchronousRequest(URLRequestNeeded, queue: NSOperationQueue.mainQueue(), completionHandler: { (response, data, error) -> Void in
                                 if error == nil {
-                                    file = PFFile(name: "picture.png", data: data)
+                                    file = PFFile(name: "picture.png", data: data!)
                                 }
                                 else {
-                                    print("Error: \(error.localizedDescription)")
+                                    print("Error: \(error!.localizedDescription)")
                                 }
                             })
                             
@@ -166,7 +166,7 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageVie
         var query = PFUser.query()
         query!.whereKey("username", equalTo: fbUsername)
         
-        query?.findObjectsInBackgroundWithBlock({ (objects: [AnyObject]?, error) -> Void in
+        query?.findObjectsInBackgroundWithBlock({ (objects: [PFObject]?, error) -> Void in
             tooLong = false
             if error != nil {
                 print(error)
@@ -187,19 +187,28 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageVie
                 } else {
                     var query = PFQuery(className: "points")
                     query.whereKey("username", equalTo: fbUsername)
-                    let objects = query.findObjects()
+                    var objects = [PFObject]()
+                    do {
+                        objects = try query.findObjects()
+                    } catch {
+                        
+                    }
                     
-                    if objects?.count == 1 {
+                    if objects.count == 1 {
                         print("Already have points row - no problem")
                     }
-                    if objects?.count == 0 {
+                    if objects.count == 0 {
                         var points = PFObject(className: "points")
                         points.setObject(fbUsername, forKey: "username")
-                       // points["username"] = fbUsername
+                        // points["username"] = fbUsername
                         points.setObject(3, forKey: "points")
-                    //    points["points"] = 3
+                        //    points["points"] = 3
                         
-                        points.save()
+                        do {
+                            try points.save()
+                        } catch {
+                            
+                        }
                     } else {
                         print("Error in points class")
                     }
@@ -228,7 +237,7 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageVie
         SwiftSpinner.hide()
     }
     
-    func delay(#seconds: Double, completion:()->()) {
+    func delay(seconds seconds: Double, completion:()->()) {
         let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64( Double(NSEC_PER_SEC) * seconds ))
         
         dispatch_after(popTime, dispatch_get_main_queue()) {

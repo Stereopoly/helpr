@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F9CD5D37268EA0D8558E30EB"
+               BlueprintIdentifier = "ED4EF3AD78F5E06B546DDCAE"
                BuildableName = "SwiftSpinner.framework"
                BlueprintName = "Pods-helpr-SwiftSpinner"
                ReferencedContainer = "container:Pods.xcodeproj">

@@ -112,7 +112,7 @@ class CloseRequestViewController: UIViewController {
     func closeRequestWithoutPoints() {
         var objectId = ""
         
-        var query = PFQuery(className: "request")
+        let query = PFQuery(className: "request")
         query.whereKey("requester", equalTo: fbUsername)
         query.whereKey("task", equalTo: myRequestedTask)
         query.whereKeyExists("acceptedBy")
@@ -130,32 +130,35 @@ class CloseRequestViewController: UIViewController {
                             print("Accepted by: \(acceptedBy)")
                             print("ObjectId: \(objectId)")
                         }
-                        var query2 = PFQuery(className: "request")
-                        let task = query2.getObjectWithId(objectId)
-                        
-                        if let task = task {
-                            task.deleteInBackgroundWithBlock({ (delete, error) -> Void in
-                                if error != nil {
-                                    print("Error closing request")
-                                    self.addSpinner("Error closing request", Animated: false)
-                                    self.delay(seconds: 1.5, completion: { () -> () in
-                                        self.hideSpinner()
-                                        self.endIgnore()
-                                    })
-                                } else {
-                                    print("Success closing request")
-                                    self.deleteChatConnection()
-                                    self.deleteChatMessages()
-                                    self.refundPoints()
-                                    
-                                    justVerified = true
-                                    
-                                    let mixpanel: Mixpanel = Mixpanel.sharedInstance()
-                                    mixpanel.track("Request Closed", properties:["Points": false])
-                                    
-                                }
-                            })
+                        let query2 = PFQuery(className: "request")
+                        var task = PFObject()
+                        do {
+                            task = try query2.getObjectWithId(objectId)
+                        } catch {
+                            
                         }
+                        
+                        task.deleteInBackgroundWithBlock({ (delete, error) -> Void in
+                            if error != nil {
+                                print("Error closing request")
+                                self.addSpinner("Error closing request", Animated: false)
+                                self.delay(seconds: 1.5, completion: { () -> () in
+                                    self.hideSpinner()
+                                    self.endIgnore()
+                                })
+                            } else {
+                                print("Success closing request")
+                                self.deleteChatConnection()
+                                self.deleteChatMessages()
+                                self.refundPoints()
+                                
+                                justVerified = true
+                                
+                                let mixpanel: Mixpanel = Mixpanel.sharedInstance()
+                                mixpanel.track("Request Closed", properties:["Points": false])
+                                
+                            }
+                        })
                         
                     }
                 }
@@ -169,7 +172,7 @@ class CloseRequestViewController: UIViewController {
     func closeRequestWithPoints() {
         var objectId = ""
         
-        var query = PFQuery(className: "request")
+        let query = PFQuery(className: "request")
         query.whereKey("requester", equalTo: fbUsername)
         query.whereKey("task", equalTo: myRequestedTask)
         query.whereKeyExists("acceptedBy")
@@ -187,29 +190,33 @@ class CloseRequestViewController: UIViewController {
                             print("Accepted by: \(acceptedBy)")
                             print("ObjectId: \(objectId)")
                         }
-                        var query2 = PFQuery(className: "request")
-                        let task = query2.getObjectWithId(objectId)
-                        
-                        if let task = task {
-                            task.deleteInBackgroundWithBlock({ (delete, error) -> Void in
-                                if error != nil {
-                                    print("Error closing request")
-                                    self.addSpinner("Error closing request", Animated: false)
-                                    self.delay(seconds: 1.5, completion: { () -> () in
-                                        self.hideSpinner()
-                                        self.endIgnore()
-                                    })
-                                } else {
-                                    print("Success closing request")
-                                    self.deleteChatConnection()
-                                    self.addPoints()
-                                    
-                                    let mixpanel: Mixpanel = Mixpanel.sharedInstance()
-                                    mixpanel.track("Request Closed", properties:["Points": true])
-                                    
-                                }
-                            })
+                        let query2 = PFQuery(className: "request")
+                        var task = PFObject()
+                        do {
+                            task = try query2.getObjectWithId(objectId)
+                        } catch {
+                            
                         }
+                        
+                        task.deleteInBackgroundWithBlock({ (delete, error) -> Void in
+                            if error != nil {
+                                print("Error closing request")
+                                self.addSpinner("Error closing request", Animated: false)
+                                self.delay(seconds: 1.5, completion: { () -> () in
+                                    self.hideSpinner()
+                                    self.endIgnore()
+                                })
+                            } else {
+                                print("Success closing request")
+                                self.deleteChatConnection()
+                                self.addPoints()
+                                
+                                let mixpanel: Mixpanel = Mixpanel.sharedInstance()
+                                mixpanel.track("Request Closed", properties:["Points": true])
+                                
+                            }
+                        })
+                        
                         
                     }
                 }
@@ -248,7 +255,7 @@ class CloseRequestViewController: UIViewController {
                         updatedUserPoints = userPoints + 1
                         print("Updated points: \(updatedUserPoints)")
                         points.setObject(updatedUserPoints!, forKey: "points")
-                     //   points["points"] = updatedUserPoints
+                        //   points["points"] = updatedUserPoints
                         
                         points.saveInBackground()
                         
@@ -329,7 +336,7 @@ class CloseRequestViewController: UIViewController {
                         }
                         print("ObjectIds: \(objectIds)")
                     }
-                    var deleteQuery = PFQuery(className: "Messages")
+                    //       var deleteQuery = PFQuery(className: "Messages")
                     
                     for objectId in objectIds {
                         print(objectId)
@@ -380,7 +387,7 @@ class CloseRequestViewController: UIViewController {
                         updatedUserPoints = userPoints + 1
                         print("Updated points: \(updatedUserPoints)")
                         points.setObject(updatedUserPoints!, forKey: "points")
-                //        points.objectForKey["points"] = updatedUserPoints
+                        //        points.objectForKey["points"] = updatedUserPoints
                         
                         points.saveInBackground()
                         
@@ -395,7 +402,7 @@ class CloseRequestViewController: UIViewController {
         }
         
     }
-
+    
     
     // MARK: - Activity Indicator
     
