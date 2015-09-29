@@ -211,7 +211,7 @@ class taskDetailsViewController: UIViewController {
                     // celebrate
                     print("success! didsend: \(didSend)")
                     
-                    var query = PFQuery(className: "request")
+                    let query = PFQuery(className: "request")
                     query.whereKey("requester", equalTo: selectedRowDetail)
                     
                     query.findObjectsInBackgroundWithBlock {
@@ -233,7 +233,7 @@ class taskDetailsViewController: UIViewController {
                                     }
                                 }
                                 
-                                var save = PFQuery(className:"request")
+                                let save = PFQuery(className:"request")
                                 
                                 save.getObjectInBackgroundWithId(self.userId) {
                                     (object: PFObject?, error: NSError?) -> Void in

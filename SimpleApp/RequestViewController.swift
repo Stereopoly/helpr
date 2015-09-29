@@ -27,7 +27,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
     
     var placeHolderText: String = "More details can be entered here..."
     
-    var kbHeight: CGFloat!
+    var kbHeight = CGFloat()
     
     var movedUp: Bool = false
     
@@ -394,6 +394,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
         if movedUp == false {
             if let userInfo = notification.userInfo {
                 if let keyboardSize =  (userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+                    print("Keyboard\(keyboardSize.height)")
                     kbHeight = keyboardSize.height - 95
                     movedUp = true
                     self.animateTextField(true)
@@ -407,7 +408,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
     }
     
     func animateTextField(up: Bool) {
-        var movement = (up ? -kbHeight : kbHeight)
+        let movement = (up ? -kbHeight : kbHeight)
         
         UIView.animateWithDuration(0.3, animations: {
             self.view.frame = CGRectOffset(self.view.frame, 0, movement)

@@ -39,10 +39,10 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageVie
         self.pageViewController = self.storyboard?.instantiateViewControllerWithIdentifier("PageViewController") as! UIPageViewController
         self.pageViewController.dataSource = self
         
-        var startVC = self.viewControllerAtIndex(0) as ContentViewController
-        var viewControllers = NSArray(object: startVC)
+        let startVC = self.viewControllerAtIndex(0) as ContentViewController
+        let viewControllers = NSArray(object: startVC)
         
-        self.pageViewController.setViewControllers(viewControllers as! [UIViewController], direction: .Forward, animated: true, completion: nil)
+        self.pageViewController.setViewControllers(viewControllers as? [UIViewController], direction: .Forward, animated: true, completion: nil)
         
         self.pageViewController.view.frame = CGRectMake(0, 30, self.view.frame.width, self.view.frame.size.height - 120)
         
@@ -54,7 +54,7 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageVie
         
         self.view.bringSubviewToFront(icon)
         
-        var loginButton = FBSDKLoginButton()
+        let loginButton = FBSDKLoginButton()
         loginButton.readPermissions = ["public_profile"]
         let size = 240 as CGFloat
         let screenwidth = self.view.frame.size.width
@@ -128,8 +128,8 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageVie
                             
                             let pictureURL = "https://graph.facebook.com/\(id)/picture?type=large&return_ssl_resources=1"
                             
-                            var URLRequest = NSURL(string: pictureURL)
-                            var URLRequestNeeded = NSURLRequest(URL: URLRequest!)
+                            let URLRequest = NSURL(string: pictureURL)
+                            let URLRequestNeeded = NSURLRequest(URL: URLRequest!)
                             
                             NSURLConnection.sendAsynchronousRequest(URLRequestNeeded, queue: NSOperationQueue.mainQueue(), completionHandler: { (response, data, error) -> Void in
                                 if error == nil {
@@ -163,7 +163,7 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageVie
     
     func checkUser() {
         
-        var query = PFUser.query()
+        let query = PFUser.query()
         query!.whereKey("username", equalTo: fbUsername)
         
         query?.findObjectsInBackgroundWithBlock({ (objects: [PFObject]?, error) -> Void in
@@ -185,7 +185,7 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageVie
                         tooLong = false
                     })
                 } else {
-                    var query = PFQuery(className: "points")
+                    let query = PFQuery(className: "points")
                     query.whereKey("username", equalTo: fbUsername)
                     var objects = [PFObject]()
                     do {
@@ -198,7 +198,7 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageVie
                         print("Already have points row - no problem")
                     }
                     if objects.count == 0 {
-                        var points = PFObject(className: "points")
+                        let points = PFObject(className: "points")
                         points.setObject(fbUsername, forKey: "username")
                         // points["username"] = fbUsername
                         points.setObject(3, forKey: "points")
@@ -268,7 +268,7 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageVie
             return ContentViewController()
         }
         
-        var vc: ContentViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ContentViewController") as! ContentViewController
+        let vc: ContentViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ContentViewController") as! ContentViewController
         
         vc.imageFile = self.pageImages[index] as! String
         vc.titleText = self.pageTitles[index] as! String
@@ -284,7 +284,7 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageVie
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController?
     {
         
-        var vc = viewController as! ContentViewController
+        let vc = viewController as! ContentViewController
         var index = vc.pageIndex as Int
         
         
@@ -301,7 +301,7 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageVie
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
         
-        var vc = viewController as! ContentViewController
+        let vc = viewController as! ContentViewController
         var index = vc.pageIndex as Int
         
         if (index == NSNotFound)

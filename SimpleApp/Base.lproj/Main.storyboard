@@ -1326,7 +1326,7 @@
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="SoS-J5-LIj">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
-                                <segue destination="R78-fL-5me" kind="show" id="mHr-06-ATM"/>
+                                <segue destination="buc-yM-TX8" kind="show" id="puc-Sz-RsD"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1334,29 +1334,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aj4-A4-OAM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3942" y="1777"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="c7G-aQ-2ed">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="R78-fL-5me" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="CD5-kQ-6dS">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.17254901959999999" green="0.24313725489999999" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </textAttributes>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="buc-yM-TX8" kind="relationship" relationship="rootViewController" id="JrU-a0-kwE"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Eu8-cH-4sV" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3942" y="1041"/>
         </scene>
         <!--Messages-->
         <scene sceneID="TPx-xi-6GH">

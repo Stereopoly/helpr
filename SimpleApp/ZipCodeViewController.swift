@@ -82,13 +82,17 @@ class ZipCodeViewController: UIViewController {
                             })
                         } else {
                             print("Success")
-                            var points = PFObject(className: "points")
+                            let points = PFObject(className: "points")
                             points.setObject(fbUsername, forKey: "username")
                             points.setObject(3, forKey: "points")
                             //           points["username"] = fbUsername
                             //           points["points"] = 3
                             
-                            try points.save()
+                            do {
+                                try points.save()
+                            } catch {
+                                
+                            }
                             
                             self.addSpinner("Success", Animated: false)
                             self.delay(seconds: 1.5, completion: { () -> () in

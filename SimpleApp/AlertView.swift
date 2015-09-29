@@ -489,7 +489,7 @@ class DOAlertController : UIViewController, UITextFieldDelegate, UIViewControlle
             var textFieldContainerHeight: CGFloat = 0.0
             
             // TextFields
-            for (i, obj) in (textFields!).enumerate() {
+            for (_, obj) in (textFields!).enumerate() {
                 let textField = obj as! UITextField
                 textField.frame = CGRectMake(0.0, textFieldContainerHeight, innerContentWidth, textField.frame.height)
                 textFieldContainerHeight += textField.frame.height + 0.5
@@ -687,7 +687,7 @@ class DOAlertController : UIViewController, UITextFieldDelegate, UIViewControlle
         if (action.style == DOAlertActionStyle.Cancel) {
             for ac in actions as! [DOAlertAction] {
                 if (ac.style == DOAlertActionStyle.Cancel) {
-                    var error:NSError?
+                    let error = NSError?()
                     NSException.raise("NSInternalInconsistencyException", format:"DOAlertController can only have one action with a style of DOAlertActionStyleCancel", arguments:getVaList([error ?? "nil"]))
                     return
                 }
@@ -713,7 +713,7 @@ class DOAlertController : UIViewController, UITextFieldDelegate, UIViewControlle
         
         // You can add a text field only if the preferredStyle property is set to DOAlertControllerStyle.Alert.
         if (!isAlert()) {
-            var error: NSError?
+            let error = NSError?()
             NSException.raise("NSInternalInconsistencyException", format: "Text fields can only be added to an alert controller of style DOAlertControllerStyleAlert", arguments:getVaList([error ?? "nil"]))
             return
         }

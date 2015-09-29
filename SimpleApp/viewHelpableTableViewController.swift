@@ -1,3 +1,4 @@
+
 //
 //  viewHelpableTableViewController.swift
 //  Wanna Help
@@ -127,7 +128,7 @@ class viewHelpableTableViewController: PFQueryTableViewController {
         
         print("Cell text: \(selectedText)")
         
-        var query = PFQuery(className: "help")
+        let query = PFQuery(className: "help")
         query.whereKey("helper", equalTo: fbUsername)
         query.whereKey("helpable", equalTo: selectedText)
         
@@ -140,12 +141,12 @@ class viewHelpableTableViewController: PFQueryTableViewController {
         
         print(objects)
         for object in objects {
-            objectId = (object.objectId as? String!)!
+            objectId = object.objectId as String!
             print("ObjectId: \(objectId)")
         }
     
-        var query2 = PFQuery(className: "help")
-        var help = PFObject()
+        let query2 = PFQuery(className: "help")
+        var help = PFObject(className: "help")
         do {
             help = try query2.getObjectWithId(objectId)
         } catch {
@@ -154,6 +155,7 @@ class viewHelpableTableViewController: PFQueryTableViewController {
         
         
         help.deleteInBackgroundWithBlock({ (delete, error) -> Void in
+            
             if error != nil {
                 print("Error deleting")
                 self.addSpinner("Error withdrawing", Animated: false)
