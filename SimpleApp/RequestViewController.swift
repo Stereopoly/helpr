@@ -10,8 +10,8 @@
 import UIKit
 import Parse
 import Bolts
-import SwiftSpinner
 import Mixpanel
+import SwiftLoader
 
 var spinnerData = ["", "ACT", "Algebra 1", "Algebra 2", "Arithimetic", "Biology", "Calculus", "Chemistry", "Chinese", "Computer Science", "English Literature", "European History", "French", "Geometry", "Grammar", "Health", "Latin", "Physics", "Pre-Algebra", "Pre-Calculus", "PSAT", "Reading Comprehension", "SAT", "Spanish", "Statistics", "Trigonometry", "U.S. History", "World History", "Writing"]
 
@@ -51,9 +51,9 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
         self.view.endEditing(true)
         
         if selectedRowData.isEmpty == true {
-            self.addSpinner("Select a task", Animated: false)
+            SwiftLoader.show(title: "Select a task", animated: false)
             self.delay(seconds: 1.5, completion: { () -> () in
-                self.hideSpinner()
+                SwiftLoader.hide()
                 self.beginInteraction()
             })
         } else {
@@ -105,7 +105,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
         var userPoints: Int = 0
         var updatedUserPoints: Int?
         
-        var query = PFQuery(className: "points")
+        let query = PFQuery(className: "points")
         query.whereKey("username", equalTo: fbUsername)
         
         query.findObjectsInBackgroundWithBlock { (objects:[PFObject]?, error) -> Void in
@@ -118,16 +118,16 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                     }
                 }
                 
-                var query2 = PFQuery(className: "points")
+                let query2 = PFQuery(className: "points")
                 query2.getObjectInBackgroundWithId(objectId, block: { (points, error) -> Void in
                     if let points = points {
                         userPoints = points.objectForKey("points") as! Int
                         print("Points: \(userPoints)")
                         if userPoints < 1 {
                             print("Not enough points")
-                            self.addSpinner("You don't have enough points", Animated: false)
+                            SwiftLoader.show(title: "You don't have enough points", animated: false)
                             self.delay(seconds: 1.5, completion: { () -> () in
-                                self.hideSpinner()
+                                SwiftLoader.hide()
                                 self.beginInteraction()
                             })
                         } else {
@@ -144,10 +144,10 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                             mixpanel.track("Request Made Successfully")
                             
                             print("Success")
-                            self.addSpinner("Success", Animated: false)
+                            SwiftLoader.show(title: "Success", animated: false)
                             self.delay(seconds: 1.5, completion: { () -> () in
                                 self.tabBarController?.selectedIndex = 0
-                                self.hideSpinner()
+                                SwiftLoader.hide()
                                 self.beginInteraction()
                             })
                         }
@@ -158,33 +158,35 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                 })
             } else {
                 print("Error - User has no points class")
-                self.addSpinner("Error in points", Animated: false)
+                SwiftLoader.show(title: "Error in points", animated: false)
                 self.delay(seconds: 1.5, completion: { () -> () in
-                    self.hideSpinner()
+                    SwiftLoader.hide()
+                    self.beginInteraction()
                 })
             }
         }
-        
+        SwiftLoader.hide()
+        self.beginInteraction()
     }
     
     
     
     func makeRequest() {
         self.ignoreInteraction()
-        self.addSpinner("Requesting task", Animated: true)
+        SwiftLoader.show(title: "Requsting task", animated: true)
         
         queryZipcode { () -> Void in
             
             self.checkForMultiple { () -> Void in
                 
-                var request = PFObject(className: "request")
+                let request = PFObject(className: "request")
                 request.setObject(fbUsername, forKey: "requester")
                 request.setObject(self.selectedRowData, forKey: "task")
                 request.setObject(zipcode!, forKey: "zipcode")
                 request.setObject("No", forKey: "accepted")
                 request.setObject(self.textViewText, forKey: "details")
                 
-                var query = PFQuery(className: "request")
+                let query = PFQuery(className: "request")
                 query.whereKey("task", equalTo: self.selectedRowData)
                 query.whereKey("requester", equalTo: fbUsername)
                 
@@ -202,9 +204,9 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                                     if error != nil {
                                         // handle error
                                         print("Error")
-                                        self.addSpinner("Please try again later", Animated: false)
+                                        SwiftLoader.show(title: "Please try again later", animated: false)
                                         self.delay(seconds: 1.5, completion: { () -> () in
-                                            self.hideSpinner()
+                                            SwiftLoader.hide()
                                             self.beginInteraction()
                                         })
                                     } else {
@@ -216,10 +218,10 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                         }
                         else {
                             self.delay(seconds: 1.5, completion: { () -> () in
-                                self.addSpinner("Already requested task", Animated: false)
+                                SwiftLoader.show(title: "Already requested task", animated: false)
                                 self.delay(seconds: 1.5, completion: { () -> () in
                                     self.tabBarController?.selectedIndex = 0
-                                    self.hideSpinner()
+                                    SwiftLoader.hide()
                                     self.beginInteraction()
                                 })
                             })
@@ -228,9 +230,9 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                     } else {
                         // Log details of the failure
                         print("Error: \(error!) \(error!.userInfo)")
-                        self.addSpinner("Please try again later", Animated: false)
+                        SwiftLoader.show(title: "Please try again later", animated: false)
                         self.delay(seconds: 1.5, completion: { () -> () in
-                            self.hideSpinner()
+                            SwiftLoader.hide()
                         })
                     }
                 }
@@ -239,7 +241,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
     }
     
     func checkForMultiple(completion: (() -> Void) ) {
-        var query = PFQuery(className: "request")
+        let query = PFQuery(className: "request")
         query.whereKey("requester", equalTo: fbUsername)
         
         query.findObjectsInBackgroundWithBlock { (objects:[PFObject]?, error) -> Void in
@@ -248,11 +250,10 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                 if objects!.count == 0 {
                     completion()
                 } else {
-                    SwiftSpinner.setTitleFont(UIFont(name: "System", size: 19))
-                    self.addSpinner("You can only request 1 task at a time", Animated: false)
+                    SwiftLoader.show(title: "You can only request 1 task at a time", animated: false)
                     self.delay(seconds: 1.5, completion: { () -> () in
                         self.tabBarController?.selectedIndex = 0
-                        self.hideSpinner()
+                        SwiftLoader.hide()
                         self.beginInteraction()
                     })
                 }
@@ -263,7 +264,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
     }
     
     func queryZipcode(completion: (() -> Void) ) {
-        var query = PFQuery(className: "_User")
+        let query = PFQuery(className: "_User")
         query.whereKey("username", equalTo: fbUsername)
         
         query.findObjectsInBackgroundWithBlock { (objects:[PFObject]?, error) -> Void in
@@ -277,9 +278,9 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
                     }
                 } else {
                     //    SwiftSpinner.setTitleFont(UIFont(name: "System", size: 19))
-                    self.addSpinner("Error", Animated: false)
+                    SwiftLoader.show(title: "Error", animated: false)
                     self.delay(seconds: 1.5, completion: { () -> () in
-                        self.hideSpinner()
+                        SwiftLoader.hide()
                         self.beginInteraction()
                     })
                 }
@@ -369,7 +370,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
         return pickerData.count
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return pickerData[row]
     }
     
@@ -380,7 +381,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
     
     func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         let titleData = pickerData[row]
-        var myTitle = NSAttributedString(string: titleData, attributes: [NSForegroundColorAttributeName:UIColor.whiteColor()])
+        let myTitle = NSAttributedString(string: titleData, attributes: [NSForegroundColorAttributeName:UIColor.whiteColor()])
         return myTitle
     }
     
@@ -428,14 +429,6 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
     
     // MARK: - Activity Indicator
     
-    func addSpinner(Error: String, Animated: Bool) {
-        SwiftSpinner.show(Error, animated: Animated)
-    }
-    
-    func hideSpinner() {
-        SwiftSpinner.hide()
-    }
-    
     func delay(seconds seconds: Double, completion:()->()) {
         let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64( Double(NSEC_PER_SEC) * seconds ))
         
@@ -449,7 +442,7 @@ class RequestViewController: UIViewController, UITextFieldDelegate, UIPickerView
     
     func displayAlertNoSegue(title: String, error: String) {
         
-        var alert = UIAlertController(title: title, message: error, preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: title, message: error, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { action in
             
             

@@ -11,6 +11,7 @@ target 'helpr' do
 	pod 'ParseUI'
 	pod 'Parse','~> 1.7'
 	pod 'Mixpanel','~> 2.8'
+	pod 'SwiftLoader'
 end
 
 target 'helprTests' do

@@ -1,3 +1,4 @@
+
 //
 //  taskDetailsViewController.swift
 //  Wanna Help
@@ -124,7 +125,7 @@ class taskDetailsViewController: UIViewController {
     
     func alreadyAccepted() {
         
-        var query = PFQuery(className: "request")
+        let query = PFQuery(className: "request")
         query.whereKey("acceptedBy", equalTo: fbUsername)
         
         query.findObjectsInBackgroundWithBlock { (accepted:[PFObject]?, error) -> Void in
@@ -256,7 +257,7 @@ class taskDetailsViewController: UIViewController {
                                         
                                         object.saveInBackground()
                                         
-                                        var chatSave = PFObject(className: "chat")
+                                        let chatSave = PFObject(className: "chat")
                                         chatSave.setObject(fbUsername, forKey: "sender1")
                                         chatSave.setObject(selectedRowDetail, forKey: "sender2")
                                   //      chatSave["sender1"] = fbUsername
@@ -304,7 +305,7 @@ class taskDetailsViewController: UIViewController {
     }
     
     func getDetails() {
-        var query = PFQuery(className: "request")
+        let query = PFQuery(className: "request")
         query.whereKey("requester", equalTo: selectedRowDetail)
         query.whereKey("task", equalTo: selectedRowText)
         
@@ -323,7 +324,7 @@ class taskDetailsViewController: UIViewController {
     }
     
     func getProfilePicture() {
-        var userQuery = PFUser.query()
+        let userQuery = PFUser.query()
         userQuery?.whereKey("username", equalTo: selectedRowDetail)
 
         userQuery?.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error) -> Void in

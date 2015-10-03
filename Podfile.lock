@@ -1,10 +1,10 @@
 PODS:
-  - Bolts (1.2.2):
-    - Bolts/AppLinks (= 1.2.2)
-    - Bolts/Tasks (= 1.2.2)
-  - Bolts/AppLinks (1.2.2):
+  - Bolts (1.3.0):
+    - Bolts/AppLinks (= 1.3.0)
+    - Bolts/Tasks (= 1.3.0)
+  - Bolts/AppLinks (1.3.0):
     - Bolts/Tasks
-  - Bolts/Tasks (1.2.2)
+  - Bolts/Tasks (1.3.0)
   - FBSDKCoreKit (4.6.0):
     - Bolts (~> 1.1)
     - FBSDKCoreKit/arc (= 4.6.0)
@@ -19,10 +19,9 @@ PODS:
   - Mixpanel (2.8.3):
     - Mixpanel/Mixpanel (= 2.8.3)
   - Mixpanel/Mixpanel (2.8.3)
-  - Pages (0.6.1)
-  - Parse (1.8.4):
+  - Parse (1.8.5):
     - Bolts/Tasks (>= 1.2.2)
-  - ParseFacebookUtilsV4 (1.8.4):
+  - ParseFacebookUtilsV4 (1.8.5):
     - Bolts/Tasks (>= 1.2.2)
     - FBSDKCoreKit (~> 4.0)
     - FBSDKLoginKit (~> 4.0)
@@ -30,27 +29,28 @@ PODS:
   - ParseUI (1.1.6):
     - Bolts/Tasks (~> 1.2)
     - Parse (~> 1.8)
-  - SwiftSpinner (0.7.0)
+  - SwiftLoader (0.2.2)
+  - SwiftSpinner (0.8.0)
 
 DEPENDENCIES:
   - FBSDKCoreKit (~> 4.4)
   - FBSDKLoginKit (~> 4.4)
   - Mixpanel (~> 2.8)
-  - Pages
   - Parse (~> 1.7)
   - ParseFacebookUtilsV4
   - ParseUI
+  - SwiftLoader
   - SwiftSpinner (~> 0.7)
 
 SPEC CHECKSUMS:
-  Bolts: 20a2bd788273360cb1e31530dc19b8544eef2544
+  Bolts: 805a4a87413e49d4a0c2b7d469084cbc46b09342
   FBSDKCoreKit: 9954492d90c5fd65ae831395697a1660360d61f1
   FBSDKLoginKit: 3d07febbfa884b9878cacba54f705bb41f07d4b6
   Mixpanel: fd52e097ae0d27295d0595b2261c60b94d191fda
-  Pages: 515a8ec7396cfb7cdacc28c0beceb2ce39c065cb
-  Parse: c09d6efe4b2eea752765bc6f365a55516d909079
-  ParseFacebookUtilsV4: 888a71305d28e883d4e60cc367544f7bae13223a
+  Parse: 17ad8e0677ed682f7f00503860fcda0f4eb74168
+  ParseFacebookUtilsV4: cc51857cf984c6fc743e7f17c2ddebdb6f02f963
   ParseUI: 8a22e448c03f825203d8c379c80523517f68baa3
-  SwiftSpinner: 034bb8b00675b3e4f4c97531fa9af3f550462192
+  SwiftLoader: 9c5e547ae8e00b1c1079139492d6a273c7f73171
+  SwiftSpinner: 11c2c5ec7443d92f3026d3067ca8a91d4adef13f
 
-COCOAPODS: 0.37.2
+COCOAPODS: 0.38.2

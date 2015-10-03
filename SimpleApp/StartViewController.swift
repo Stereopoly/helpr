@@ -13,6 +13,7 @@ import FBSDKLoginKit
 import ParseUI
 import ParseFacebookUtilsV4
 import SwiftSpinner
+import SwiftLoader
 
 
 var tooLong: Bool = true
@@ -76,14 +77,14 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageVie
     
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
         beginIgnore()
-        addSpinner("Logging in", Animated: true)
+        SwiftLoader.show(title: "Logging In", animated: true)
         delay(seconds: 10.0) { () -> () in
             if tooLong == true {
-                self.addSpinner("Taking longer than normal", Animated: true)
+                SwiftLoader.show(title: "Taking longer than normal", animated: true)
                 self.delay(seconds: 10.0, completion: { () -> () in
-                    self.addSpinner("Try again later", Animated: false)
+                    SwiftLoader.show(title: "Try again later", animated: false)
                     self.delay(seconds: 2.0, completion: { () -> () in
-                        self.hideSpinner()
+                        SwiftLoader.hide()
                         self.endIgnore()
                     })
                 })
@@ -92,9 +93,9 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageVie
         
         if result.isCancelled {
             print("Facebook login canceled")
-            addSpinner("Login canceled", Animated: false)
+            SwiftLoader.show(title: "Login canceled", animated: false)
             delay(seconds: 1.5, completion: { () -> () in
-                self.hideSpinner()
+                SwiftLoader.hide()
                 tooLong = false
             })
         } else {
@@ -112,9 +113,9 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageVie
                         if error != nil {
                             // Some error checking here
                             print("Error in user request")
-                            self.addSpinner("Error", Animated: false)
+                            SwiftLoader.show(title: "Error", animated: false)
                             self.delay(seconds: 1.5, completion: { () -> () in
-                                self.hideSpinner()
+                                SwiftLoader.hide()
                                 self.endIgnore()
                             })
                         }
@@ -146,10 +147,10 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageVie
                     
                 }
                 else {
-                    self.addSpinner("Error in login", Animated: false)
+                    SwiftLoader.show(title: "Error in login", animated: false)
                     self.delay(seconds: 1.5, completion: { () -> () in
                         print(error.localizedDescription)
-                        self.hideSpinner()
+                        SwiftLoader.hide()
                     })
                     
                 }
@@ -170,17 +171,17 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageVie
             tooLong = false
             if error != nil {
                 print(error)
-                self.addSpinner("Try again later", Animated: false)
+                SwiftLoader.show(title: "Try again later", animated: false)
                 self.delay(seconds: 1.5, completion: { () -> () in
-                    self.hideSpinner()
+                    SwiftLoader.hide()
                 })
             } else {
                 if objects!.count == 0 {
-                    self.addSpinner("Success", Animated: false)
+                    SwiftLoader.show(title: "Success", animated: false)
                     self.delay(seconds: 1.5, completion: { () -> () in
                         self.navigationController?.popViewControllerAnimated(false)
                         self.performSegueWithIdentifier("toZipcode", sender: self)
-                        self.hideSpinner()
+                        SwiftLoader.hide()
                         self.endIgnore()
                         tooLong = false
                     })
@@ -213,11 +214,11 @@ class StartViewController: UIViewController, FBSDKLoginButtonDelegate, UIPageVie
                         print("Error in points class")
                     }
                     
-                    self.addSpinner("Success", Animated: false)
+                    SwiftLoader.show(title: "Success", animated: false)
                     self.delay(seconds: 1.5, completion: { () -> () in
                         self.navigationController?.popViewControllerAnimated(false)
                         self.performSegueWithIdentifier("toTabBarController", sender: self)
-                        self.hideSpinner()
+                        SwiftLoader.hide()
                         self.endIgnore()
                         tooLong = false
                     })
