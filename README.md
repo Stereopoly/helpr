@@ -1,2 +1,3 @@
 # helpr
-Application I am developing as part of Make School
+Application developed at Make School.
+No longer in active development due to Parse shutdown.
